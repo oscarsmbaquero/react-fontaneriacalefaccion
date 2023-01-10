@@ -10,9 +10,10 @@ import AvisosPendientes from "./Components/AvisosPendientes/AvisosPendientes"
 //import MostrarIntervenciones from "./Components/MostrarIntervenciones"
 
 const Avisos = () => {
-  const { material } = useContext(SWContext);
+  const { averias } = useContext(SWContext);
   const [value, setValue] = React.useState(0);
 
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -43,7 +44,7 @@ const Avisos = () => {
       )}
       {value === 1 && (
         <Box>
-          <AvisosAbiertos/>
+          <AvisosAbiertos averias={averias}/>
         </Box>
         )}
         {value === 2 && (

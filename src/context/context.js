@@ -10,25 +10,25 @@ export const SWContextProvider = ({ children }) => {
   const [averias, setAverias] = useState([]);
   const [material, setMaterial] = useState([]);
 
-  console.log(material,'metrial')
+  console.log(material,'material')
   console.log(averias,'averias')
 
   
   useEffect(() => {
-    const fetchGalery = async () => {
+    const fetchAvisos = async () => {
       const res = await axios.get(`${BASE_URL}/avisos`);
       setAverias(res.data);
     };
-    fetchGalery();
+    fetchAvisos();
   }, []);
 
   
   useEffect(() => {
-    const fetchPlatos = async () => {
+    const fetchMaterial = async () => {
       const res = await axios.get(`${BASE_URL}/material`);
       setMaterial(res.data);
     };
-    fetchPlatos();
+    fetchMaterial();
   }, []);
 
 
