@@ -42,6 +42,15 @@ function Header() {
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
+                  eventKey="0"
+                  to={"/calendar"}
+                  className="custom-link"
+                >
+                  <i class="fa-solid fa-city"></i>
+                  &nbsp;Agenda
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
                   eventKey="1"
                   to={"/material"}
                   className="custom-link"

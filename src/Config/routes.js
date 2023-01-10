@@ -2,6 +2,7 @@ import Home from '../pages/Home/Home';
 import Avisos from '../pages/Avisos/Avisos';
 import Material from '../pages/Material/Material';
 import Datos from '../pages/Datos/Datos';
+import Calendar from '../pages/Calendar/Calandar';
 
 
 
@@ -21,6 +22,10 @@ const routes = [
   {
     path: "/datos",
     element: <Datos/>,
+  },
+  {
+    path: "/calendar",
+    element: <Calendar/>,
   },
 ];
 
