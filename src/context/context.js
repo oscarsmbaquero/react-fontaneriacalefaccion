@@ -12,6 +12,8 @@ export const SWContextProvider = ({ children }) => {
 
   console.log(material,'metrial')
   console.log(averias,'averias')
+
+  
   useEffect(() => {
     const fetchGalery = async () => {
       const res = await axios.get(`${BASE_URL}/avisos`);
