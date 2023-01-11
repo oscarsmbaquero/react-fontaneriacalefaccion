@@ -35,7 +35,7 @@ function Header() {
               to={"/avisos"}
               className="custom-link"
             >
-             <p>Avisos</p>
+             <p>AVISOS</p>
             </Nav.Link>
             {/* <Nav.Link
                   as={Link}
@@ -53,7 +53,7 @@ function Header() {
               className="custom-link"
             >
               
-              <p>Material</p>
+              <p>MATERIAL</p>
             </Nav.Link>
             {/* <Nav.Link as={Link} eventKey="5" to={"/datos"} className="custom-link">
                   <i class="fa-solid fa-users"></i>
