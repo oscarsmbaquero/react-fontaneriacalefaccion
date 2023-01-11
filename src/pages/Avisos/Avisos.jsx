@@ -7,6 +7,7 @@ import Tab from "@mui/material/Tab";
 import AddAvisos from "./Components/AddAvisos/AddAvisos";
 import AvisosAbiertos from "./Components/AvisosAbiertos/AvisosAbiertos";
 import AvisosPendientes from "./Components/AvisosPendientes/AvisosPendientes"
+import AvisosCerrados from "./Components/AvisosCerrados/AvisosCerrados"
 //import MostrarIntervenciones from "./Components/MostrarIntervenciones"
 
 const Avisos = () => {
@@ -23,6 +24,9 @@ const Avisos = () => {
 
   const averiasPendientes = averias.filter((avisos)=>avisos.estado ==='Pendiente') ;
   const numeroAveriasPendientes = averiasPendientes.length;
+
+  const averiasCerradas = averias.filter((avisos)=>avisos.estado ==='Cerrada') ;
+  const numeroAveriasCerradas = averiasCerradas.length;
 
 
 
@@ -43,6 +47,7 @@ const Avisos = () => {
         <Tab label="Añadir Avisos"/>
         <Tab label={`Averias Abiertas-${numeroAveriasAbiertas}`}/>
         <Tab label={`Averias Pendientes-${numeroAveriasPendientes}`}/>
+        <Tab label={`Averias Cerradas-${numeroAveriasCerradas}`}/>
         
       </Tabs>
     </Box>
@@ -60,6 +65,11 @@ const Avisos = () => {
         {value === 2 && (
         <Box>
           <AvisosPendientes averias={averiasPendientes}/>
+        </Box>
+        )}
+        {value === 3 && (
+        <Box>
+          <AvisosCerrados averias={averiasCerradas}/>
         </Box>
         )}
      </Box>  

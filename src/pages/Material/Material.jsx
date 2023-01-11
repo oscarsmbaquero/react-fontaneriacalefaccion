@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 //components
+import AddMaterial from './Components/AltaMaterial/AddMaterial';
 import Vehiculo from './Components/Vehiculo/Vehiculo';
 import Almacen from './Components/Almacen/Almacen';
 import Graficas from './Components/Graficas/Index';
@@ -18,13 +19,13 @@ const Material = () => {
 
   //filtros material
   const materialFurgo = material.filter(
-    (mat) => mat.estado === "Averiado"
+    (mat) => mat.ubicacion === "Furgo"
   );
   const UnidadesMaterialFurgo = materialFurgo.length;
 
 
   const materialAlmacen = material.filter(
-    (mat) => mat.estado === "Operativo"
+    (mat) => mat.ubicacion === "Almacen"
   );
   const UnidadesMaterialAlmacen = materialAlmacen.length;
   
@@ -45,24 +46,30 @@ const Material = () => {
           textColor="primary"
           visibleScrollbar="true"
         >
+          <Tab label="Añadir Material" />
           <Tab label={`Vehículo-${UnidadesMaterialFurgo}-`} />
           <Tab label={`Almacén-${UnidadesMaterialAlmacen}-`}/>
           <Tab label="Graficas"/>
         </Tabs>
       </Box>
       <Box sx={{ padding: 1 }}>
-        {value === 0 && (
+      {value === 0 && (
+          <Box>
+           <AddMaterial/> 
+          </Box>
+        )}
+        {value === 1 && (
           <Box>
             <Vehiculo material={materialFurgo}/>
           </Box>
         )}
-        {value === 1 && (
+        {value === 2 && (
           <Box>
             <Almacen material={materialAlmacen}
             />
           </Box>
           )}
-          {value === 2 && (
+          {value === 3 && (
           <Box>
             <Graficas materialAveriado={UnidadesMaterialFurgo} materialOperativo={UnidadesMaterialAlmacen}
             />

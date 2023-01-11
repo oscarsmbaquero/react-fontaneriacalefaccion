@@ -95,7 +95,7 @@ const IntercencionAviso = () => {
 
   return (
     <div>
-        <div className="container">
+        <div className="container justify-content-center">
           <section className="section">
             <div className="col-11 col-lg-11 mx-4">
               <form onSubmit={handleSubmit(onSubmit)} className="form">              
@@ -243,7 +243,7 @@ const IntercencionAviso = () => {
                   endIcon={<SendIcon />}
                   style={{
                     borderRadius: 50,
-                    backgroundColor: "black",
+                    backgroundColor: "blue",
                     color: "white",
                     // marginTop:'0px'
                   }}
