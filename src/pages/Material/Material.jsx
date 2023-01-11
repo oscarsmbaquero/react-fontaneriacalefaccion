@@ -8,6 +8,7 @@ import AddMaterial from './Components/AltaMaterial/AddMaterial';
 import Vehiculo from './Components/Vehiculo/Vehiculo';
 import Almacen from './Components/Almacen/Almacen';
 import Graficas from './Components/Graficas/Index';
+import Averiado from './Components/Averiado/Averiado';
 
 const Material = () => {
   const { material } = useContext(SWContext);
@@ -19,15 +20,20 @@ const Material = () => {
 
   //filtros material
   const materialFurgo = material.filter(
-    (mat) => mat.ubicacion === "Furgo"
+    (mat) => mat.ubicacion === "Furgo" && mat.estado ==='Operativo'
   );
   const UnidadesMaterialFurgo = materialFurgo.length;
 
 
   const materialAlmacen = material.filter(
-    (mat) => mat.ubicacion === "Almacen"
+    (mat) => mat.ubicacion === "Almacen" && mat.estado ==='Operativo'
   );
   const UnidadesMaterialAlmacen = materialAlmacen.length;
+
+  const materialAveriado = material.filter(
+    (mat) => mat.estado === "Averiado"
+  );
+  const UnidadesMaterialAveriado = materialAveriado.length;
   
   
   
@@ -49,6 +55,7 @@ const Material = () => {
           <Tab label="Añadir Material" />
           <Tab label={`Vehículo-${UnidadesMaterialFurgo}-`} />
           <Tab label={`Almacén-${UnidadesMaterialAlmacen}-`}/>
+          <Tab label={`Averiado-${UnidadesMaterialAveriado}-`}/>
           <Tab label="Graficas"/>
         </Tabs>
       </Box>
@@ -70,6 +77,12 @@ const Material = () => {
           </Box>
           )}
           {value === 3 && (
+          <Box>
+            <Averiado material={materialAveriado}
+            />
+          </Box>
+          )}
+          {value === 4 && (
           <Box>
             <Graficas materialAveriado={UnidadesMaterialFurgo} materialOperativo={UnidadesMaterialAlmacen}
             />

@@ -6,7 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
 import ConstructionIcon from "@mui/icons-material/Construction";
 
-const Almacen = ({ material }) => {
+const Averiado = ({ material }) => {
   
   const conditionalRowStyles = [
     {
@@ -116,4 +116,4 @@ const Almacen = ({ material }) => {
   );
 };
 
-export default Almacen;
+export default Averiado;

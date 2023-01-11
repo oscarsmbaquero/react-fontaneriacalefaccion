@@ -21,6 +21,7 @@ const AddMaterial = () => {
   
   const onSubmit = async (formData) => {
     formData={...formData,estado,unidades};
+    console.log(formData,'formData');
     try {
       const result = await fetch(`${BASE_URL}/material`, {
         method: "POST",
