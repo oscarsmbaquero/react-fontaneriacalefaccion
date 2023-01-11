@@ -46,8 +46,8 @@ const AddAvisos = () => {
               {/* <img className="logoReservas1" src={logo} alt="logo"></img> */}
               <br />
               <div className="d-flex flex-column flex-md-row">
-                <div className="d-flex flex-column col-11 col-md-6 ">
-                  <label className="form__label">Cliente * </label>
+                <div className="d-flex flex-column col-11 col-md-6 my-2">
+                  {/* <label className="form__label">Cliente * </label> */}
                   <input
                     className="form-control"
                     type="text"
@@ -61,8 +61,8 @@ const AddAvisos = () => {
                 <p className="error">{errors.cliente.message}</p>
               )}
                 </div>
-                <div className="d-flex flex-column col-11 col-md-6 mx-md-3 ">
-                  <label className="form__label">Dirección * </label>
+                <div className="d-flex flex-column col-11 col-md-6 mx-md-3 my-2">
+                  {/* <label className="form__label">Dirección * </label> */}
                   <input
                     className="form-control"
                     type="text"
@@ -78,8 +78,8 @@ const AddAvisos = () => {
                 </div>
               </div>
               <div className="d-flex flex-column flex-md-row">
-                <div className="d-flex flex-column col-11 col-md-4 ">
-                  <label className="form__label">Localidad * </label>
+                <div className="d-flex flex-column col-11 col-md-4 my-2">
+                  {/* <label className="form__label">Localidad * </label> */}
                   <input
                     className="form-control"
                     type="text"
@@ -93,8 +93,8 @@ const AddAvisos = () => {
                 <p className="error">{errors.localidad.message}</p>
               )}
                 </div>
-                <div className="d-flex flex-column col-11 col-md-4 mx-md-3  ">
-                  <label className="form__label">Teléfono* </label>
+                <div className="d-flex flex-column col-11 col-md-4 mx-md-3 my-2">
+                  {/* <label className="form__label">Teléfono* </label> */}
                   <input
                     className="form-control"
                     type="tel"
@@ -106,8 +106,8 @@ const AddAvisos = () => {
                 })}
               />
                 </div>
-                <div className="d-flex flex-column col-11 col-md-4   ">
-                  <label className="form__label">Tipo Caldera * </label>
+                <div className="d-flex flex-column col-11 col-md-4 my-2">
+                  {/* <label className="form__label">Tipo Caldera * </label> */}
                   <input
                     className="form-control"
                     type="text"
@@ -120,8 +120,8 @@ const AddAvisos = () => {
                 </div>
               </div>
               <div className="d-flex flex-column flex-md-row">
-                <div className="d-flex flex-column col-11 col-lg-12 col-md-6 mx-md-1 ">
-                  <label className="form__label">Averia * </label>
+                <div className="d-flex flex-column col-11 col-lg-12 col-md-6 mx-md-1 my-2">
+                  {/* <label className="form__label">Averia * </label> */}
                   <textarea
                     className="form-control"
                     type="text"
@@ -138,15 +138,15 @@ const AddAvisos = () => {
                 </div>
               </div>
               <div className="d-flex flex-column flex-md-row">
-                <div className="d-flex flex-column col-11 col-md-6 ">
-                  <label className="form__label">Prioridad * </label>
+                <div className="d-flex flex-column col-11 col-md-6 my-2">
+                  {/* <label className="form__label">Prioridad * </label> */}
                   <select {...register("prioridad")} className="form-control">
                     <option value="Urgente">Urgente</option>
                     <option value="Normal">Normal</option>
                   </select>
                 </div>
-                <div className="d-flex flex-column col-11 col-md-6 mx-md-3 ">
-                  <label className="form__label">Estado * </label>
+                <div className="d-flex flex-column col-11 col-md-6 mx-md-3 my-2">
+                  {/* <label className="form__label">Estado * </label> */}
                   <select {...register("estado")} className="form-control" >
                     <option value="Abierto" selected>Abierto</option>
                     

@@ -9,6 +9,33 @@ import DataTable from "react-data-table-component";
 import ConstructionIcon from "@mui/icons-material/Construction";
 
 const AvisosAbiertos = ({ averias }) => {
+  
+  const conditionalRowStyles = [
+    {
+      when: row => row.prioridad === 'Urgente',
+      style: {
+        backgroundColor: 'rgb(212, 210, 0)',
+        //backgroundColor: 'rgba(63, 195, 128, 0.9)',
+        color: 'black',
+        text:'bold',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
+    {
+      when: row => row.prioridad === 'Normal',
+      style: {
+        backgroundColor: 'rgba(63, 195, 128, 0.9)',
+        color: 'black',
+        text:'bold',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },  
+  ]
+
   const tableCustomStyles = {
     headCells: {
       style: {
@@ -96,6 +123,7 @@ const AvisosAbiertos = ({ averias }) => {
       pagination
       dense
       responsive
+      conditionalRowStyles={conditionalRowStyles}
     />
   );
 };
