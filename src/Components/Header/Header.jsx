@@ -35,8 +35,7 @@ function Header() {
               to={"/avisos"}
               className="custom-link"
             >
-              <i class="fa-solid fa-city"></i>
-              &nbsp;AVISOS
+             <p>Avisos</p>
             </Nav.Link>
             {/* <Nav.Link
                   as={Link}
@@ -53,8 +52,8 @@ function Header() {
               to={"/material"}
               className="custom-link"
             >
-              <i class="fa-solid fa-city"></i>
-              &nbsp;MATERIAL
+              
+              <p>Material</p>
             </Nav.Link>
             {/* <Nav.Link as={Link} eventKey="5" to={"/datos"} className="custom-link">
                   <i class="fa-solid fa-users"></i>
@@ -74,7 +73,7 @@ function Header() {
               className="custom-link"
             >
               <i class="fa-solid fa-toggle-off"></i>
-              &nbsp;LogOut
+              <p>LogOut</p>
             </Nav.Link>
 
             <Nav.Link
@@ -84,7 +83,7 @@ function Header() {
               className="custom-link"
             >
               <i class="fa-solid fa-toggle-on"></i>
-              &nbsp;Login
+              &nbsp;<p>LogIn</p>
             </Nav.Link>
               <Nav.Link href="#deets" className="user">
                 {/* {userLogged.name} */}

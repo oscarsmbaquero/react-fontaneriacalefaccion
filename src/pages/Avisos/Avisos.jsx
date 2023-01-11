@@ -17,6 +17,16 @@ const Avisos = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const averiasAbiertas = averias.filter((avisos)=>avisos.estado ==='Abierto') ;
+  const numeroAveriasAbiertas = averiasAbiertas.length;
+
+  const averiasPendientes = averias.filter((avisos)=>avisos.estado ==='Pendiente') ;
+  const numeroAveriasPendientes = averiasPendientes.length;
+
+
+
+
   return (
     <>
     <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
@@ -30,9 +40,9 @@ const Avisos = () => {
         textColor="primary"
         visibleScrollbar="true"
       >
-        <Tab label="Añadir Aviso"/>
-        <Tab label="Avisos Abiertos"/>
-        <Tab label="Avisos Pendientes"/>
+        <Tab label="Añadir Avisos"/>
+        <Tab label={`Averias Abiertas-${numeroAveriasAbiertas}`}/>
+        <Tab label={`Averias Pendientes-${numeroAveriasPendientes}`}/>
         
       </Tabs>
     </Box>
@@ -44,12 +54,12 @@ const Avisos = () => {
       )}
       {value === 1 && (
         <Box>
-          <AvisosAbiertos averias={averias}/>
+          <AvisosAbiertos averias={averiasAbiertas}/>
         </Box>
         )}
         {value === 2 && (
         <Box>
-          <AvisosPendientes/>
+          <AvisosPendientes averias={averiasPendientes}/>
         </Box>
         )}
      </Box>  

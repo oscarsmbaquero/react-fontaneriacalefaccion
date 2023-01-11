@@ -154,16 +154,16 @@ font-size: small;
 font-family: 'Fredoka One', cursive;
 }
 }
-.p{
-  margin: 0 0 0 90px;
-}
+// .p{
+//   margin: 0 0 0 90px;
+// }
 span2{
   color:black;
   padding: 10px;
 }
 
 .logo{
-  width: 60px;
+  width: 90px;
   //border-radius: 50%;
 }
 .avatar{
@@ -172,20 +172,20 @@ span2{
 .user{
   color:white;
   font-weight: bold;
-  margin-top: 5px;
+  //margin-top: 5px;
 }
 .login{
   //display: flex;
   //justify-content: right;
 }
 .custom-link {
-  color: black;
-  font-size:14px;  
-  font-family:  'Caveat';
+  color: blue;
+  font-size:18px;  
+  //font-family:  'Caveat';
   text-decoration: none;
   margin-left: 12px;
   @media screen and (max-width: 991px){
-    margin-top: 10px;
+    margin:0;
     }
   }
   
@@ -193,8 +193,11 @@ span2{
   color: rgba(30, 149, 175, 0.97);
   font-weight: bold;
   }
-  
   .custom-link.active {
-    color: rgba(153, 7, 7, 0.97);
+    //color: rgba(30, 175, 66, 0.97);
     font-weight: bold;
-  }
+    font-size:19px;
+    color: blue;
+    }
+  
+  
