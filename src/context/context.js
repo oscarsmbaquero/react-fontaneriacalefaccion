@@ -20,7 +20,7 @@ export const SWContextProvider = ({ children }) => {
       setAverias(res.data);
     };
     fetchAvisos();
-  }, [averias]);
+  }, []);
 
   
   useEffect(() => {
@@ -29,7 +29,7 @@ export const SWContextProvider = ({ children }) => {
       setMaterial(res.data);
     };
     fetchMaterial();
-  }, [material]);
+  }, []);
 
 
   return (

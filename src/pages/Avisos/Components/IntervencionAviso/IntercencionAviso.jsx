@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./Intervencion.scss";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../assets/ApiRoutes";
+import { SWContext } from "../../../../context/context";
 //import Loader from "../../../core/components/Loader/Loader";
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
@@ -12,105 +13,59 @@ import Swal from "sweetalert2";
 
 const IntercencionAviso = () => {
   //const userLogged = useGetAuth();
-  //let [aviso, SetAviso] = useState();
-  //const [users, setUsers] = useState([]);
+
+  const { material } = useContext(SWContext);
+
   const { id } = useParams();
-  //const [material, setMaterial] = useState([]);
-  //const [materialById, setMaterialById] = useState([]);
   const [visible, setVisible] = useState("Cerrada");
-  //const [fechaInicio, setFechaInicio] = useState();
-  //const [fechaFinal, setFechaFinal] = useState();
-  //const [tiempoViaje, setTiempoViaje] = useState();
-  //const [items, setItems] = useState([]);
+  const [fechaInicio, setFechaInicio] = useState();
+  const [fechaFinal, setFechaFinal] = useState();
+  const [tiempoViaje, setTiempoViaje] = useState();
 
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors, isValid }}= useForm({ mode: "onChange" });
+    formState: { errors, isValid },
+  } = useForm({ mode: "onChange" });
   let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   fetch(`${BASE_URL}/avisos/${id}`)
-  //     .then((response) => response.json())
-  //     .then((data) => SetAviso(data));
-  // }, [id]);
-
-  // useEffect(() => {
-  //   fetch(`${BASE_URL}/users`)
-  //     .then((response) => response.json())
-  //     .then((data) => setUsers(data));
-  // }, []);
-
-  // useEffect(() => {
-  //   fetch(`${BASE_URL}/items`)
-  //     .then((response) => response.json())
-  //     .then((data) => setItems(data));
-  // }, []);
-  // useEffect(() => {
-  //   fetch(`${BASE_URL}/material`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       // Authorization: `Bearer ${loggedUser.token}`
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setMaterial(data);
-  //     });
-  // }, [userLogged.token]);
-  // useEffect(() => {
-  //   fetch(`${BASE_URL}/material/${userLogged.id}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       //Authorization: `Bearer ${loggedUser.token}`
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setMaterialById(data);
-  //     });
-  // }, [userLogged.token]);
-
   // //funcion que determina el estado de la intervencin, si esta Pendiente habilita el select de motivo de pendiente
-  // const captureType = (e) => {
-  //   setVisible(e.target.value);
-  // };
+  const captureType = (e) => {
+    setVisible(e.target.value);
+  };
 
-  // const fechaIni = (e) => {
-  //   setFechaInicio(e.target.value);
-  // };
-  // const fechaFin = (e) => {
-  //   setFechaFinal(e.target.value);
-  // };
-  // const horasViaje = (e) => {
-  //   setTiempoViaje(e.target.value);
-  // };
-  // let fechaInicial = new Date(fechaInicio).getTime();
-  // let fechafinal = new Date(fechaFinal).getTime();
-  // const horasIntervencion = (
-  //   (fechafinal - fechaInicial) /
-  //   60 /
-  //   60 /
-  //   1000
-  // ).toFixed(2);
+  const materialOperativo = material.filter(
+    (element) => element.estado === "Operativo" && element.ubicacion === "Furgo"
+  );
 
-  // const intervencion = parseFloat(horasIntervencion);
-  // const desplazamiento = parseFloat(tiempoViaje);
+  const fechaIni = (e) => {
+    setFechaInicio(e.target.value);
+  };
+  const fechaFin = (e) => {
+    setFechaFinal(e.target.value);
+  };
+  const horasViaje = (e) => {
+    setTiempoViaje(e.target.value);
+  };
+  console.log(tiempoViaje,'tiempoViaje');
+  let fechaInicial = new Date(fechaInicio).getTime();
+  let fechafinal = new Date(fechaFinal).getTime();
+  const horasIntervencion = (
+    (fechafinal - fechaInicial) /
+    60 /
+    60 /
+    1000
+  ).toFixed(2);
 
-  // const totalHoras = intervencion + desplazamiento;
+  const intervencion = parseFloat(horasIntervencion);
+  const desplazamiento = parseFloat(tiempoViaje);
 
-  // const tecnicos = users.filter(
-  //   (user) => user.account_type === "Tecnico" || user.account_type === "Admin"
-  // );
-  // const materialOperativo = materialById.filter(
-  //   (material) => material.estado === "Operativo"
-  // );
+  const totalHoras = intervencion + desplazamiento;
+ 
 
   const onSubmit = async (formData) => {
-    formData = { ...formData };
+    formData = { ...formData, totalHoras };
     console.log(formData, "formData");
     try {
       const result = await fetch(`${BASE_URL}/avisos/${id}`, {
@@ -135,21 +90,21 @@ const IntercencionAviso = () => {
 
   return (
     <div>
+     
         <div className="container">
           <section>
             <div className="col-11 col-lg-11 mx-4 mt-5">
-              {/* <h3>Añadir Int:&nbsp;{aviso.n_incidencia}</h3> */}
+            
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="d-flex flex-column flex-md-row">
-                  <div className="d-flex flex-column col-11 col-md-3  ">
-                    <label className="form__label">Selecciona estado * </label>
+                  <div className="d-flex flex-column col-11 col-md-3">
+                    <label className="form__label">Selecciona estado* </label>
                     <select
                       className="form-control"
                     
                       {...register("estado", {
                         required: "Estado is required",
-                      })}  
-                      // onChange={captureType}
+                      })}  onChange={captureType}
                     >
                       {errors.estado && errors.estado.type === "required" && (
                         <p>{errors.estado.message}</p>
@@ -162,7 +117,7 @@ const IntercencionAviso = () => {
                     {visible === "Pendiente" ? (
                       <>
                         <label className="form__label">
-                          Motivo de aviso pendiente *
+                          Motivo de aviso pendiente*
                         </label>
                         <input
                           className="form-control"
@@ -182,22 +137,106 @@ const IntercencionAviso = () => {
                     )}
                   </div>
                   <div className="d-flex flex-column col-11 col-md-4">
-                    <label className="form__label">Selecciona item </label>
-                    {/* <select className="form-control" {...register("item", {
+                    <label className="form__label">Selecciona Material</label>
+                    <select className="form-control" {...register("material", {
                         required: "Campo Obligatotio",
                       })}>
-                       {errors.item && errors.item.type === "required" && (
-                          <p className="error">{errors.item.message}</p>
+                       {errors.material && errors.material.type === "required" && (
+                          <p className="error">{errors.material.message}</p>
                         )}
-                      <option selected>Selecciona Item</option>
-                      {items.map((item) => (
-                        <option key={item._id} value={item._id}>
-                          {item.codigo}-{item.descripcion}
+                      <option selected>No hay Consumo</option>
+                      {materialOperativo.map((material) => (
+                        <option key={material._id} value={material._id}>
+                          {material.descripcion}
                         </option>
                       ))}
-                    </select> */}
+                    </select>
                   </div>
                 </div>
+                <div className="d-flex flex-column flex-md-row justify-content-center">
+                  <div className="d-flex flex-column col-11 col-md-2 ">
+                    <label className="form__label">Fecha Inicio *</label>
+                    <input
+                      className="form-control"
+                      type="datetime-local"
+                      name="fecha_inicio"
+                      placeholder="Inicio"
+                      onChange={fechaIni}
+                      {...register("fecha_inicio", {
+                            required: "Campo Obligatotio",
+                          })}
+                    />
+                     {errors.fecha_inicio && errors.fecha_inicio.type === "required" && (
+                          <p className="error">{errors.fecha_inicio.message}</p>
+                        )}
+                  </div>
+                  <div className="d-flex flex-column col-11 col-md-2  mx-md-4">
+                    <label className="form__label">Fecha Fin*</label>
+                    <input
+                      className="form-control"
+                      type="datetime-local"
+                      name="fecha_fin"
+                      onChange={fechaFin}
+                      {...register("fecha_fin", {
+                            required: "Campo Obligatotio",
+                          })}
+                    />
+                     {errors.fecha_fin && errors.fecha_fin.type === "required" && (
+                          <p className="error">{errors.fecha_fin.message}</p>
+                        )}
+                  </div>
+                  <div className="d-flex flex-column col-11 col-md-2 mx-md-3">
+                    <label className="form__label">Km*</label>
+                    <input
+                      className="form-control"
+                      type="number"
+                      name="km"
+                      placeholder="Km"
+                      {...register("km", {
+                        required: "Campo Obligatotio",
+                      })}
+                    />
+                    {errors.km && errors.km.type === "required" && (
+                      <p className="error">{errors.km.message}</p>
+                    )}
+                  </div>
+                  <div className="d-flex flex-column col-11 col-md-3 mx-md-2">
+                    <label className="form__label">T.Despl.*</label>
+                    <input
+                      className="form-control"
+                      type="number"
+                      name="viaje"
+                      onChange={horasViaje}
+                      placeholder="Tiempo Despl."
+                      {...register("viaje", {
+                        required: "Campo Obligatotio",
+                      })}
+                      
+                    />
+                    {errors.viaje && errors.viaje.type === "required" && (
+                      <p className="error">{errors.viaje.message}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="d-flex flex-column flex-md-row ">
+                  <div className="d-flex flex-column col-11 col-md-12 mx-md-auto">
+                    <label className="form__label">Intervención*</label>
+                    <textarea
+                      rows={5}
+                      class="form-control"
+                      type="text"
+                      name="intervencion"
+                      placeholder="Intervencion"
+                      {...register("intervencion", {
+                        required: "Campo Obligatotio",
+                      })}
+                    />
+                     {errors.intervencion && errors.intervencion.type === "required" && (
+                      <p className="error">{errors.intervencion.message}</p>
+                    )}
+                  </div>
+                </div>
+                <br />
                 <Button
                   variant="contained"
                   disabled={!isValid}
@@ -206,7 +245,7 @@ const IntercencionAviso = () => {
                   endIcon={<SendIcon />}
                   style={{
                     borderRadius: 50,
-                    backgroundColor: "black",
+                    backgroundColor: "blue",
                     color: "white",
                     // marginTop:'0px'
                   }}
@@ -217,7 +256,7 @@ const IntercencionAviso = () => {
             </div>
           </section>
         </div>
-      
+  
     </div>
   );
 };
