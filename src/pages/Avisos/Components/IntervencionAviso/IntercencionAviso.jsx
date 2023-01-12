@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./Intervencion.scss";
 import { useForm } from "react-hook-form";
@@ -9,22 +10,38 @@ import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 //import { useGetAuth } from "../../../context/context";
 import Swal from "sweetalert2";
-import { SWContext } from "../../../../context/context";
+//import { SWContext } from "../../../../context/context";
 
 const IntercencionAviso = () => {
-  const { material } = useContext(SWContext);
+  //const { material } = useContext(SWContext);
   const { id } = useParams();
-
+  const [averias, SetAverias] = useState();
   const [visible, setVisible] = useState("Cerrada");
   const [fechaInicio, setFechaInicio] = useState();
   const [fechaFinal, setFechaFinal] = useState();
   const [tiempoViaje, setTiempoViaje] = useState();
+  const [material, setMaterial] = useState([]);
+  // useEffect(() => {    
+  //   const fetchAvisos = async () => {
+  //     const res = await axios.get(`${BASE_URL}/avisos${id}`);
+  //     SetAverias(res.data);
+  //   };
+  //   fetchAvisos();
+  // }, []);
+
+  useEffect(() => {
+    const fetchMaterial = async () => {
+      const res = await axios.get(`${BASE_URL}/material`);
+      setMaterial(res.data);
+    };
+    fetchMaterial();
+  }, []);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    setValue,
+    //setValue,
   } = useForm({ mode: "onChange" });
   let navigate = useNavigate();
 
@@ -64,8 +81,7 @@ const IntercencionAviso = () => {
     formData = { ...formData, totalHoras };
     //console.log(formData,'formData');
     try {
-      const result = await fetch(`${BASE_URL}/avisos/${id}`, {
-        //modifico url 24/06/2022
+      const result = await fetch(`${BASE_URL}/avisos${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,15 +89,17 @@ const IntercencionAviso = () => {
         body: JSON.stringify(formData),
       });
       const resData = await result.json();
-
       Swal.fire({
         title: "Success!",
-        text: "Intervención añadida",
+        text: "Aviso introducido Correctamente",
         icon: "success",
         confirmButtonText: "Ok",
       });
       navigate("/avisos/caceres");
-    } catch (error) {}
+      console.log(resData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

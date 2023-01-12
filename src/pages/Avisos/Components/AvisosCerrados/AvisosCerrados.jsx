@@ -1,39 +1,39 @@
 import { Badge } from "@mui/material";
-import './AvisosCerrados.scss'
+import "./AvisosCerrados.scss";
 import React from "react";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import SendIcon from "@mui/icons-material/Send";
 
 const AvisosCerrados = ({ averias }) => {
-  
   const conditionalRowStyles = [
     {
-      when: row => row.prioridad === 'Urgente',
+      when: (row) => row.prioridad === "Urgente",
       style: {
-        backgroundColor: 'rgb(212, 210, 0)',
+        backgroundColor: "rgb(212, 210, 0)",
         //backgroundColor: 'rgba(63, 195, 128, 0.9)',
-        color: 'black',
-        text:'bold',
-        '&:hover': {
-          cursor: 'pointer',
+        color: "black",
+        text: "bold",
+        "&:hover": {
+          cursor: "pointer",
         },
       },
     },
     {
-      when: row => row.prioridad === 'Normal',
+      when: (row) => row.prioridad === "Normal",
       style: {
-        backgroundColor: 'rgba(63, 195, 128, 0.9)',
-        color: 'black',
-        text:'bold',
-        '&:hover': {
-          cursor: 'pointer',
+        backgroundColor: "rgba(63, 195, 128, 0.9)",
+        color: "black",
+        text: "bold",
+        "&:hover": {
+          cursor: "pointer",
         },
       },
-    },  
-  ]
+    },
+  ];
 
   const tableCustomStyles = {
     headCells: {
@@ -81,9 +81,13 @@ const AvisosCerrados = ({ averias }) => {
       selector: (row) => row.averia,
     },
     {
-      name: "Precio Intervención",     
-      selector: (row) => 
-      <><span className="price">{row.importeReparacion}</span>&nbsp;<span>€</span></>,
+      name: "Precio Intervención",
+      selector: (row) => (
+        <>
+          <span className="price">{row.importeReparacion}</span>&nbsp;
+          <span>€</span>
+        </>
+      ),
       sortable: true,
     },
     {
@@ -107,12 +111,10 @@ const AvisosCerrados = ({ averias }) => {
       cell: (row) => (
         //
         <>
-          <Link to={`/addIntervencion/${row._id}`}>
-            <IconButton aria-label="delete" color="primary">
-              <ConstructionIcon />
-            </IconButton>
-          </Link>
-          <Link>
+          <IconButton aria-label="delete" color="primary">
+            <SendIcon />
+          </IconButton>
+          <Link to={`/avisos/details/${row._id}`}>
             <IconButton aria-label="delete" color="success">
               <SearchIcon />
             </IconButton>

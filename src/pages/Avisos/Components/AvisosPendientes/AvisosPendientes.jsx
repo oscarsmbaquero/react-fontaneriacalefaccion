@@ -105,7 +105,7 @@ const AvisosPendintes = ({ averias }) => {
               <ConstructionIcon />
             </IconButton>
           </Link>
-          <Link>
+          <Link to={`/avisos/details/${row._id}`}>
             <IconButton aria-label="delete" color="success">
               <SearchIcon />
             </IconButton>

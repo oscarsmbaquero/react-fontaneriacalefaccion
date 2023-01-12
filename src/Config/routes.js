@@ -4,6 +4,8 @@ import Material from '../pages/Material/Material';
 import Datos from '../pages/Datos/Datos';
 import MyDocument from '../pages/Calendar/MyDocument';
 import IntercencionAviso from '../pages/Avisos/Components/IntervencionAviso/IntercencionAviso';
+import DetailAvisos from '../pages/Avisos/Components/DetailAvisos/DetailAvisos';
+import Clientes from '../pages/Clientes/Clientes'
 
 
 
@@ -21,8 +23,8 @@ const routes = [
     element: <Material/>,
   },
   {
-    path: "/datos",
-    element: <Datos/>,
+    path: "/clientes",
+    element: <Clientes/>,
   },
   {
     path: "/calendar",
@@ -31,6 +33,10 @@ const routes = [
   {
     path: "/addIntervencion/:id",
     element: <IntercencionAviso/>,
+  },
+  {
+    path: "/avisos/details/:id",
+    element: <DetailAvisos />,
   },
 ];
 

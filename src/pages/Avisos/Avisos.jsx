@@ -16,6 +16,7 @@ const Avisos = () => {
   //const { averias } = useContext(SWContext);
   const [value, setValue] = React.useState(1);
   const [averias, setAverias] = useState([]);
+  const [material, setMaterial] = useState([]);
 
   // const totalHoras = averias.totalHoras.reduce(
   //   (acumulador, operativo) => acumulador + operativo.intervencion.length,
@@ -29,9 +30,18 @@ const Avisos = () => {
       setAverias(res.data);
     };
     fetchAvisos();
-  }, [averias]);
+  }, []);
+
+  useEffect(() => {
+    const fetchMaterial = async () => {
+      const res = await axios.get(`${BASE_URL}/material`);
+      setMaterial(res.data);
+    };
+    fetchMaterial();
+  }, []);
   
- //console.log(averias,'averias')
+ console.log(material,'material')
+ console.log(averias,'averias')
 
 
   const handleChange = (event, newValue) => {
@@ -47,8 +57,7 @@ const Avisos = () => {
   const averiasCerradas = averias.filter((avisos)=>avisos.estado ==='Cerrada') ;
   const numeroAveriasCerradas = averiasCerradas.length;
 
-
-
+  //console.log(averias,'averias');
 
   return (
     <>
@@ -61,7 +70,7 @@ const Avisos = () => {
         aria-label="scrollable auto tabs example"
         indicatorColor="primary"
         textColor="primary"
-        visibleScrollbar="true"
+        //visibleScrollbar="true"
       >
         <Tab label="Añadir Avisos"/>
         <Tab label={`Averias Abiertas-${numeroAveriasAbiertas}`}/>
@@ -71,12 +80,12 @@ const Avisos = () => {
       </Tabs>
     </Box>
     <Box sx={{ padding: 1 }}>
-      {value === 0 && (
-        <Box>
-          <AddAvisos />
-        </Box>
-      )}
-      {value === 1 && (
+        {value === 0 && (
+          <Box>
+            <AddAvisos/>
+          </Box>
+        )}
+        {value === 1 && (
         <Box>
           <AvisosAbiertos averias={averiasAbiertas}/>
         </Box>
