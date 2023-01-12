@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
-import { SWContext } from "../../context/context";
+import React, { useContext, useEffect, useState } from 'react';
+import axios from "axios";
+//import { SWContext } from "../../context/context";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import { BASE_URL } from "../../assets/ApiRoutes";
 //components
 import AddAvisos from "./Components/AddAvisos/AddAvisos";
 import AvisosAbiertos from "./Components/AvisosAbiertos/AvisosAbiertos";
@@ -11,10 +13,27 @@ import AvisosCerrados from "./Components/AvisosCerrados/AvisosCerrados"
 //import MostrarIntervenciones from "./Components/MostrarIntervenciones"
 
 const Avisos = () => {
-  const { averias } = useContext(SWContext);
+  //const { averias } = useContext(SWContext);
   const [value, setValue] = React.useState(1);
+  const [averias, setAverias] = useState([]);
 
+  // const totalHoras = averias.totalHoras.reduce(
+  //   (acumulador, operativo) => acumulador + operativo.intervencion.length,
+  //   0
+  // );
+  // console.log(totalHoras,'totalHoras')
+
+  useEffect(() => {
+    const fetchAvisos = async () => {
+      const res = await axios.get(`${BASE_URL}/avisos`);
+      setAverias(res.data);
+    };
+    fetchAvisos();
+  }, [averias]);
   
+ //console.log(averias,'averias')
+
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

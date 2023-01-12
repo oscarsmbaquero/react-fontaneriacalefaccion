@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
-import { SWContext } from "../../context/context";
+import React, { useContext, useEffect, useState } from 'react';
+//import { SWContext } from "../../context/context";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import { BASE_URL } from "../../assets/ApiRoutes";
+import axios from "axios";
 //components
 import AddMaterial from './Components/AltaMaterial/AddMaterial';
 import Vehiculo from './Components/Vehiculo/Vehiculo';
@@ -11,8 +13,17 @@ import Graficas from './Components/Graficas/Index';
 import Averiado from './Components/Averiado/Averiado';
 
 const Material = () => {
-  const { material } = useContext(SWContext);
+  //const { material } = useContext(SWContext);
   const [value, setValue] = React.useState(0);
+  const [material, setMaterial] = useState([]);
+
+  useEffect(() => {
+    const fetchMaterial = async () => {
+      const res = await axios.get(`${BASE_URL}/material`);
+      setMaterial(res.data);
+    };
+    fetchMaterial();
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

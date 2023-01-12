@@ -1,4 +1,5 @@
 import { Badge } from "@mui/material";
+import './AvisosCerrados.scss'
 import React from "react";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
@@ -80,20 +81,26 @@ const AvisosCerrados = ({ averias }) => {
       selector: (row) => row.averia,
     },
     {
-      name: "Fecha de Cierre",
+      name: "Precio Intervención",     
+      selector: (row) => 
+      <><span className="price">{row.importeReparacion}</span>&nbsp;<span>€</span></>,
       sortable: true,
-      selector: (row) => row.updatedAt.slice(0,10),
     },
     {
-      name: "Prioridad",
-      selector: (row) =>
-        row.prioridad === "Urgente" ? (
-          <Badge bg="danger">{row.prioridad}</Badge>
-        ) : (
-          <Badge bg="success">{row.prioridad}</Badge>
-        ),
+      name: "Mat. Utilizado",
       sortable: true,
+      selector: (row) => row.materialIntervencion[0]?.descripcion,
     },
+    // {
+    //   name: "Prioridad",
+    //   selector: (row) =>
+    //     row.prioridad === "Urgente" ? (
+    //       <Badge bg="danger">{row.prioridad}</Badge>
+    //     ) : (
+    //       <Badge bg="success">{row.prioridad}</Badge>
+    //     ),
+    //   sortable: true,
+    // },
     {
       name: "Acciones",
       // selector: (row) => row.localidad,
