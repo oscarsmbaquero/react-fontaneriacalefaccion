@@ -39,7 +39,7 @@ const AvisosAbiertos = ({ averias }) => {
       style: {
         color: "white",
         //justifyContent: 'center',
-        backgroundColor: "black",
+        backgroundColor: "#1C82AD",
       },
     },
   };

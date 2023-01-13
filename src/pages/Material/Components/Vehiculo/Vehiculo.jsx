@@ -1,4 +1,4 @@
-import { Badge } from "@mui/material";
+import { Badge } from 'react-bootstrap';
 import React from "react";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
@@ -7,39 +7,13 @@ import DataTable from "react-data-table-component";
 import ConstructionIcon from "@mui/icons-material/Construction";
 
 const Vehiculo = ({ material }) => {
-  
-  const conditionalRowStyles = [
-    {
-      when: row => row.estado === 'Averiado',
-      style: {
-        backgroundColor: 'rgb(212, 210, 0)',
-        //backgroundColor: 'rgba(63, 195, 128, 0.9)',
-        color: 'black',
-        text:'bold',
-        '&:hover': {
-          cursor: 'pointer',
-        },
-      },
-    },
-    {
-      when: row => row.estado === 'Operativo',
-      style: {
-        backgroundColor: 'rgba(63, 195, 128, 0.9)',
-        color: 'black',
-        text:'bold',
-        '&:hover': {
-          cursor: 'pointer',
-        },
-      },
-    },  
-  ]
 
   const tableCustomStyles = {
     headCells: {
       style: {
         color: "white",
         //justifyContent: 'center',
-        backgroundColor: "black",
+        backgroundColor: "#1C82AD",
       },
     },
   };
@@ -71,12 +45,10 @@ const Vehiculo = ({ material }) => {
     },
     {
       name: "PVP",
-      selector: (row) => row.pvp,
-      sortable: true,
-    },
-    {
-      name: "Estado",
-      selector: (row) => row.estado,
+      selector: (row) =>
+      <Badge bg="success" text="bold">
+         {row.pvp}
+      </Badge>,
       sortable: true,
     },
     {
@@ -111,7 +83,6 @@ const Vehiculo = ({ material }) => {
       pagination
       dense
       responsive
-      conditionalRowStyles={conditionalRowStyles}
     />
   );
 };

@@ -1,4 +1,4 @@
-import { Badge } from "@mui/material";
+import { Badge } from "react-bootstrap";
 import "./AvisosCerrados.scss";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -9,38 +9,38 @@ import ConstructionIcon from "@mui/icons-material/Construction";
 import SendIcon from "@mui/icons-material/Send";
 
 const AvisosCerrados = ({ averias }) => {
-  const conditionalRowStyles = [
-    {
-      when: (row) => row.prioridad === "Urgente",
-      style: {
-        backgroundColor: "rgb(212, 210, 0)",
-        //backgroundColor: 'rgba(63, 195, 128, 0.9)',
-        color: "black",
-        text: "bold",
-        "&:hover": {
-          cursor: "pointer",
-        },
-      },
-    },
-    {
-      when: (row) => row.prioridad === "Normal",
-      style: {
-        backgroundColor: "rgba(63, 195, 128, 0.9)",
-        color: "black",
-        text: "bold",
-        "&:hover": {
-          cursor: "pointer",
-        },
-      },
-    },
-  ];
+  // const conditionalRowStyles = [
+  //   {
+  //     when: (row) => row.prioridad === "Urgente",
+  //     style: {
+  //       backgroundColor: "rgb(212, 210, 0)",
+  //       //backgroundColor: 'rgba(63, 195, 128, 0.9)',
+  //       color: "black",
+  //       text: "bold",
+  //       "&:hover": {
+  //         cursor: "pointer",
+  //       },
+  //     },
+  //   },
+  //   {
+  //     when: (row) => row.prioridad === "Normal",
+  //     style: {
+  //       backgroundColor: "rgba(63, 195, 128, 0.9)",
+  //       color: "black",
+  //       text: "bold",
+  //       "&:hover": {
+  //         cursor: "pointer",
+  //       },
+  //     },
+  //   },
+  // ];
 
   const tableCustomStyles = {
     headCells: {
       style: {
         color: "white",
         //justifyContent: 'center',
-        backgroundColor: "black",
+        backgroundColor: "#1C82AD",
       },
     },
   };
@@ -82,12 +82,19 @@ const AvisosCerrados = ({ averias }) => {
     },
     {
       name: "Precio Intervención",
-      selector: (row) => (
-        <>
-          <span className="price">{row.importeReparacion}</span>&nbsp;
-          <span>€</span>
-        </>
-      ),
+      selector: (row) =>
+        // <>
+        //   <span className="price">{row.importeReparacion}</span>&nbsp;
+        //   <span>€</span>
+        // </>
+        row.intervencion.length > 1 ? (
+          <Badge bg="primary" text="bold">
+            <span className="price">{row.importeReparacion}</span>&nbsp;
+            <span>€</span>
+          </Badge>
+        ) : (
+          ''
+        ),
       sortable: true,
     },
     {
@@ -135,7 +142,7 @@ const AvisosCerrados = ({ averias }) => {
       pagination
       dense
       responsive
-      conditionalRowStyles={conditionalRowStyles}
+      //conditionalRowStyles={conditionalRowStyles}
     />
   );
 };

@@ -14,7 +14,7 @@ import Averiado from './Components/Averiado/Averiado';
 
 const Material = () => {
   //const { material } = useContext(SWContext);
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
   const [material, setMaterial] = useState([]);
 
   useEffect(() => {
@@ -61,7 +61,6 @@ const Material = () => {
           aria-label="scrollable auto tabs example"
           indicatorColor="primary"
           textColor="primary"
-          visibleScrollbar="true"
         >
           <Tab label="Añadir Material" />
           <Tab label={`Vehículo-${UnidadesMaterialFurgo}-`} />

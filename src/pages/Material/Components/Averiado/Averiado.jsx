@@ -1,45 +1,40 @@
-import { Badge } from "@mui/material";
+import { Badge } from "react-bootstrap";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../../../assets/ApiRoutes";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import { DeleteOutlined } from "@mui/icons-material";
+import Swal from "sweetalert2";
+import CallSplitIcon from "@mui/icons-material/CallSplit";
 
 const Averiado = ({ material }) => {
-  
-  const conditionalRowStyles = [
-    {
-      when: row => row.estado === 'Averiado',
-      style: {
-        backgroundColor: 'rgb(212, 210, 0)',
-        //backgroundColor: 'rgba(63, 195, 128, 0.9)',
-        color: 'black',
-        text:'bold',
-        '&:hover': {
-          cursor: 'pointer',
-        },
+  const navigate = useNavigate();
+  const deleteMaterial = (e, material) => {
+    e.preventDefault();
+    fetch(`${BASE_URL}/material/${material}`, {
+      method: "DELETE",
+      headers: {
+        //'Content-Type': 'multipart/form-data',
+        //Authorization: `Bearer ${userLogged.token}`
       },
-    },
-    {
-      when: row => row.estado === 'Operativo',
-      style: {
-        backgroundColor: 'rgba(63, 195, 128, 0.9)',
-        color: 'black',
-        text:'bold',
-        '&:hover': {
-          cursor: 'pointer',
-        },
-      },
-    },  
-  ]
+    }).then((res) => {
+      if (res.status === 200) {
+        //console.log('Borrado');
+        Swal.fire("Material eliminado", res.message, "success");
+        navigate("/");
+      }
+    });
+  };
 
   const tableCustomStyles = {
     headCells: {
       style: {
         color: "white",
         //justifyContent: 'center',
-        backgroundColor: "black",
+        backgroundColor: "#1C82AD",
       },
     },
   };
@@ -55,13 +50,10 @@ const Averiado = ({ material }) => {
       sortable: true,
     },
     {
-      name: "Estado",
-      selector: (row) => row.estado,
-      sortable: true,
-    },
-    {
       name: "Tipo Material",
-      selector: (row) => row.tipo,
+      selector: (row) => 
+      <Badge bg="warning">{row.tipo}</Badge>
+      ,
       sortable: true,
     },
     {
@@ -75,27 +67,25 @@ const Averiado = ({ material }) => {
       sortable: true,
     },
     {
-      name: "Estado",
-      selector: (row) => row.estado,
-      sortable: true,
-    },
-    {
       name: "Acciones",
       // selector: (row) => row.localidad,
       cell: (row) => (
         //
         <>
-          <Link to={`/addIntervencion/${row._id}`}>
-            <IconButton aria-label="delete" color="primary">
-              <ConstructionIcon />
+          {row.tipo === "Consumible" ? (
+            <IconButton
+              color="warning"
+              onClick={(e) => deleteMaterial(e,row._id)}
+            >
+              <DeleteOutlined />
             </IconButton>
-          </Link>
-          <Link>
-            <IconButton aria-label="delete" color="success">
-              <SearchIcon />
+          ) : (
+            <IconButton color="primary">
+              <Link to={`/material/ubicar/${row._id}`}>
+                <CallSplitIcon />
+              </Link>
             </IconButton>
-          </Link>
-          ,
+          )}
         </>
       ),
       ignoreRowClick: true,
@@ -111,7 +101,6 @@ const Averiado = ({ material }) => {
       pagination
       dense
       responsive
-      conditionalRowStyles={conditionalRowStyles}
     />
   );
 };
