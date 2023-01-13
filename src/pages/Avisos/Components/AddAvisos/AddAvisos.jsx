@@ -24,14 +24,14 @@ const AddAvisos = () => {
         },
         body: JSON.stringify(formData),
       });
-      // const resultado = await fetch(`${BASE_URL}/clientes`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(formData),
-      // });
-      // const resData = await resultado.json();
+      const resultado = await fetch(`${BASE_URL}/clientes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const resData = await resultado.json();
       Swal.fire({
         title: "Success!",
         text: "Aviso introducido Correctamente",
