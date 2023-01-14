@@ -1,40 +1,37 @@
-// import axios from "axios";
-// import { createContext, useState, useEffect } from "react";
-// import { BASE_URL } from "../assets/ApiRoutes";
-
-// //Creamos el creador de contexto:
-// export const SWContext = createContext();
-
-// //Vamos a definir el proveedor de mi contexto:
-// export const SWContextProvider = ({ children }) => {
-//   const [averias, setAverias] = useState([]);
-//   const [material, setMaterial] = useState([]);
-
-//   console.log(material,'material')
-//   console.log(averias,'averias')
-
-  
-//   useEffect(() => {
-//     const fetchAvisos = async () => {
-//       const res = await axios.get(`${BASE_URL}/avisos`);
-//       setAverias(res.data);
-//     };
-//     fetchAvisos();
-//   }, []);
-
-  
-//   useEffect(() => {
-//     const fetchMaterial = async () => {
-//       const res = await axios.get(`${BASE_URL}/material`);
-//       setMaterial(res.data);
-//     };
-//     fetchMaterial();
-//   }, []);
+import React, { useReducer } from "react"
+import { AuthReducer, initialState} from "./reducer";
 
 
-//   return (
-//     <SWContext.Provider value={{ averias, material }}>
-//       {children}
-//     </SWContext.Provider>
-//   );
-// };
+const AuthState = React.createContext();
+const AuthDispatch = React.createContext();
+
+
+
+//Use Context Variable
+export const useGetAuth = () => {
+    const context = React.useContext(AuthState);
+
+    return context
+};
+
+export const useDispatchAuth = () => {
+    const context = React.useContext(AuthDispatch);
+
+    return context;
+};
+
+export const AuthProvider = ({ children }) => {
+
+    const [user, dispatch] = useReducer(AuthReducer, initialState);
+
+    return (
+        <AuthState.Provider value={user}>
+            <AuthDispatch.Provider value={dispatch}>
+                {children}
+            </AuthDispatch.Provider>
+        </AuthState.Provider>
+    )
+
+};
+
+

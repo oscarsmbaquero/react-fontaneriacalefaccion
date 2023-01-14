@@ -5,7 +5,9 @@ import Material from '../pages/Material/Material';
 import MyDocument from '../pages/Calendar/MyDocument';
 import IntercencionAviso from '../pages/Avisos/Components/IntervencionAviso/IntercencionAviso';
 import DetailAvisos from '../pages/Avisos/Components/DetailAvisos/DetailAvisos';
-import Clientes from '../pages/Clientes/Clientes'
+import Clientes from '../pages/Clientes/Clientes';
+import SignIn from '../pages/User/Login/SignIn';
+import SignUp from '../pages/User/Register/SignUp';
 
 
 
@@ -13,6 +15,14 @@ const routes = [
   {
     path: "/",
     element: <Home/>,
+  },
+  {
+    path: "user/login",
+    element: <SignIn />,
+  },
+  {
+    path: "/users/register",
+    element: <SignUp />,
   },
   {
     path: "/avisos",
@@ -38,6 +48,7 @@ const routes = [
     path: "/avisos/details/:id",
     element: <DetailAvisos />,
   },
+
 ];
 
 export default routes;

@@ -96,7 +96,7 @@ const Clientes = () => {
             <MDBIcon icon="phone" color="danger"/>
           </a>&nbsp;&nbsp;&nbsp;
           <a
-            href={`https://wa.me/34${row.telefono}`}
+            href={`https://wa.me/+34${row.telefono}?text=Buenos días`}
             class="whatsapp_float"
             target="_blank"
             rel="noopener noreferrer"
