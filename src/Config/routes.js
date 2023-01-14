@@ -1,13 +1,12 @@
 import Home from '../pages/Home/Home';
 import Avisos from '../pages/Avisos/Avisos';
 import Material from '../pages/Material/Material';
-//import Datos from '../pages/Datos/Datos';
-import MyDocument from '../pages/Calendar/MyDocument';
 import IntercencionAviso from '../pages/Avisos/Components/IntervencionAviso/IntercencionAviso';
 import DetailAvisos from '../pages/Avisos/Components/DetailAvisos/DetailAvisos';
 import Clientes from '../pages/Clientes/Clientes';
 import SignIn from '../pages/User/Login/SignIn';
 import SignUp from '../pages/User/Register/SignUp';
+import MostrarIntervencion  from '../pages/Avisos/Components/MostrarIntervenciones/MostrarIntervencion'
 
 
 
@@ -47,6 +46,10 @@ const routes = [
   {
     path: "/avisos/details/:id",
     element: <DetailAvisos />,
+  },
+  {
+    path: "/avisos/mostartIntervencion/:id",
+    element: <MostrarIntervencion />,
   },
 
 ];

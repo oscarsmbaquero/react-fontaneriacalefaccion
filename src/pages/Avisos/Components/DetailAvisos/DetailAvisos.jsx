@@ -20,37 +20,12 @@ const DetailAvisos = () => {
   //const userLogged = useGetAuth();
   const { id } = useParams();
   //const navigate = useNavigate();
-
   const [avisos, SetAvisos] = useState();
-  console.log(avisos);
-
   useEffect(() => {
     fetch(`${BASE_URL}/avisos/${id}`)
       .then((response) => response.json())
       .then((data) => SetAvisos(data));
   }, [id]);
-
-  //  const deleteaviso = (e, aviso) => {
-  //   console.log(aviso);
-  //   e.preventDefault();
-  //   fetch(`${BASE_URL}/avisos/${aviso}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       //'Content-Type': 'multipart/form-data',
-  //       Authorization: `Bearer ${userLogged.token}`,
-  //     },
-  //   }).then((res) => {
-  //     if (res.status === 200) {
-  //       console.log("Borrado");
-  //       Swal.fire("Eliminado", res.message, "success");
-  //       fetch(`${BASE_URL}/avisos`)
-  //         .then((response) => response.json())
-  //         .then((data) => SetAvisos(data));
-
-  //       navigate("/avisos/caceres")
-  //     }
-  //   });
-  // };
   return (
     <div>
       {!avisos ? (
@@ -160,9 +135,11 @@ const DetailAvisos = () => {
                       justifyContent: "center",
                     }}
                   >
-                    {avisos.intervencion.length !== 0 && (
+                    {avisos.intervencion.length > 0 && (
                       <Button variant="contained" color="success" size="small">
-                        <Link to={`/mostrar/intervencion/${avisos._id}`}>
+                        <Link 
+                        // to={`avisos/mostrarIntervencion/${avisos._id}`}
+                        >
                           <span className="showIntervencion">
                             Mostrar Intervenciónes
                           </span>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState} from 'react';
 // import {  Link, Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { BASE_URL } from "../../../assets/ApiRoutes";
+import { BASE_URL } from "../../../../assets/ApiRoutes";
 // import Table from "../../../Components/Table/Table.jsx"
 
 import { Container, Table, TableBody,  TableContainer, TableHead, TableRow } from '@mui/material';
@@ -41,34 +41,34 @@ const MostrarIntervencion = () => {
     // )
     
 
-    useEffect(() => {
-        fetch(`${BASE_URL}/avisos/mostrar/${id}`)
-        .then(response => response.json())
-        .then(data => setIntervencion(data))
+    // useEffect(() => {
+    //     fetch(`${BASE_URL}/avisos/mostrarintervencion/${id}`)
+    //     .then(response => response.json())
+    //     .then(data => setIntervencion(data))
     
-    }, [id])
-    console.log(intervencion,'intervencion')
-    useEffect(() => {
-      if (intervencion) {
-        let tabla=[]
-        intervencion.intervencion.map( (aviso, index ) => (
-          tabla.push({
-            intervencion:aviso,
-            fecha_inicio: intervencion.fecha_inicio[index],
-            fecha_fin:intervencion.fecha_fin[index] ,
-            km: intervencion.km[index],
-            viaje: intervencion.viaje[index],
-            tecnico: intervencion.tecnicoIntervencion[index].name,
-            material: intervencion.materialIntervencion[index]?.descripcion,
-            totalHoras: intervencion.totalHoras[index],
-            item: intervencion.item[index]?.codigo,
-          })
-        ))
+    // }, [id])
+    // console.log(intervencion,'intervencion')
+  //   useEffect(() => {
+  //     if (intervencion) {
+  //       let tabla=[]
+  //       intervencion.intervencion.map( (aviso, index ) => (
+  //         tabla.push({
+  //           intervencion:aviso,
+  //           fecha_inicio: intervencion.fecha_inicio[index],
+  //           fecha_fin:intervencion.fecha_fin[index] ,
+  //           km: intervencion.km[index],
+  //           viaje: intervencion.viaje[index],
+  //           tecnico: intervencion.tecnicoIntervencion[index].name,
+  //           material: intervencion.materialIntervencion[index]?.descripcion,
+  //           totalHoras: intervencion.totalHoras[index],
+  //           item: intervencion.item[index]?.codigo,
+  //         })
+  //       ))
 
-        setIntervencionTabla(tabla);
-      }
+  //       setIntervencionTabla(tabla);
+  //     }
   
-  }, [intervencion])
+  // }, [intervencion])
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {

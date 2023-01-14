@@ -30,22 +30,23 @@ const AddAvisos = () => {
         },
         body: JSON.stringify(formData),
       });
-      // const resultado = await fetch(`${BASE_URL}/clientes`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(formData),
-      // });
-      // const resData = await resultado.json();
-      Swal.fire({
-        //title: "Success!",
-        text: "Aviso introducido Correctamente",
-        icon: "success",
-        confirmButtonText: "Ok",
+      const resultado = await fetch(`${BASE_URL}/clientes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-      navigate("/avisos");
-      
+      //const resData = await resultado.json();
+      if(result){
+        Swal.fire({
+          //title: "Success!",
+          text: "Aviso introducido Correctamente",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });        
+      } 
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

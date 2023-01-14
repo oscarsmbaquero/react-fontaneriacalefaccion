@@ -52,8 +52,11 @@ const Averiado = ({ material }) => {
     {
       name: "Tipo Material",
       selector: (row) => 
-      <Badge bg="warning">{row.tipo}</Badge>
-      ,
+      row.tipo === 'Consumible' ?(
+        <Badge bg="success">{row.tipo}</Badge>
+      ):(
+        <Badge bg="danger">{row.tipo}</Badge>
+      ),
       sortable: true,
     },
     {

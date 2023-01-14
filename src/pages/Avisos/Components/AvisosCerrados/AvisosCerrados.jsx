@@ -123,13 +123,13 @@ const AvisosCerrados = ({ averias }) => {
             <PictureAsPdfIcon />
           </IconButton>
           {row.cobrado === 'No Cobrado' ?
-          <Link to={`/avisos/details/${row._id}`}>
+          <Link>
             <IconButton aria-label="delete" color="info"  onClick={(e) => collectRepair(e,row._id)}>
               <EuroIcon />
             </IconButton>
           </Link>
           :
-          <Link to={`/avisos/details/${row._id}`}>
+          <Link>
             <IconButton aria-label="delete" >
               <EuroIcon />
             </IconButton>
