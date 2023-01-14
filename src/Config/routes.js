@@ -1,7 +1,7 @@
 import Home from '../pages/Home/Home';
 import Avisos from '../pages/Avisos/Avisos';
 import Material from '../pages/Material/Material';
-import Datos from '../pages/Datos/Datos';
+//import Datos from '../pages/Datos/Datos';
 import MyDocument from '../pages/Calendar/MyDocument';
 import IntercencionAviso from '../pages/Avisos/Components/IntervencionAviso/IntercencionAviso';
 import DetailAvisos from '../pages/Avisos/Components/DetailAvisos/DetailAvisos';
@@ -26,10 +26,10 @@ const routes = [
     path: "/clientes",
     element: <Clientes/>,
   },
-  {
-    path: "/calendar",
-    element: <MyDocument/>,
-  },
+  // {
+  //   path: "/calendar",
+  //   element: <MyDocument/>,
+  // },
   {
     path: "/addIntervencion/:id",
     element: <IntercencionAviso/>,

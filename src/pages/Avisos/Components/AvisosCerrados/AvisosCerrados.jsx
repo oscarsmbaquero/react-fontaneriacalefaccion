@@ -15,7 +15,6 @@ const AvisosCerrados = ({ averias }) => {
   const navigate = useNavigate();
 
   const collectRepair = (e, id) => {
-    console.log('Entro',id)
     e.preventDefault();
     fetch(`${BASE_URL}/avisos/collectRepair/${id}`, {
       method: "PUT",
@@ -80,25 +79,28 @@ const AvisosCerrados = ({ averias }) => {
     {
       name: "Precio Intervención",
       selector: (row) =>
-        // <>
-        //   <span className="price">{row.importeReparacion}</span>&nbsp;
-        //   <span>€</span>
-        // </>
-        row.intervencion.length > 1 ? (
-          <Badge bg="primary" text="bold">
-            <span className="price">{row.importeReparacion}</span>&nbsp;
-            <span>€</span>
-          </Badge>
-        ) : (
-          ""
-        ),
+       
+          <Badge bg="success">
+            <span>{row.importeReparacion}</span>&nbsp;<span>€</span>
+          </Badge>,
+       
       sortable: true,
     },
     {
       name: "Mat. Utilizado",
       sortable: true,
-      selector: (row) => row.materialIntervencion[0]?.descripcion,
+      selector: (row) => row.materialIntervencion[0]?.descripcion || 'No hay consumo',
     },
+    {
+      name: "Estado Factura",
+      sortable: true,
+      selector: (row) => 
+      row.cobrado === 'Cobrado' ?
+      <Badge>{row.cobrado}</Badge>
+      :
+      <Badge bg="danger">{row.cobrado}</Badge>
+    
+  },
     {
       name: "Acciones",
       // selector: (row) => row.localidad,
@@ -108,11 +110,20 @@ const AvisosCerrados = ({ averias }) => {
           <IconButton aria-label="delete" color="error">
             <PictureAsPdfIcon />
           </IconButton>
+          {row.cobrado === 'No Cobrado' ?
           <Link to={`/avisos/details/${row._id}`}>
             <IconButton aria-label="delete" color="info"  onClick={(e) => collectRepair(e,row._id)}>
               <EuroIcon />
             </IconButton>
           </Link>
+          :
+          <Link to={`/avisos/details/${row._id}`}>
+            <IconButton aria-label="delete" >
+              <EuroIcon />
+            </IconButton>
+          </Link>
+          }
+          
         </>
       ),
       ignoreRowClick: true,

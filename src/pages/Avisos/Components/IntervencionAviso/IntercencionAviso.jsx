@@ -79,24 +79,22 @@ const IntercencionAviso = () => {
 
   const onSubmit = async (formData) => {
     formData = { ...formData, totalHoras };
-    //console.log(formData,'formData');
     try {
-      const result = await fetch(`${BASE_URL}/avisos${id}`, {
+      const result = await fetch(`${BASE_URL}/avisos/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-      const resData = await result.json();
       Swal.fire({
-        title: "Success!",
-        text: "Aviso introducido Correctamente",
+        //title: "Success!",
+        text: "Intervención añadida Correctamente",
         icon: "success",
         confirmButtonText: "Ok",
       });
-      navigate("/avisos/caceres");
-      console.log(resData);
+      navigate("/avisos");
+      //console.log(resData);
     } catch (error) {
       console.log(error);
     }

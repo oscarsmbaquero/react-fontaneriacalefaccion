@@ -30,7 +30,7 @@ const Avisos = () => {
       setAverias(res.data);
     };
     fetchAvisos();
-  }, []);
+  }, [value]);
 
   useEffect(() => {
     const fetchMaterial = async () => {

@@ -81,7 +81,7 @@ const Averiado = ({ material }) => {
             </IconButton>
           ) : (
             <IconButton color="primary">
-              <Link to={`/material/ubicar/${row._id}`}>
+              <Link to={`/material/reparar/${row._id}`}>
                 <CallSplitIcon />
               </Link>
             </IconButton>

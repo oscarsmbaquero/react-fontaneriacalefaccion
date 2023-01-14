@@ -92,9 +92,9 @@ const Clientes = () => {
       cell: (row) => (
         //
         <>
-          <a href={`tel:+34${row.telefono}`} className="mdbicon">
+          <a href={`tel:${row.telefono}`} className="mdbicon">
             <MDBIcon icon="phone" color="danger"/>
-          </a>
+          </a>&nbsp;&nbsp;&nbsp;
           <a
             href={`https://wa.me/${row.telefono}`}
             class="whatsapp_float"
@@ -102,7 +102,7 @@ const Clientes = () => {
             rel="noopener noreferrer"
             className="mdbicon"
           >
-            <MDBIcon color="success" fab icon="whatsapp" size="2x" />
+            <MDBIcon color="success" fab icon="whatsapp" size="1x" />
           </a>
         </>
       ),

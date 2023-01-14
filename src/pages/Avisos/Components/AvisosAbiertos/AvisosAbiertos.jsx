@@ -5,6 +5,7 @@ import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import PersonIcon from '@mui/icons-material/Person';
 import SplashScreen from "../../../../core/SplashScreen/SplashScreen";
 
 const AvisosAbiertos = ({ averias }) => {
@@ -64,11 +65,11 @@ const AvisosAbiertos = ({ averias }) => {
       selector: (row) => row.localidad,
       sortable: true,
     },
-    {
-      name: "Teléfono",
-      selector: (row) => row.telefono,
-      sortable: true,
-    },
+    // {
+    //   name: "Teléfono",
+    //   selector: (row) => row.telefono,
+    //   sortable: true,
+    // },
     {
       name: "Caldera",
       sortable: true,
@@ -105,7 +106,11 @@ const AvisosAbiertos = ({ averias }) => {
               <SearchIcon />
             </IconButton>
           </Link>
-          ,
+          <Link to={`/clientes/`}>
+            <IconButton aria-label="delete" color="success">
+              <PersonIcon />
+            </IconButton>
+          </Link>
         </>
       ),
       ignoreRowClick: true,

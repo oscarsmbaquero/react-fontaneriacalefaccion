@@ -14,9 +14,15 @@ const AddAvisos = () => {
     formState: { errors, isValid },
   } = useForm({ mode: "onChange" });
   let navigate = useNavigate();
+
+ 
   const onSubmit = async (formData) => {
-    console.log(formData, 15);
+   
+    
     try {
+      const cobrado ='No Cobrado';
+      formData = {...formData,cobrado}
+      console.log(formData,'formData')
       const result = await fetch(`${BASE_URL}/avisos`, {
         method: "POST",
         headers: {
@@ -24,16 +30,16 @@ const AddAvisos = () => {
         },
         body: JSON.stringify(formData),
       });
-      const resultado = await fetch(`${BASE_URL}/clientes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const resData = await resultado.json();
+      // const resultado = await fetch(`${BASE_URL}/clientes`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(formData),
+      // });
+      // const resData = await resultado.json();
       Swal.fire({
-        title: "Success!",
+        //title: "Success!",
         text: "Aviso introducido Correctamente",
         icon: "success",
         confirmButtonText: "Ok",

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
-import ConstructionIcon from "@mui/icons-material/Construction";
+import SendIcon from "@mui/icons-material/Send";
 
 const Vehiculo = ({ material }) => {
 
@@ -59,7 +59,7 @@ const Vehiculo = ({ material }) => {
         <>
           <Link to={`/addIntervencion/${row._id}`}>
             <IconButton aria-label="delete" color="primary">
-              <ConstructionIcon />
+              <SendIcon />
             </IconButton>
           </Link>
           <Link>

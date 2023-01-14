@@ -32,7 +32,6 @@ const AddMaterial = () => {
       });
       const resData = await result.json();
       Swal.fire({
-        title: "Success!",
         text: "Material Añadido Correctamente",
         icon: "success",
         confirmButtonText: "Ok",
