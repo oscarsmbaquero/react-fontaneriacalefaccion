@@ -16,19 +16,31 @@ const AvisosCerrados = ({ averias }) => {
 
   const collectRepair = (e, id) => {
     e.preventDefault();
+    Swal.fire({  
+      title: 'Emilio!!!!Deseas reubicar a Almacén?',  
+      showDenyButton: true,  showCancelButton: true,  
+      confirmButtonText: `Enviar`,  
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      if (result.isConfirmed) {
     fetch(`${BASE_URL}/avisos/collectRepair/${id}`, {
       method: "PUT",
       headers: {
-        //'Content-Type': 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
         //Authorization: `Bearer ${userLogged.token}`
       },
-    }).then((res) => {
+    })
+    .then((res) => {
       if (res.status === 200) {
         //console.log('Borrado');
         Swal.fire("Aviso Cobrado", res.message, "success");
-        navigate("/");
-      }
-    });
+      }navigate("/avisos");
+     }).catch((error) => console.error(error))
+         
+  } else if (result.isDenied) {    
+      Swal.fire('Changes are not saved', '', 'info')  
+   }
+  });
   };
 
   const tableCustomStyles = {
