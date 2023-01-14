@@ -1,13 +1,15 @@
 import { Badge } from 'react-bootstrap';
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../../../assets/ApiRoutes";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
 import SendIcon from "@mui/icons-material/Send";
+import Swal from "sweetalert2";
 
 const Vehiculo = ({ material }) => {
-
+ const navigate = useNavigate();
   const tableCustomStyles = {
     headCells: {
       style: {
@@ -17,6 +19,44 @@ const Vehiculo = ({ material }) => {
       },
     },
   };
+  const changeUbicacion=(e,id)=>{
+    const almacen='Almacen'
+    Swal.fire({  
+     title: 'Emilio!!!!Deseas reubicar a Almacén?',  
+     showDenyButton: true,  showCancelButton: true,  
+     confirmButtonText: `Enviar`,  
+     denyButtonText: `Cancelar`,
+   }).then((result) => {  
+       /* Read more about isConfirmed, isDenied below */  
+       if (result.isConfirmed) {
+        fetch(`${BASE_URL}/material/traspaso/`, {
+             method: 'PUT',
+             headers: {
+                 'Content-Type': 'application/json',
+                  //Authorization: `Bearer ${userLogged.token}`
+             },
+             body: JSON.stringify({
+                 
+                 id: id,
+                 almacen: almacen
+                 
+             })
+             
+         })
+             .then(res => {
+                 if (res.status === 200) {
+                     Swal.fire("Cambiado a Almacén", res.message, "success");
+                    
+                 }
+                 
+             }).catch((error) => console.error(error))
+         
+       } else if (result.isDenied) {    
+           Swal.fire('Changes are not saved', '', 'info')  
+        }
+        navigate("/material");
+   });
+   }
 
   const columns = [
     {
@@ -57,7 +97,7 @@ const Vehiculo = ({ material }) => {
       cell: (row) => (
         //
         <>
-          <Link to={`/addIntervencion/${row._id}`}>
+          <Link  onClick={(e) => changeUbicacion(e, row._id)}>
             <IconButton aria-label="delete" color="primary">
               <SendIcon />
             </IconButton>

@@ -1,13 +1,15 @@
-import { Badge } from 'react-bootstrap';
+import { Badge } from "react-bootstrap";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../../../assets/ApiRoutes";
 import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
 import SendIcon from "@mui/icons-material/Send";
+import Swal from "sweetalert2";
 
 const Almacen = ({ material }) => {
-  
+  const navigate = useNavigate();
   // const conditionalRowStyles = [
   //   {
   //     when: row => row.estado === 'Averiado',
@@ -31,8 +33,45 @@ const Almacen = ({ material }) => {
   //         cursor: 'pointer',
   //       },
   //     },
-  //   },  
+  //   },
   // ]
+  const changeUbicacion=(e,id)=>{
+    const almacen='Furgo'
+    Swal.fire({  
+     title: 'Emilio!!!!Deseas reubicar a Furgo?',  
+     showDenyButton: true,  showCancelButton: true,  
+     confirmButtonText: `Enviar`,  
+     denyButtonText: `Cancelar`,
+   }).then((result) => {  
+       /* Read more about isConfirmed, isDenied below */  
+       if (result.isConfirmed) {
+        fetch(`${BASE_URL}/material/traspaso/`, {
+             method: 'PUT',
+             headers: {
+                 'Content-Type': 'application/json',
+                  //Authorization: `Bearer ${userLogged.token}`
+             },
+             body: JSON.stringify({
+                 
+                 id: id,
+                 almacen: almacen
+                 
+             })
+             
+         })
+             .then(res => {
+                 if (res.status === 200) {
+                     Swal.fire("Cambiado a Vehículo", res.message, "success");
+                    
+                 }
+             }).catch((error) => console.error(error))
+         
+       } else if (result.isDenied) {    
+           Swal.fire('Changes are not saved', '', 'info')  
+        }
+   });
+   }
+    
 
   const tableCustomStyles = {
     headCells: {
@@ -71,10 +110,11 @@ const Almacen = ({ material }) => {
     },
     {
       name: "PVP",
-      selector: (row) =>
-      <Badge bg="success" text="bold">
-         {row.pvp}
-      </Badge>,
+      selector: (row) => (
+        <Badge bg="success" text="bold">
+          {row.pvp}
+        </Badge>
+      ),
       sortable: true,
     },
     {
@@ -83,7 +123,7 @@ const Almacen = ({ material }) => {
       cell: (row) => (
         //
         <>
-          <Link to={`/material/traspaso/${row._id}`}>
+          <Link onClick={(e) => changeUbicacion(e, row._id)}>
             <IconButton aria-label="delete" color="primary">
               <SendIcon />
             </IconButton>
