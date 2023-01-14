@@ -69,7 +69,7 @@ export default function SignIn() {
           });
           console.log(res);
         } else {
-          navigate("/avisos/caceres");
+          navigate("/avisos");
         }
       });
 
@@ -126,6 +126,7 @@ export default function SignIn() {
               id="password"
               onChange={handleLoginForm}
               autoComplete="current-password"
+              sx={{ input: { color: "white" } }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
