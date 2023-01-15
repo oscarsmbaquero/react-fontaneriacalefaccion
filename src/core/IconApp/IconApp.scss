@@ -1,0 +1,30 @@
+.reservas {
+    position: fixed;
+    top: 18rem;
+    left: 0px;
+    background-color: transparent;
+    height: 120px;
+  
+  }
+  
+  .reservas img {
+    width: 3rem;
+  
+    @media screen  and (max-width: 760px) {
+      width: 4rem;
+      }
+  }
+  .reservas img:hover {
+    cursor: pointer;
+  }
+  figcaption {
+    display:none; 
+    transition: all .5s;
+  }
+  /* Visible texto */
+  figure:hover > figcaption {
+    display:block;
+    transition: all .5s;
+    color:red;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }

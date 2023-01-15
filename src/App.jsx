@@ -5,6 +5,7 @@ import { AuthProvider } from "./context/context";
 //import { SWContextProvider } from "./context/context";
 import Header from "./Components/Header/Header.jsx";
 import Footer from "./Components/Footer/Footer";
+import IconApp from "./core/IconApp/IconApp";
 function App() {
   return (
     <div className="App">
@@ -22,6 +23,7 @@ function App() {
                 />
               ))}
             </Routes>
+           <IconApp/> 
           </div>
           <Footer />
         </Router>

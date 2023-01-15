@@ -6,7 +6,10 @@ import DetailAvisos from '../pages/Avisos/Components/DetailAvisos/DetailAvisos';
 import Clientes from '../pages/Clientes/Clientes';
 import SignIn from '../pages/User/Login/SignIn';
 import SignUp from '../pages/User/Register/SignUp';
-import MostrarIntervencion  from '../pages/Avisos/Components/MostrarIntervenciones/MostrarIntervencion'
+import MostrarIntervencion  from '../pages/Avisos/Components/MostrarIntervenciones/MostrarIntervencion';
+import AddMaterial from '../pages/Material/Components/AltaMaterial/AddMaterial';
+import AddAvisos from '../pages/Avisos/Components/AddAvisos/AddAvisos';
+
 
 
 
@@ -35,10 +38,14 @@ const routes = [
     path: "/clientes",
     element: <Clientes/>,
   },
-  // {
-  //   path: "/calendar",
-  //   element: <MyDocument/>,
-  // },
+  {
+    path: "/addMaterial",
+    element: <AddMaterial/>,
+  },
+  {
+    path: "/addAvisos",
+    element: <AddAvisos/>,
+  },
   {
     path: "/addIntervencion/:id",
     element: <IntercencionAviso/>,

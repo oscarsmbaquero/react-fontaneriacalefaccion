@@ -22,7 +22,6 @@ const AddAvisos = () => {
     try {
       const cobrado ='No Cobrado';
       formData = {...formData,cobrado}
-      console.log(formData,'formData')
       const result = await fetch(`${BASE_URL}/avisos`, {
         method: "POST",
         headers: {
@@ -30,7 +29,6 @@ const AddAvisos = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(result.status,'result')
       const resultado = await fetch(`${BASE_URL}/clientes`, {
         method: "POST",
         headers: {
@@ -38,7 +36,6 @@ const AddAvisos = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(resultado,'resultado')
       const resData = await resultado.json();
       if(result.status === 200 && resultado.status === 200){
         Swal.fire({
