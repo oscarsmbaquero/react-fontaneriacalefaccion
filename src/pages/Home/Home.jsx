@@ -67,47 +67,42 @@ export default function Home() {
       .then((data) => SetAvisos(data));
   }, []);
 
-  // Estadisticas Cáceres
-  // const averiasCaceres = avisos.filter(
-  //   (aviso) => aviso.provincia === "Cáceres"
-  // );
-  // const intervencionesCaceres = averiasCaceres.filter(
-  //   (aviso) => aviso.intervencion.length
-  // );
-  // const totalIntervencionesCaceres = intervencionesCaceres.reduce(
-  //   (acumulador, operativo) => acumulador + operativo.intervencion.length,
-  //   0
-  // );
-  // const promedioCaceres = (totalIntervencionesCaceres / avisos.length).toFixed(
-  //   1
-  // );
-  // const totalCaceres = (averiasCaceres.length);
+  ////////// Estadisticas Avisos//////////////////////
+  //numero de averias
+  const totalAverias = avisos.length;
+  //Filtro por no cobrados
+  const NoCobrados = avisos.filter(
+    (aviso) => aviso.cobrado === "No Cobrado"
+  );
+  //numero avisos no cobrados
+  const totalAveriasNoCobrados = NoCobrados.length;
+  //filtro por cobrados
+  const Cobrados = avisos.filter(
+    (aviso) => aviso.cobrado === "Cobrado"
+  );
+  //numero de avisos cobrados
+  const totalAveriasCobrados = Cobrados.length;
+  //calculo los porcentajes de ambos
+  const PorcentajeCobrados = (totalAveriasCobrados/totalAverias*100).toFixed(1);
+  const PorcentajeNoCobrados = (totalAveriasNoCobrados/totalAverias*100).toFixed(1);
+  //avisos pendientes
+  const avisosPendientes = avisos.filter(
+    (aviso)=> aviso.estado === 'Pendiente'
+  );
+  const promedioPendientes =(avisosPendientes.length/totalAverias*100).toFixed(1);
+  //calculo porcentaje de intervenciones
+  const intervenciones = avisos.filter(
+    (aviso) => aviso.intervencion.length
+  );
+  const totalIntervenciones = intervenciones.reduce(
+    (acumulador, operativo) => acumulador + operativo.intervencion.length,
+    0
+  );
 
-  // const intervencionesCaceresPendientes = avisos.filter(
-  //   (aviso) => aviso.provincia === "Cáceres" && aviso.estado === "Pendiente"
-  // );
-  // const totalPendienteCaceres = intervencionesCaceresPendientes.length;
 
-  // // Estadisticas Badajoz
-  // const averiasBadajoz = avisos.filter(
-  //   (aviso) => aviso.provincia === "Badajoz"
-  // );
-  // const intervencionesBadajoz = averiasBadajoz.filter(
-  //   (aviso) => aviso.intervencion.length
-  // );
-  // const totalIntervencionesBadajoz = intervencionesBadajoz.reduce(
-  //   (acumulador, operativo) => acumulador + operativo.intervencion.length,
-  //   0
-  // );
-  // const promedioBadajoz = (totalIntervencionesBadajoz / avisos.length).toFixed(
-  //   1
-  // );
-  // const totalBadajoz = (averiasBadajoz.length);
 
-  // const intervencionesBadajozPendientes = avisos.filter(
-  //   (aviso) => aviso.provincia === "Badajoz" && aviso.estado === "Pendiente"
-  // );
-  // const totalPendienteBadajoz = intervencionesBadajozPendientes.length;
+
+  ////////// FIN Estadisticas Avisos//////////////////////
 
   return (
     <div className="estadisticas">
@@ -130,58 +125,77 @@ export default function Home() {
             <AccordionDetails>
               <div className="graficas_home">
                 <div className="grafica_home">
-                  <h6>Interv. / Aviso</h6>
+                  <h6>Cobrados</h6>
                   <CircularProgressbar
                     styles={buildStyles({
                       pathColor:
-                      resultadoOperativo >= 3
+                      PorcentajeCobrados >= 3
                           ? "#DC2626"
-                          : resultadoOperativo < 3 && resultadoOperativo > 2
+                          : PorcentajeCobrados < 3 && PorcentajeCobrados > 2
                           ? "#d8f007"
                           : "#35DE0B",
                       trailColor: "#F5F5F5",
                       //textColor: resultadoOperativo > 60 ? '#DC2626' :resultadoOperativo < 60 && resultadoOperativo > 40 ? '#d8f007': '#35DE0B',
                       textColor: "black",
                     })}
-                    value={resultadoOperativo}
-                    text={`${resultadoOperativo} % `}
+                    value={PorcentajeCobrados}
+                    text={`${PorcentajeCobrados} % `}
                   />
                 </div>
                 <div className="grafica_home">
-                  <h6>T. Avisos</h6>
+                  <h6>No Cobrados</h6>
                   <CircularProgressbar
                     styles={buildStyles({
                       pathColor:
-                      resultadoOperativo > 60
+                      PorcentajeNoCobrados > 60
                           ? "#DC2626"
-                          : resultadoOperativo < 60 && resultadoOperativo > 40
+                          : PorcentajeNoCobrados < 60 && PorcentajeNoCobrados > 40
                           ? "#d8f007"
                           : "#35DE0B",
                       trailColor: "#F5F5F5",
                       //textColor: resultadoOperativo > 60 ? '#DC2626' :resultadoOperativo < 60 && resultadoOperativo > 40 ? '#d8f007': '#35DE0B',
                       textColor: "black",
                     })}
-                    value={resultadoOperativo}
-                    text={`${resultadoOperativo}`}
+                    value={PorcentajeNoCobrados}
+                    text={`${PorcentajeNoCobrados} %`}
                   />
                 </div>
                 <div className="grafica_home">
-                  <h6>T. Pendientes</h6>
+                  <h6>Avisos Pendientes</h6>
                   <CircularProgressbar
                     styles={buildStyles({
                       pathColor:
-                      resultadoOperativo > 10
+                      promedioPendientes > 10
                           ? "#DC2626"
-                          : resultadoOperativo < 60 &&
-                          resultadoOperativo > 40
+                          : promedioPendientes < 60 &&
+                          promedioPendientes > 40
                           ? "#d8f007"
                           : "#35DE0B",
                       trailColor: "#F5F5F5",
                       //textColor: resultadoOperativo > 60 ? '#DC2626' :resultadoOperativo < 60 && resultadoOperativo > 40 ? '#d8f007': '#35DE0B',
                       textColor: "black",
                     })}
-                    value={resultadoOperativo}
-                    text={`${resultadoOperativo}`}
+                    value={promedioPendientes}
+                    text={`${promedioPendientes}`}
+                  />
+                </div>
+                <div className="grafica_home">
+                  <h6>Interv./Aviso</h6>
+                  <CircularProgressbar
+                    styles={buildStyles({
+                      pathColor:
+                      totalIntervenciones > 10
+                          ? "#DC2626"
+                          : totalIntervenciones < 60 &&
+                          totalIntervenciones > 40
+                          ? "#d8f007"
+                          : "#35DE0B",
+                      trailColor: "#F5F5F5",
+                      //textColor: resultadoOperativo > 60 ? '#DC2626' :resultadoOperativo < 60 && resultadoOperativo > 40 ? '#d8f007': '#35DE0B',
+                      textColor: "black",
+                    })}
+                    value={totalIntervenciones}
+                    text={`${totalIntervenciones} %`}
                   />
                 </div>
               </div>
@@ -198,7 +212,7 @@ export default function Home() {
               <Typography
                 sx={{ color: "text.secondary", alignContent: "center" }}
               >
-                Graficos Avisos
+                Graficos Material
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
