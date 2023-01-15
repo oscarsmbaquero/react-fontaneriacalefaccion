@@ -1,6 +1,6 @@
 import { Badge } from "react-bootstrap";
 import "./AvisosCerrados.scss";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../assets/ApiRoutes";
 import Swal from "sweetalert2";
@@ -10,9 +10,11 @@ import { IconButton } from "@mui/material";
 import DataTable from "react-data-table-component";
 import EuroIcon from "@mui/icons-material/Euro";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import MyDocument from "../Pdf/MyDocument";
 
 const AvisosCerrados = ({ averias }) => {
   const navigate = useNavigate();
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const collectRepair = (e, id) => {
     e.preventDefault();
@@ -42,6 +44,10 @@ const AvisosCerrados = ({ averias }) => {
    }
   });
   };
+   const openPDF =(e, id) =>{
+    setButtonClicked(true)
+   }
+   console.log(buttonClicked);
 
   const tableCustomStyles = {
     headCells: {
@@ -119,7 +125,7 @@ const AvisosCerrados = ({ averias }) => {
       cell: (row) => (
         //
         <>
-          <IconButton aria-label="delete" color="error">
+          <IconButton aria-label="delete" color="error"  onClick={(e) => openPDF(e,row._id)}>
             <PictureAsPdfIcon />
           </IconButton>
           {row.cobrado === 'No Cobrado' ?
@@ -130,8 +136,8 @@ const AvisosCerrados = ({ averias }) => {
           </Link>
           :
           <Link>
-            <IconButton aria-label="delete" >
-              <EuroIcon />
+            <IconButton aria-label="delete">
+              <EuroIcon/>
             </IconButton>
           </Link>
           }
