@@ -12,6 +12,7 @@ import "react-circular-progressbar/dist/styles.css";
 import fondo from "../../../src/assets/images/flyer.jpg";
 
 import { BASE_URL } from "../../assets/ApiRoutes";
+import Progress from "./Progress/Progress";
 
 const resultadoOperativo = 80;
 const resultadoAveriado = 20;
@@ -71,37 +72,36 @@ export default function Home() {
   //numero de averias
   const totalAverias = avisos.length;
   //Filtro por no cobrados
-  const NoCobrados = avisos.filter(
-    (aviso) => aviso.cobrado === "No Cobrado"
-  );
+  const NoCobrados = avisos.filter((aviso) => aviso.cobrado === "No Cobrado");
   //numero avisos no cobrados
   const totalAveriasNoCobrados = NoCobrados.length;
   //filtro por cobrados
-  const Cobrados = avisos.filter(
-    (aviso) => aviso.cobrado === "Cobrado"
-  );
+  const Cobrados = avisos.filter((aviso) => aviso.cobrado === "Cobrado");
   //numero de avisos cobrados
   const totalAveriasCobrados = Cobrados.length;
   //calculo los porcentajes de ambos
-  const PorcentajeCobrados = (totalAveriasCobrados/totalAverias*100).toFixed(1);
-  const PorcentajeNoCobrados = (totalAveriasNoCobrados/totalAverias*100).toFixed(1);
+  const PorcentajeCobrados = (
+    (totalAveriasCobrados / totalAverias) *
+    100
+  ).toFixed(1);
+  const PorcentajeNoCobrados = (
+    (totalAveriasNoCobrados / totalAverias) *
+    100
+  ).toFixed(1);
   //avisos pendientes
   const avisosPendientes = avisos.filter(
-    (aviso)=> aviso.estado === 'Pendiente'
+    (aviso) => aviso.estado === "Pendiente"
   );
-  const promedioPendientes =(avisosPendientes.length/totalAverias*100).toFixed(1);
+  const promedioPendientes = (
+    (avisosPendientes.length / totalAverias) *
+    100
+  ).toFixed(1);
   //calculo porcentaje de intervenciones
-  const intervenciones = avisos.filter(
-    (aviso) => aviso.intervencion.length
-  );
+  const intervenciones = avisos.filter((aviso) => aviso.intervencion.length);
   const totalIntervenciones = intervenciones.reduce(
     (acumulador, operativo) => acumulador + operativo.intervencion.length,
     0
   );
-
-
-
-
   ////////// FIN Estadisticas Avisos//////////////////////
 
   return (
@@ -129,7 +129,7 @@ export default function Home() {
                   <CircularProgressbar
                     styles={buildStyles({
                       pathColor:
-                      PorcentajeCobrados >= 3
+                        PorcentajeCobrados >= 3
                           ? "#DC2626"
                           : PorcentajeCobrados < 3 && PorcentajeCobrados > 2
                           ? "#d8f007"
@@ -147,9 +147,10 @@ export default function Home() {
                   <CircularProgressbar
                     styles={buildStyles({
                       pathColor:
-                      PorcentajeNoCobrados > 60
+                        PorcentajeNoCobrados > 60
                           ? "#DC2626"
-                          : PorcentajeNoCobrados < 60 && PorcentajeNoCobrados > 40
+                          : PorcentajeNoCobrados < 60 &&
+                            PorcentajeNoCobrados > 40
                           ? "#d8f007"
                           : "#35DE0B",
                       trailColor: "#F5F5F5",
@@ -165,10 +166,9 @@ export default function Home() {
                   <CircularProgressbar
                     styles={buildStyles({
                       pathColor:
-                      promedioPendientes > 10
+                        promedioPendientes > 10
                           ? "#DC2626"
-                          : promedioPendientes < 60 &&
-                          promedioPendientes > 40
+                          : promedioPendientes < 60 && promedioPendientes > 40
                           ? "#d8f007"
                           : "#35DE0B",
                       trailColor: "#F5F5F5",
@@ -184,10 +184,9 @@ export default function Home() {
                   <CircularProgressbar
                     styles={buildStyles({
                       pathColor:
-                      totalIntervenciones > 10
+                        totalIntervenciones > 10
                           ? "#DC2626"
-                          : totalIntervenciones < 60 &&
-                          totalIntervenciones > 40
+                          : totalIntervenciones < 60 && totalIntervenciones > 40
                           ? "#d8f007"
                           : "#35DE0B",
                       trailColor: "#F5F5F5",
@@ -218,59 +217,20 @@ export default function Home() {
             <AccordionDetails>
               <div className="graficas_home">
                 <div className="grafica_home">
-                  <h6>Interv. / Aviso</h6>
-                  <CircularProgressbar
-                    styles={buildStyles({
-                      pathColor:
-                      resultadoAveriado >= 3
-                          ? "#DC2626"
-                          : resultadoAveriado < 3 && resultadoAveriado > 2
-                          ? "#d8f007"
-                          : "#35DE0B",
-                      trailColor: "#F5F5F5",
-                      //textColor: resultadoOperativo > 60 ? '#DC2626' :resultadoOperativo < 60 && resultadoOperativo > 40 ? '#d8f007': '#35DE0B',
-                      textColor: "black",
-                    })}
-                    value={resultadoAveriado}
-                    text={`${resultadoAveriado} % `}
-                  />
+                  <h6>material Operativo</h6>
+                  <Progress bgcolor="red" progress="60" height={30} />
                 </div>
                 <div className="grafica_home">
-                  <h6>T. Avisos</h6>
-                  <CircularProgressbar
-                    styles={buildStyles({
-                      pathColor:
-                      resultadoAveriado > 60
-                          ? "#DC2626"
-                          : resultadoAveriado < 60 && resultadoAveriado > 40
-                          ? "#d8f007"
-                          : "#35DE0B",
-                      trailColor: "#F5F5F5",
-                      //textColor: resultadoOperativo > 60 ? '#DC2626' :resultadoOperativo < 60 && resultadoOperativo > 40 ? '#d8f007': '#35DE0B',
-                      textColor: "black",
-                    })}
-                    value={resultadoAveriado}
-                    text={`${resultadoAveriado}`}
-                  />
+                  <h6>Material Averiado</h6>
+                  <Progress bgcolor="#ff00ff" progress="85" height={30} />
                 </div>
                 <div className="grafica_home">
-                  <h6>T. Pendientes</h6>
-                  <CircularProgressbar
-                    styles={buildStyles({
-                      pathColor:
-                      resultadoAveriado > 10
-                          ? "#DC2626"
-                          : resultadoAveriado < 60 &&
-                          resultadoAveriado > 40
-                          ? "#d8f007"
-                          : "#35DE0B",
-                      trailColor: "#F5F5F5",
-                      //textColor: resultadoOperativo > 60 ? '#DC2626' :resultadoOperativo < 60 && resultadoOperativo > 40 ? '#d8f007': '#35DE0B',
-                      textColor: "black",
-                    })}
-                    value={resultadoAveriado}
-                    text={`${resultadoAveriado}`}
-                  />
+                  <h6>Material Almacén</h6>
+                  <Progress bgcolor="#99ff66" progress="50" height={30} />
+                </div>
+                <div className="grafica_home">
+                  <h6>Material Vehículo</h6>
+                  <Progress bgcolor="#99ff66" progress="50" height={30} />
                 </div>
               </div>
             </AccordionDetails>
