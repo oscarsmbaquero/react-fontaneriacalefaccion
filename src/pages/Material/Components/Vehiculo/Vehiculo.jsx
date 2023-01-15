@@ -27,7 +27,6 @@ const Vehiculo = ({ material }) => {
      confirmButtonText: `Enviar`,  
      denyButtonText: `Cancelar`,
    }).then((result) => {  
-       /* Read more about isConfirmed, isDenied below */  
        if (result.isConfirmed) {
         fetch(`${BASE_URL}/material/traspaso/`, {
              method: 'PUT',
@@ -39,21 +38,16 @@ const Vehiculo = ({ material }) => {
                  
                  id: id,
                  almacen: almacen
-                 
              })
-             
          })
              .then(res => {
                  if (res.status === 200) {
                      Swal.fire("Cambiado a Almacén", res.message, "success");
                  }navigate("/avisos");
-                 
              }).catch((error) => console.error(error))
-         
-       } else if (result.isDenied) {    
-           Swal.fire('Changes are not saved', '', 'info')  
+       } else if (result.isDenied) {
+           Swal.fire('Changes are not saved', '', 'info')
         }
-        
    });
    }
 
@@ -94,7 +88,6 @@ const Vehiculo = ({ material }) => {
       name: "Acciones",
       // selector: (row) => row.localidad,
       cell: (row) => (
-        //
         <>
           <Link  onClick={(e) => changeUbicacion(e, row._id)}>
             <IconButton aria-label="delete" color="primary">

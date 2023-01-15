@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import { useGetAuth } from "../../context/context";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import fondo from "../../../src/assets/images/logo.png";
+import fondo from "../../../src/assets/images/flyer.jpg";
 
 import { BASE_URL } from "../../assets/ApiRoutes";
 

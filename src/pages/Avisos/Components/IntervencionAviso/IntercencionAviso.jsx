@@ -137,7 +137,8 @@ const IntercencionAviso = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="d-flex flex-column col-11 col-md-9  mx-md-3">
+                  <>
+                  <div className="d-flex flex-column col-11 col-md-3  mx-md-3">
                     <label className="form__label">
                     <span className="labelDist">Importe de factura*</span>
                     </label>
@@ -157,10 +158,31 @@ const IntercencionAviso = () => {
                         </p>
                       )}
                   </div>
+                  <div className="d-flex flex-column col-11 col-md-5  ">
+                    <label className="form__label">
+                    <span>Dni*</span>
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="importeReparacion"
+                      placeholder="Dni"
+                      {...register("dni", {
+                        required: "Campo Obligatotio",
+                      })}
+                    />
+                    {errors.importeReparacion &&
+                      errors.importeReparacion.type === "required" && (
+                        <p className="error">
+                          {errors.importeReparacion.message}
+                        </p>
+                      )}
+                  </div>
+                  </>
                 )}
               </div>
               <div className="d-flex flex-column flex-md-row">
-                <div className="d-flex flex-column col-11 col-md-12 mx-md-3">
+                <div className="d-flex flex-column col-11 col-md-11 mx-md-3">
                   <label className="form__label">Consumo Material *</label>
                   <select
                     name="jobs"

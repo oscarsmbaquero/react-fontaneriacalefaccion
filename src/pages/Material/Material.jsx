@@ -23,7 +23,7 @@ const Material = () => {
       setMaterial(res.data);
     };
     fetchMaterial();
-  }, [material.estado]);
+  }, [material]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -77,19 +77,17 @@ const Material = () => {
         )}
         {value === 1 && (
           <Box>
-            <Vehiculo material={materialFurgo}/>
+            <Vehiculo material={materialFurgo} setMaterial={setMaterial}/>
           </Box>
         )}
         {value === 2 && (
           <Box>
-            <Almacen material={materialAlmacen}
-            />
+            <Almacen material={materialAlmacen} setMaterial={setMaterial}/>
           </Box>
           )}
           {value === 3 && (
           <Box>
-            <Averiado material={materialAveriado}
-            />
+            <Averiado material={materialAveriado} setMaterial={setMaterial}/>
           </Box>
           )}
           {value === 4 && (

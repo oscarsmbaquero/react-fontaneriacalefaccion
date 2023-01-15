@@ -30,7 +30,7 @@ const Avisos = () => {
       setAverias(res.data);
     };
     fetchAvisos();
-  }, [value]);
+  }, []);
 
   useEffect(() => {
     const fetchMaterial = async () => {
@@ -82,22 +82,22 @@ const Avisos = () => {
     <Box sx={{ padding: 1 }}>
         {value === 0 && (
           <Box>
-            <AddAvisos/>
+            <AddAvisos setMaterial={setMaterial}/>
           </Box>
         )}
         {value === 1 && (
         <Box>
-          <AvisosAbiertos averias={averiasAbiertas}/>
+          <AvisosAbiertos averias={averiasAbiertas} setMaterial={setMaterial}/>
         </Box>
         )}
         {value === 2 && (
         <Box>
-          <AvisosPendientes averias={averiasPendientes}/>
+          <AvisosPendientes averias={averiasPendientes} setMaterial={setMaterial}/>
         </Box>
         )}
         {value === 3 && (
         <Box>
-          <AvisosCerrados averias={averiasCerradas}/>
+          <AvisosCerrados averias={averiasCerradas} setMaterial={setMaterial}/>
         </Box>
         )}
      </Box>  

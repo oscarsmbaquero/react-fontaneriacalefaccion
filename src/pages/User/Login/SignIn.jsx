@@ -1,5 +1,5 @@
 import * as React from "react";
-//import '/Login.scss';
+import "./Login.scss";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -86,76 +86,77 @@ export default function SignIn() {
   //   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            paddingTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5"></Typography>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
           <Box
-            component="form"
-            onSubmit={handleLogin}
-            noValidate
-            sx={{ mt: 1 }}
+            sx={{
+              paddingTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              onChange={handleLoginForm}
-              autoFocus
-              sx={{ input: { color: "white" } }}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              onChange={handleLoginForm}
-              autoComplete="current-password"
-              sx={{ input: { color: "white" } }}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Typography component="h1" variant="h5"></Typography>
+            <Box
+              component="form"
+              onSubmit={handleLogin}
+              noValidate
+              sx={{ mt: 1 }}
             >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item xs>
-                <Link href="/users/register" variant="body2">
-                  {"No tienes cuenta? Registrate"}
-                </Link>
-              </Grid>
-            </Grid>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                onChange={handleLoginForm}
+                autoFocus
+                sx={{ input: { color: "white" } }}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                onChange={handleLoginForm}
+                autoComplete="current-password"
+                sx={{ input: { color: "white" } }}
+              />
+              {/* <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              /> */}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, borderRadius:'20px'}}
+              >
+                Sign In
+              </Button>
+              {/* <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item xs>
+                  <Link href="/users/register" variant="body2">
+                    {"No tienes cuenta? Registrate"}
+                  </Link>
+                </Grid>
+              </Grid> */}
+            </Box>
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+          {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
+        </Container>
+      </ThemeProvider>
+   
   );
 }
