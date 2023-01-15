@@ -30,7 +30,7 @@ const AddAvisos = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(result,'result')
+      console.log(result.status,'result')
       const resultado = await fetch(`${BASE_URL}/clientes`, {
         method: "POST",
         headers: {
@@ -39,7 +39,7 @@ const AddAvisos = () => {
         body: JSON.stringify(formData),
       });
       console.log(resultado,'resultado')
-      //const resData = await resultado.json();
+      const resData = await resultado.json();
       if(result.status === 200 && resultado.status === 200){
         Swal.fire({
           //title: "Success!",
@@ -47,7 +47,7 @@ const AddAvisos = () => {
           icon: "success",
           confirmButtonText: "Ok",
         });        
-      } else if(result.status === 200 ){
+      } else if(result.status === 200 && resultado.status === 401){
         Swal.fire({
           //title: "Success!",
           text: "Aviso introducido, cliente ya en el sistema",
