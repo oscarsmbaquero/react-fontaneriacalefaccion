@@ -36,7 +36,7 @@ const AddAvisos = () => {
         },
         body: JSON.stringify(formData),
       });
-      const resData = await resultado.json();
+      //const resData = await resultado.json();
       if(result.status === 200 && resultado.status === 200){
         Swal.fire({
           //title: "Success!",
@@ -176,7 +176,7 @@ const AddAvisos = () => {
               </div>
               <Button
                 variant="contained"
-                //color="primary"
+                disabled={!isValid}
                 type="submit"
                 endIcon={<SendIcon />}
                 style={{

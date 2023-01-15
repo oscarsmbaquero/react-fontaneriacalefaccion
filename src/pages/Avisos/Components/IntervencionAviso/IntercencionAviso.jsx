@@ -41,7 +41,6 @@ const IntercencionAviso = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    //setValue,
   } = useForm({ mode: "onChange" });
   let navigate = useNavigate();
 
@@ -106,7 +105,7 @@ const IntercencionAviso = () => {
         <section className="section">
           <div className="col-11 col-lg-11 mx-4">
             <form onSubmit={handleSubmit(onSubmit)} className="form">
-              <div className="d-flex flex-column flex-md-row">
+              <div className="d-flex flex-column flex-md-row justify-content-center">
                 <div className="d-flex flex-column col-11 col-md-3">
                   <label className="form__label">Selecciona estado* </label>
                   <select
@@ -119,7 +118,7 @@ const IntercencionAviso = () => {
                   </select>
                 </div>
                 {visible === "Pendiente" ? (
-                  <div className="d-flex flex-column col-11 col-md-9  mx-md-3">
+                  <div className="d-flex flex-column col-11 col-md-8  mx-md-3">
                     <label className="form__label">
                       <span className="labelDist">Motivo de aviso pendiente*</span>
                     </label>
@@ -181,8 +180,8 @@ const IntercencionAviso = () => {
                   </>
                 )}
               </div>
-              <div className="d-flex flex-column flex-md-row">
-                <div className="d-flex flex-column col-11 col-md-11 mx-md-3">
+              <div className="d-flex flex-column flex-md-row justify-content-center">
+                <div className="d-flex flex-column col-11 col-md-10 mx-md-5">
                   <label className="form__label">Consumo Material *</label>
                   <select
                     name="jobs"
@@ -226,7 +225,7 @@ const IntercencionAviso = () => {
                     onChange={fechaFin}
                   />
                 </div>
-                <div className="d-flex flex-column col-11 col-md-2 mx-md-3">
+                <div className="d-flex flex-column col-11 col-md-1 mx-md-3">
                   <label className="form__label">Km*</label>
                   <input
                     className="form-control"
@@ -241,7 +240,7 @@ const IntercencionAviso = () => {
                     <p className="error">{errors.km.message}</p>
                   )}
                 </div>
-                <div className="d-flex flex-column col-11 col-md-3 mx-md-2">
+                <div className="d-flex flex-column col-11 col-md-1 mx-md-2">
                   <label className="form__label">Despl.*</label>
                   <input
                     className="form-control"
@@ -258,8 +257,8 @@ const IntercencionAviso = () => {
                   )}
                 </div>
               </div>
-              <div className="d-flex flex-column flex-md-row ">
-                <div className="d-flex flex-column col-11 col-md-12 mx-md-auto">
+              <div className="d-flex flex-column flex-md-row justify-content-center ">
+                <div className="d-flex flex-column col-11 col-md-11 mx-md-2">
                   <label className="form__label">Intervención *</label>
                   <textarea
                     rows={5}

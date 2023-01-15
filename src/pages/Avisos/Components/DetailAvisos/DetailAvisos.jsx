@@ -34,15 +34,15 @@ const DetailAvisos = () => {
         <>
           <Container>
             <Grid container spacing={5} sx={{ paddingTop: "50px" }}>
-              <Grid item key={avisos._id} xs={12} md={12} lg={6}>
+              <Grid item key={avisos._id} xs={12} md={12} lg={12}>
                 <Card
                   elevation={5}
                   sx={{
                     borderRadius: "16px",
-                    // justifyContent: "center",
+                    justifyContent: "center",
                     // alignItems:'center',
                     //flex: "1 0 auto",
-                    flexDirection: "row",
+                    //flexDirection: "row",
                     flexWrap: "wrap",
                     ":hover": {
                       boxShadow: 20, // theme.shadows[20]
@@ -53,11 +53,11 @@ const DetailAvisos = () => {
                     sx={{
                       //color: "white.main",
                       background: "azure",
-                      justifyContent: "flex-start",
-                      flexDirection: "row",
+                      // justifyContent: "flex-start",
+                      // flexDirection: "row",
                     }}
-                    title={`${avisos.cliente}`}
-                    //titleStyle={{textAlign: 'left'}}
+                    title={avisos.cliente}
+                    titleStyle={{textAlign: 'left'}}
                     subheader={
                       <Badge bg="danger">
                         <MDBIcon icon="phone" className="me-3" color="white" />
@@ -69,32 +69,6 @@ const DetailAvisos = () => {
                         </a>
                       </Badge>
                     }
-                    // action={
-                    //   <>
-                    //     {" "}
-                    //     {userLogged.rol === "Tecnico" ? (
-                    //       ""
-                    //     ) : (
-                    //       <IconButton
-                    //         color="error"
-                    //          onClick={(e) => deleteaviso(e, avisos._id)}
-                    //       >
-                    //         <DeleteOutlined />
-                    //       </IconButton>
-                    //     )}
-                    //     <Link to={`/edit/avisos/${avisos._id}`}>
-                    //       <IconButton aria-label="delete" color="secondary">
-                    //         <Create />
-                    //       </IconButton>
-                    //     </Link>
-                    //     <Link to={`/avisos/details/${avisos._id}`}>
-                    //       <IconButton aria-label="delete" color="success">
-                    //         <AddIcon />
-                    //       </IconButton>
-                    //     </Link>
-                    //   </>
-                    // }
-                    // title ={avisos.n_incidencia}
                   />
                   <CardContent sx={{ flex: "2 0 auto" }}>
                     <Typography

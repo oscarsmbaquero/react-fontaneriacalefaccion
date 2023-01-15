@@ -35,43 +35,40 @@ const Almacen = ({ material }) => {
   //     },
   //   },
   // ]
-  const changeUbicacion=(e,id)=>{
-    const almacen='Furgo'
-    Swal.fire({  
-     title: 'Emilio!!!!Deseas reubicar a Furgo?',  
-     showDenyButton: true,  showCancelButton: true,  
-     confirmButtonText: `Enviar`,  
-     denyButtonText: `Cancelar`,
-   }).then((result) => {  
-       /* Read more about isConfirmed, isDenied below */  
-       if (result.isConfirmed) {
+  const changeUbicacion = (e, id) => {
+    const almacen = "Furgo";
+    Swal.fire({
+      title: "Vas a traspasar el material a la Furgo",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Enviar`,
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
         fetch(`${BASE_URL}/material/traspaso/`, {
-             method: 'PUT',
-             headers: {
-                 'Content-Type': 'application/json',
-                  //Authorization: `Bearer ${userLogged.token}`
-             },
-             body: JSON.stringify({
-                 
-                 id: id,
-                 almacen: almacen
-                 
-             })
-             
-         })
-             .then(res => {
-                 if (res.status === 200) {
-                     Swal.fire("Cambiado a Vehículo", res.message, "success");
-                    
-                 }navigate("/avisos");
-             }).catch((error) => console.error(error))
-         
-       } else if (result.isDenied) {    
-           Swal.fire('Changes are not saved', '', 'info')  
-        }
-   });
-   }
-    
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            //Authorization: `Bearer ${userLogged.token}`
+          },
+          body: JSON.stringify({
+            id: id,
+            almacen: almacen,
+          }),
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire("Cambiado a Vehículo", res.message, "success");
+            }
+            navigate("/avisos");
+          })
+          .catch((error) => console.error(error));
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
 
   const tableCustomStyles = {
     headCells: {

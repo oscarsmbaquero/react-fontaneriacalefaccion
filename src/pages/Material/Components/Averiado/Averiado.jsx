@@ -1,30 +1,80 @@
 import { Badge } from "react-bootstrap";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../assets/ApiRoutes";
 import { IconButton } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
-import ConstructionIcon from "@mui/icons-material/Construction";
 import { DeleteOutlined } from "@mui/icons-material";
 import Swal from "sweetalert2";
 import CallSplitIcon from "@mui/icons-material/CallSplit";
 
 const Averiado = ({ material }) => {
   const navigate = useNavigate();
-  const deleteMaterial = (e, material) => {
-    e.preventDefault();
-    fetch(`${BASE_URL}/material/${material}`, {
-      method: "DELETE",
-      headers: {
-        //'Content-Type': 'multipart/form-data',
-        //Authorization: `Bearer ${userLogged.token}`
-      },
-    }).then((res) => {
-      if (res.status === 200) {
-        //console.log('Borrado');
-        Swal.fire("Material eliminado", res.message, "success");
-        navigate("/");
+
+  const deleteMaterial = (e, id) => {
+    console.log(id, "id");
+    // e.preventDefault();
+    Swal.fire({
+      title: "Vas a eliminar el material seleccionado",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Enviar`,
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        fetch(`${BASE_URL}/material/${id}`, {
+          method: "DELETE",
+          headers: {
+            //'Content-Type': 'multipart/form-data',
+            //Authorization: `Bearer ${userLogged.token}`
+          },
+          // body: JSON.stringify({
+          //   id: id,
+          // }),
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire("Material eliminado", res.message, "success");
+            }
+            navigate("/avisos");
+          })
+          .catch((error) => console.error(error));
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
+  const repararMaterial = (e, id) => {
+    // e.preventDefault();
+    Swal.fire({
+      title: "El material pasa a ser Reparado",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Enviar`,
+      denyButtonText: `Cancelar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        fetch(`${BASE_URL}/material/reparar/${id}`, {
+          method: "PUT",
+          headers: {
+            //'Content-Type': 'multipart/form-data',
+            //Authorization: `Bearer ${userLogged.token}`
+          },
+          // body: JSON.stringify({
+          //   id: id,
+          // }),
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              Swal.fire("Material reparado", res.message, "success");
+            }
+            navigate("/avisos");
+          })
+          .catch((error) => console.error(error));
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
       }
     });
   };
@@ -51,12 +101,12 @@ const Averiado = ({ material }) => {
     },
     {
       name: "Tipo Material",
-      selector: (row) => 
-      row.tipo === 'Consumible' ?(
-        <Badge bg="success">{row.tipo}</Badge>
-      ):(
-        <Badge bg="danger">{row.tipo}</Badge>
-      ),
+      selector: (row) =>
+        row.tipo === "Consumible" ? (
+          <Badge bg="success">{row.tipo}</Badge>
+        ) : (
+          <Badge bg="danger">{row.tipo}</Badge>
+        ),
       sortable: true,
     },
     {
@@ -71,22 +121,22 @@ const Averiado = ({ material }) => {
     },
     {
       name: "Acciones",
-      // selector: (row) => row.localidad,
       cell: (row) => (
         //
         <>
           {row.tipo === "Consumible" ? (
             <IconButton
               color="warning"
-              onClick={(e) => deleteMaterial(e,row._id)}
+              onClick={(e) => deleteMaterial(e, row._id)}
             >
               <DeleteOutlined />
             </IconButton>
           ) : (
-            <IconButton color="primary">
-              <Link to={`/material/reparar/${row._id}`}>
-                <CallSplitIcon />
-              </Link>
+            <IconButton
+              color="primary"
+              onClick={(e) => repararMaterial(e, row._id)}
+            >
+              <CallSplitIcon />
             </IconButton>
           )}
         </>

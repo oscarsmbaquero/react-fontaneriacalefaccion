@@ -147,7 +147,7 @@ const AddMaterial = () => {
               </div>
               <Button
                 variant="contained"
-                //color="primary"
+                disabled={!isValid}
                 type="submit"
                 endIcon={<SendIcon />}
                 style={{

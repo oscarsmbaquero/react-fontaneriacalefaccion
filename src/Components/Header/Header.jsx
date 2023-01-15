@@ -21,7 +21,7 @@ function Header() {
   };
   return (
     <div class="shadow-lg mb-1 bg-light rounded">
-      <Navbar collapseOnSelect expand="md" bg="light" variant="light">
+      <Navbar collapseOnSelect expand="md" bg="light" variant="light" className="sticky-top">
         <Container>
           <Navbar.Brand href="/">
             <img src={logo} className="logo" alt={logo} />
