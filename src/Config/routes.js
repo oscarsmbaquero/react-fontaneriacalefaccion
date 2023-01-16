@@ -55,7 +55,7 @@ const routes = [
     element: <DetailAvisos />,
   },
   {
-    path: "/avisos/mostartIntervencion/:id",
+    path: "/avisos/mostrar/intervencion/:id",
     element: <MostrarIntervencion />,
   },
 

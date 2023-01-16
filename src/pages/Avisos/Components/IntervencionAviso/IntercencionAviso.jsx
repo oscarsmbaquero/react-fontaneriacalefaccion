@@ -21,7 +21,12 @@ const IntercencionAviso = () => {
   const [fechaFinal, setFechaFinal] = useState();
   const [tiempoViaje, setTiempoViaje] = useState();
   const [material, setMaterial] = useState([]);
-
+  const [selectedOption, setSelectedOption] = useState(0);
+  const [selectPrice, setSelectPrice] = useState();
+  const [active, setActive] = useState("Cerrado");
+  //console.log(selectedOption,123)
+  
+  
   useEffect(() => {
     const fetchMaterial = async () => {
       const res = await axios.get(`${BASE_URL}/material`);
@@ -29,6 +34,19 @@ const IntercencionAviso = () => {
     };
     fetchMaterial();
   }, []);
+
+
+  const consultPrice = (e) =>{
+    const idSelected = e.target.value;
+    fetch(`${BASE_URL}/material/consultarPrecio/${idSelected}`)
+      .then((response) => response.json())
+      .then((data) => setSelectPrice(data));
+  }
+  if(selectPrice){
+    console.log(selectPrice.pcompra,123)
+    //setActive("Abierto")
+  }
+  
 
   const {
     register,
@@ -41,7 +59,6 @@ const IntercencionAviso = () => {
   const captureType = (e) => {
     setVisible(e.target.value);
   };
-
   const fechaIni = (e) => {
     setFechaInicio(e.target.value);
   };
@@ -66,9 +83,8 @@ const IntercencionAviso = () => {
   const totalHoras = intervencion + desplazamiento;
 
   const materialOperativo = material.filter(
-    (material) => material.estado === "Operativo"
+    (material) => material.estado === "Operativo" && material.ubicacion === 'Furgo'
   );
-
   const onSubmit = async (formData) => {
     formData = { ...formData, totalHoras };
     try {
@@ -91,6 +107,14 @@ const IntercencionAviso = () => {
       console.log(error);
     }
   };
+  // useEffect(() => {
+  //   const fetchPrice = async () => {
+  //     const res = await axios.get(`${BASE_URL}/avisos`);
+  //     setPrice(res.data);
+  //   };
+  //   fetchPrice();
+  // }, []);
+  
 
   return (
     <div>
@@ -180,6 +204,9 @@ const IntercencionAviso = () => {
                     name="jobs"
                     className="form-control"
                     {...register("materialIntervencion")}
+                    //onClick={(e) => collectRepair(e, row._id)}
+                    onChange={consultPrice}
+                    //onChange={event => consultPrice(event.target.value)}
                   >
                     <option
                       selected
@@ -189,11 +216,12 @@ const IntercencionAviso = () => {
                       No hay consumo
                     </option>
                     {materialOperativo.map((el) => (
-                      <option key={el._id} value={el._id}>
+                      <option key={el._id} value={el._id} >
                         {el.descripcion}
                       </option>
                     ))}
                   </select>
+                  
                 </div>
               </div>
               <div className="d-flex flex-column flex-md-row justify-content-center">

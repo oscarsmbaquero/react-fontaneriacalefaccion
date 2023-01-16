@@ -1,20 +1,22 @@
 import React from "react";
 import "./IconApp.scss";
 import { Link } from "react-router-dom";
-import llave from "../../assets/images/llave_inglesa.png";
+
 import caldera from "../../assets/images/caldera.png";
+import IconoNuevoAviso from '../../assets/images/nuevo-aviso.svg'
+import IconoNuevoMaterial from '../../assets/images/nuevo-material.svg'
 
 const IconApp = () => {
   return (
     <div className="reservas">
       <figure>
         <Link to={"/addAvisos"}>
-          <img src={llave} alt="llave"></img>
+          <img src={IconoNuevoAviso} alt="llave"></img>
         </Link>
       </figure>
       <figure>
         <Link to={"/addMaterial"}>
-          <img src={caldera} alt="llave"></img>
+          <img src={IconoNuevoMaterial} alt="llave"></img>
         </Link>
       </figure>
     </div>

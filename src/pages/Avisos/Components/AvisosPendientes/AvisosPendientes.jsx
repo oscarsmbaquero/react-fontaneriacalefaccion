@@ -5,6 +5,7 @@ import { IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
 import ConstructionIcon from "@mui/icons-material/Construction";
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 
 const AvisosPendintes = ({ averias }) => {
 
@@ -78,7 +79,11 @@ const AvisosPendintes = ({ averias }) => {
               <SearchIcon />
             </IconButton>
           </Link>
-          ,
+          <Link to={`/avisos/mostrar/intervencion/${row._id}`}>
+          <IconButton aria-label="delete" color="error">
+            <ExpandCircleDownIcon />
+          </IconButton>
+          </Link>
         </>
       ),
       ignoreRowClick: true,

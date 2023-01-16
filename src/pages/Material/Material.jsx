@@ -9,7 +9,6 @@ import axios from "axios";
 import AddMaterial from './Components/AltaMaterial/AddMaterial';
 import Vehiculo from './Components/Vehiculo/Vehiculo';
 import Almacen from './Components/Almacen/Almacen';
-import Graficas from './Components/Graficas/Index';
 import Averiado from './Components/Averiado/Averiado';
 
 const Material = () => {
@@ -66,7 +65,6 @@ const Material = () => {
           <Tab label={`Vehículo-${UnidadesMaterialFurgo}-`} />
           <Tab label={`Almacén-${UnidadesMaterialAlmacen}-`}/>
           <Tab label={`Averiado-${UnidadesMaterialAveriado}-`}/>
-          <Tab label="Graficas"/>
         </Tabs>
       </Box>
       <Box sx={{ padding: 1 }}>
@@ -88,12 +86,6 @@ const Material = () => {
           {value === 3 && (
           <Box>
             <Averiado material={materialAveriado} setMaterial={setMaterial}/>
-          </Box>
-          )}
-          {value === 4 && (
-          <Box>
-            <Graficas materialAveriado={UnidadesMaterialFurgo} materialOperativo={UnidadesMaterialAlmacen}
-            />
           </Box>
           )}
        </Box>  
