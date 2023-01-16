@@ -42,10 +42,10 @@ const IntercencionAviso = () => {
       .then((response) => response.json())
       .then((data) => setSelectPrice(data));
   }
-  if(selectPrice){
-    console.log(selectPrice.pcompra,123)
-    //setActive("Abierto")
-  }
+  // if(selectPrice){
+  //   console.log(selectPrice.pcompra,123)
+  //   //setActive("Abierto")
+  // }
   
 
   const {
@@ -221,7 +221,7 @@ const IntercencionAviso = () => {
                       </option>
                     ))}
                   </select>
-                  
+                  {selectPrice && <p className="error"> PVP:&nbsp;{selectPrice.pcompra}&nbsp;€</p>}                  
                 </div>
               </div>
               <div className="d-flex flex-column flex-md-row justify-content-center">
