@@ -7,38 +7,11 @@ import DataTable from "react-data-table-component";
 import ConstructionIcon from "@mui/icons-material/Construction";
 
 const AvisosPendintes = ({ averias }) => {
-  
-  // const conditionalRowStyles = [
-  //   {
-  //     when: row => row.prioridad === 'Urgente',
-  //     style: {
-  //       backgroundColor: 'rgb(212, 210, 0)',
-  //       //backgroundColor: 'rgba(63, 195, 128, 0.9)',
-  //       color: 'black',
-  //       text:'bold',
-  //       '&:hover': {
-  //         cursor: 'pointer',
-  //       },
-  //     },
-  //   },
-  //   {
-  //     when: row => row.prioridad === 'Normal',
-  //     style: {
-  //       backgroundColor: 'rgba(63, 195, 128, 0.9)',
-  //       color: 'black',
-  //       text:'bold',
-  //       '&:hover': {
-  //         cursor: 'pointer',
-  //       },
-  //     },
-  //   },  
-  // ]
 
   const tableCustomStyles = {
     headCells: {
       style: {
         color: "white",
-        //justifyContent: 'center',
         backgroundColor: "#1C82AD",
       },
     },
@@ -92,7 +65,6 @@ const AvisosPendintes = ({ averias }) => {
     },
     {
       name: "Acciones",
-      // selector: (row) => row.localidad,
       cell: (row) => (
         //
         <>
@@ -122,7 +94,6 @@ const AvisosPendintes = ({ averias }) => {
       pagination
       dense
       responsive
-      //conditionalRowStyles={conditionalRowStyles}
     />
   );
 };

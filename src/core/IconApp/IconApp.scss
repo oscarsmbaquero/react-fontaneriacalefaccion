@@ -1,10 +1,16 @@
 .reservas {
+  display:flex;
+  flex-direction: column;
     position: fixed;
-    top: 18rem;
-    left: 0px;
-    background-color: transparent;
-    height: 120px;
-  
+    bottom: 1.5rem;
+    right: 0.8rem;
+    background-color: #1C82AD;
+    height: 115px;
+    border-radius: 18px;
+    
+    @media screen  and (max-width: 760px) {
+      height: 140px;
+      }
   }
   
   .reservas img {
@@ -24,6 +30,7 @@
   /* Visible texto */
   figure:hover > figcaption {
     display:block;
+    cursor: pointer;
     transition: all .5s;
     color:red;
     font-family: Georgia, 'Times New Roman', Times, serif;

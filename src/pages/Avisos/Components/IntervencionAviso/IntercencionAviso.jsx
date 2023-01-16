@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./Intervencion.scss";
@@ -15,19 +15,12 @@ import Swal from "sweetalert2";
 const IntercencionAviso = () => {
   //const { material } = useContext(SWContext);
   const { id } = useParams();
-  const [averias, SetAverias] = useState();
+  //const [averias, SetAverias] = useState();
   const [visible, setVisible] = useState("Cerrada");
   const [fechaInicio, setFechaInicio] = useState();
   const [fechaFinal, setFechaFinal] = useState();
   const [tiempoViaje, setTiempoViaje] = useState();
   const [material, setMaterial] = useState([]);
-  // useEffect(() => {    
-  //   const fetchAvisos = async () => {
-  //     const res = await axios.get(`${BASE_URL}/avisos${id}`);
-  //     SetAverias(res.data);
-  //   };
-  //   fetchAvisos();
-  // }, []);
 
   useEffect(() => {
     const fetchMaterial = async () => {
@@ -92,7 +85,7 @@ const IntercencionAviso = () => {
         icon: "success",
         confirmButtonText: "Ok",
       });
-      navigate("/avisos");
+      navigate("/");
       //console.log(resData);
     } catch (error) {
       console.log(error);
