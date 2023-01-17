@@ -32,8 +32,8 @@ const MostrarIntervencion = () => {
         intervencion.intervencion.map( (aviso, index ) => (
           tabla.push({
             estado:intervencion.estado,
-            fecha_inicio: intervencion.fecha_inicio[index],
-            fecha_fin:intervencion.fecha_fin[index] ,
+            fecha_inicio: intervencion.fecha_inicio[index].replace('T','  '),
+            fecha_fin:intervencion.fecha_fin[index].replace('T','  ') ,
             km: intervencion.km[index],
             intervencion: intervencion.intervencion[index],
             material: intervencion.materialIntervencion[index]?.descripcion,
