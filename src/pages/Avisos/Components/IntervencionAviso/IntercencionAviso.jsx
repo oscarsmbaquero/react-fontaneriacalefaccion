@@ -33,7 +33,7 @@ const IntercencionAviso = () => {
       setMaterial(res.data);
     };
     fetchMaterial();
-  }, []);
+  });
 
 
   const consultPrice = (e) =>{
@@ -101,7 +101,7 @@ const IntercencionAviso = () => {
         icon: "success",
         confirmButtonText: "Ok",
       });
-      navigate("/");
+      navigate("/avisos");
       //console.log(resData);
     } catch (error) {
       console.log(error);

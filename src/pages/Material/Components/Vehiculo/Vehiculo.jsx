@@ -43,7 +43,7 @@ const Vehiculo = ({ material }) => {
              .then(res => {
                  if (res.status === 200) {
                      Swal.fire("Cambiado a Almacén", res.message, "success");
-                 }navigate("/avisos");
+                 }navigate("/material");
              }).catch((error) => console.error(error))
        } else if (result.isDenied) {
            Swal.fire('Changes are not saved', '', 'info')

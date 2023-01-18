@@ -22,7 +22,7 @@ const Material = () => {
       setMaterial(res.data);
     };
     fetchMaterial();
-  }, [material]);
+  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

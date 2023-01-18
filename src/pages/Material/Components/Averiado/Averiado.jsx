@@ -70,7 +70,7 @@ const Averiado = ({ material }) => {
             if (res.status === 200) {
               Swal.fire("Material reparado", res.message, "success");
             }
-            navigate("/avisos");
+            navigate("/material");
           })
           .catch((error) => console.error(error));
       } else if (result.isDenied) {

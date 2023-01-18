@@ -10,6 +10,7 @@ import DataTable from "react-data-table-component";
 import EuroIcon from "@mui/icons-material/Euro";
 import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import confetti from 'canvas-confetti';
 //import MyDocument from "../Pdf/MyDocument";
 
 const AvisosCerrados = ({ averias }) => {
@@ -25,6 +26,7 @@ const AvisosCerrados = ({ averias }) => {
       denyButtonText: `Cancelar`,
     }).then((result) => {
       if (result.isConfirmed) {
+        confetti();
         fetch(`${BASE_URL}/avisos/collectRepair/${id}`, {
           method: "PUT",
           headers: {
@@ -37,7 +39,8 @@ const AvisosCerrados = ({ averias }) => {
               //console.log('Borrado');
               Swal.fire("Aviso Cobrado", res.message, "success");
             }
-            navigate("/");
+           
+            navigate("/avisos");
           })
           .catch((error) => console.error(error));
       } else if (result.isDenied) {
