@@ -127,6 +127,10 @@ const Clientes = () => {
       cell: (row) => (
         //
         <>
+          {/* <a href={`tel:${row.telefono}`} className="mdbicon"> */}
+          <MDBIcon far icon="list-alt" color="primary"/>
+          {/* </a> */}
+          &nbsp;&nbsp;&nbsp;
           <a href={`tel:${row.telefono}`} className="mdbicon">
             <MDBIcon icon="phone" color="danger"/>
           </a>&nbsp;&nbsp;&nbsp;
