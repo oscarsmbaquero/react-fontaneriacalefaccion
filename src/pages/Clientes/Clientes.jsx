@@ -1,16 +1,87 @@
 import { Badge } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import { BASE_URL } from "../../assets/ApiRoutes";
 import { MDBIcon } from "mdb-react-ui-kit";
 import axios from "axios";
+import styled from 'styled-components';
+//import Button from '../shared/Button';
+
+
+
+const TextField = styled.input`
+	height: 32px;
+	width: 200px;
+  margin: 0 auto;
+	border-radius: 8px;
+	/* border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0; */
+	border: 2px solid #1C82AD;
+	padding: 0 32px 0 16px;
+
+	&:hover {
+		cursor: pointer;
+	}
+`;
+
+// const ClearButton = styled(Button)`
+// 	border-top-left-radius: 0;
+// 	border-bottom-left-radius: 0;
+// 	border-top-right-radius: 5px;
+// 	border-bottom-right-radius: 5px;
+// 	height: 34px;
+// 	width: 32px;
+// 	text-align: center;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// `;
+
+
+const FilterComponent = ({ filterText, onFilter, onClear }) => (
+	<>
+		<TextField
+			id="search"
+			type="text"
+			placeholder="Buscar Cliente"
+			aria-label="Search Input"
+			value={filterText}
+			onChange={onFilter}
+		/>
+		<Button className="button" onClick={onClear}>
+    🔎
+		</Button>
+	</>
+);
+
 
 const Clientes = () => {
   const [clientes, setClientes] = useState([]);
+  const [filterText, setFilterText] = React.useState('');
+  const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
+
+  const filteredItems = clientes.filter(
+		item => item.cliente && item.cliente.toLowerCase().includes(filterText.toLowerCase()),
+	);
+
+	const subHeaderComponentMemo = React.useMemo(() => {
+		const handleClear = () => {
+			if (filterText) {
+				setResetPaginationToggle(!resetPaginationToggle);
+				setFilterText('');
+			}
+		};
+
+		return (
+			<FilterComponent onFilter={e => setFilterText(e.target.value)} onClear={handleClear} filterText={filterText} />
+		);
+	}, [filterText, resetPaginationToggle]);
 
   useEffect(() => {
     const fetchAvisos = async () => {
@@ -115,11 +186,15 @@ const Clientes = () => {
     <DataTable
       customStyles={tableCustomStyles}
       columns={columns}
-      data={clientes}
+      data={filteredItems}
       pagination
+      paginationResetDefaultPage={resetPaginationToggle}
       dense
       responsive
       conditionalRowStyles={conditionalRowStyles}
+      subHeader
+			subHeaderComponent={subHeaderComponentMemo}
+			// persistTableHead
     />
   );
 };
