@@ -1,27 +1,22 @@
 import { Badge } from "react-bootstrap";
+import './Clientes.scss'
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, IconButton } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "react-data-table-component";
-import ConstructionIcon from "@mui/icons-material/Construction";
 import { BASE_URL } from "../../assets/ApiRoutes";
 import { MDBIcon } from "mdb-react-ui-kit";
 import axios from "axios";
 import styled from 'styled-components';
-//import Button from '../shared/Button';
+import { export_table_to_excel } from './Export-Excel/Export-excel';
+import IconoDescarga from "../../../src/assets/images/excell.png";
 
-
-
+//styles for input
 const TextField = styled.input`
 	height: 32px;
 	width: 200px;
-  margin: 0 auto;
+  //margin: 0 auto;
 	border-radius: 8px;
-	/* border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0; */
 	border: 2px solid #1C82AD;
 	padding: 0 32px 0 16px;
 
@@ -29,21 +24,7 @@ const TextField = styled.input`
 		cursor: pointer;
 	}
 `;
-
-// const ClearButton = styled(Button)`
-// 	border-top-left-radius: 0;
-// 	border-bottom-left-radius: 0;
-// 	border-top-right-radius: 5px;
-// 	border-bottom-right-radius: 5px;
-// 	height: 34px;
-// 	width: 32px;
-// 	text-align: center;
-// 	display: flex;
-// 	align-items: center;
-// 	justify-content: center;
-// `;
-
-
+//FILTERED COMPONENT
 const FilterComponent = ({ filterText, onFilter, onClear }) => (
 	<>
 		<TextField
@@ -66,6 +47,15 @@ const Clientes = () => {
   const [filterText, setFilterText] = React.useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
 
+  useEffect(() => {
+    const fetchAvisos = async () => {
+      const res = await axios.get(`${BASE_URL}/clientes`);
+      setClientes(res.data);
+    };
+    fetchAvisos();
+  }, []);
+  
+  //FILTERS  BY CLIENT
   const filteredItems = clientes.filter(
 		item => item.cliente && item.cliente.toLowerCase().includes(filterText.toLowerCase()),
 	);
@@ -79,43 +69,17 @@ const Clientes = () => {
 		};
 
 		return (
-			<FilterComponent onFilter={e => setFilterText(e.target.value)} onClear={handleClear} filterText={filterText} />
-		);
+		  <>
+      <img
+            src={IconoDescarga}
+            alt="icono nuevo aviso"
+            className="icon"
+            onClick={() => export_table_to_excel(filteredItems, columns, 'Clientes')}
+          />
+      <FilterComponent onFilter={e => setFilterText(e.target.value)} onClear={handleClear} filterText={filterText} />
+      </>
+    );
 	}, [filterText, resetPaginationToggle]);
-
-  useEffect(() => {
-    const fetchAvisos = async () => {
-      const res = await axios.get(`${BASE_URL}/clientes`);
-      setClientes(res.data);
-    };
-    fetchAvisos();
-  }, []);
-
-  const conditionalRowStyles = [
-    {
-      when: (row) => row.prioridad === "Urgente",
-      style: {
-        backgroundColor: "rgb(212, 210, 0)",
-        //backgroundColor: 'rgba(63, 195, 128, 0.9)',
-        color: "black",
-        text: "bold",
-        "&:hover": {
-          cursor: "pointer",
-        },
-      },
-    },
-    {
-      when: (row) => row.prioridad === "Normal",
-      style: {
-        backgroundColor: "rgba(63, 195, 128, 0.9)",
-        color: "black",
-        text: "bold",
-        "&:hover": {
-          cursor: "pointer",
-        },
-      },
-    },
-  ];
 
   const tableCustomStyles = {
     headCells: {
@@ -191,10 +155,10 @@ const Clientes = () => {
       paginationResetDefaultPage={resetPaginationToggle}
       dense
       responsive
-      conditionalRowStyles={conditionalRowStyles}
       subHeader
 			subHeaderComponent={subHeaderComponentMemo}
 			// persistTableHead
+      
     />
   );
 };
