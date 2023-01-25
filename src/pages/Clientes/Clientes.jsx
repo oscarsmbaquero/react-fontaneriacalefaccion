@@ -10,7 +10,7 @@ import axios from "axios";
 import styled from 'styled-components';
 import { export_table_to_excel } from './Export-Excel/Export-excel';
 import IconoDescarga from "../../../src/assets/images/excell.png";
-
+import  useClient from '../../hooks/useClientes'
 //styles for input
 const TextField = styled.input`
 	height: 32px;
@@ -43,17 +43,19 @@ const FilterComponent = ({ filterText, onFilter, onClear }) => (
 
 
 const Clientes = () => {
-  const [clientes, setClientes] = useState([]);
+  //const [clientes, setClientes] = useState([]);
   const [filterText, setFilterText] = React.useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = React.useState(false);
+  const clientes = useClient();
+  //console.log(clientes,'clientes')
 
-  useEffect(() => {
-    const fetchAvisos = async () => {
-      const res = await axios.get(`${BASE_URL}/clientes`);
-      setClientes(res.data);
-    };
-    fetchAvisos();
-  }, []);
+  // useEffect(() => {
+  //   const fetchAvisos = async () => {
+  //     const res = await axios.get(`${BASE_URL}/clientes`);
+  //     setClientes(res.data);
+  //   };
+  //   fetchAvisos();
+  // }, []);
   
   //FILTERS  BY CLIENT
   const filteredItems = clientes.filter(

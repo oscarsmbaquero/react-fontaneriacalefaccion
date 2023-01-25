@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import  useMaterial from '../../hooks/useMaterial'
 //import { SWContext } from "../../context/context";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { BASE_URL } from "../../assets/ApiRoutes";
 import axios from "axios";
+
 //components
 import AddMaterial from './Components/AltaMaterial/AddMaterial';
 import Vehiculo from './Components/Vehiculo/Vehiculo';
@@ -12,17 +14,19 @@ import Almacen from './Components/Almacen/Almacen';
 import Averiado from './Components/Averiado/Averiado';
 
 const Material = () => {
+  const { material ,setMaterial} = useMaterial();
   //const { material } = useContext(SWContext);
   const [value, setValue] = React.useState(1);
-  const [material, setMaterial] = useState([]);
+  //const [material, setMaterial] = useState([]);
 
-  useEffect(() => {
-    const fetchMaterial = async () => {
-      const res = await axios.get(`${BASE_URL}/material`);
-      setMaterial(res.data);
-    };
-    fetchMaterial();
-  });
+  // useEffect(() => {
+  //   const fetchMaterial = async () => {
+  //     const res = await axios.get(`${BASE_URL}/material`);
+  //     setMaterial(res.data);
+  //   };
+  //   fetchMaterial();
+  // },[]);
+  console.log(material,13)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
