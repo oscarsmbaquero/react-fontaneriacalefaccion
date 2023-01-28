@@ -104,7 +104,7 @@ const IntercencionAviso = () => {
     <div>
       <div className="container justify-content-center">
         <section className="section">
-          <div className="col-11 col-lg-11 mx-4">
+          <div className="col-12 col-lg-11 mx-3">
             <form onSubmit={handleSubmit(onSubmit)} className="form">
               <div className="d-flex flex-column flex-md-row justify-content-center">
                 <div className="d-flex flex-column col-11 col-md-3">

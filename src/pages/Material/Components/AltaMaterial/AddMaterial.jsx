@@ -46,7 +46,7 @@ const AddMaterial = () => {
     <>
       <div className="container">
         <section className="sectionForm row">
-          <div className="col-12 col-lg-12 my-auto">
+          <div className="col-12 col-lg-11 mx-3">
             <form onSubmit={handleSubmit(onSubmit)}>
               {/* <img className="logoReservas1" src={logo} alt="logo"></img> */}
               <br />

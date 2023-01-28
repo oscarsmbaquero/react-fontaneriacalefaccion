@@ -61,7 +61,7 @@ const AddAvisos = () => {
     <>
       <div className="container">
         <section className="sectionForm row">
-          <div className="col-12 col-lg-12 my-auto">
+          <div className="col-12 col-lg-11 mx-3">
             <form onSubmit={handleSubmit(onSubmit)}>
               <br />
               <div className="d-flex flex-column flex-md-row">
