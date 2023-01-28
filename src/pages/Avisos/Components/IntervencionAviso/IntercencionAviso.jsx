@@ -21,10 +21,7 @@ const IntercencionAviso = () => {
   const [fechaFinal, setFechaFinal] = useState();
   const [tiempoViaje, setTiempoViaje] = useState();
   const [material, setMaterial] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(0);
   const [selectPrice, setSelectPrice] = useState();
-  const [active, setActive] = useState("Cerrado");
-  //console.log(selectedOption,123)
   
   
   useEffect(() => {
@@ -41,12 +38,7 @@ const IntercencionAviso = () => {
     fetch(`${BASE_URL}/material/consultarPrecio/${idSelected}`)
       .then((response) => response.json())
       .then((data) => setSelectPrice(data));
-  }
-  // if(selectPrice){
-  //   console.log(selectPrice.pcompra,123)
-  //   //setActive("Abierto")
-  // }
-  
+  }  
 
   const {
     register,
@@ -95,8 +87,8 @@ const IntercencionAviso = () => {
         },
         body: JSON.stringify(formData),
       });
+      console.log(result)
       Swal.fire({
-        //title: "Success!",
         text: "Intervención añadida Correctamente",
         icon: "success",
         confirmButtonText: "Ok",
@@ -107,14 +99,6 @@ const IntercencionAviso = () => {
       console.log(error);
     }
   };
-  // useEffect(() => {
-  //   const fetchPrice = async () => {
-  //     const res = await axios.get(`${BASE_URL}/avisos`);
-  //     setPrice(res.data);
-  //   };
-  //   fetchPrice();
-  // }, []);
-  
 
   return (
     <div>

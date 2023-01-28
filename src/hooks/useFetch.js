@@ -1,16 +1,15 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../assets/ApiRoutes";
 
-export default function useClient() {
+export default function useClient(endpoint) {
   const [material, setMaterial] = useState([]);
   useEffect(() => {
     const fetchClientes = async () => {
-      const res = await axios.get(`${BASE_URL}/material`);
+      const res = await axios.get(endpoint);
       setMaterial(res.data);
     };
     fetchClientes();
-  }, []);
+  }, [endpoint]);
   return {material, setMaterial}
 }

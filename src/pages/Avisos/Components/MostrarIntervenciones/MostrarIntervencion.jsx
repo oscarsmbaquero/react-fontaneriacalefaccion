@@ -1,16 +1,8 @@
 
 import React, { useEffect, useState} from 'react';
-import { Badge } from "react-bootstrap";
-// import {  Link, Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from "../../../../assets/ApiRoutes";
 import DataTable from "react-data-table-component";
-// import Table from "../../../Components/Table/Table.jsx"
-
-import { Container, Table, TableBody,  TableContainer, TableHead, TableRow } from '@mui/material';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 
 const MostrarIntervencion = () => {
 
@@ -25,7 +17,6 @@ const MostrarIntervencion = () => {
         .then(data => setIntervencion(data))
     
     }, [id])
-    console.log(intervencion,'intervencionnnnnnnnn')
     useEffect(() => {
       if (intervencion) {
         let tabla=[]
@@ -81,6 +72,11 @@ const MostrarIntervencion = () => {
       name: "Km",
       sortable: true,
       selector: (row) => row.km,
+    },
+    {
+      name: "Consumo",
+      sortable: true,
+      selector: (row) => row.material,
     },
   ];
      //console.log(intervencion,'intervenciones');

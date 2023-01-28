@@ -9,10 +9,8 @@ import React, { useState, useEffect } from "react";
 import { Badge, Card, Container } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { BASE_URL } from "../../../../assets/ApiRoutes";
-import { useNavigate } from "react-router-dom";
 //import { useGetAuth } from "../../../context/context";
-import Button from "@mui/material/Button";
-import Swal from "sweetalert2"; // hay que probarlo
+import Button from "@mui/material/Button"; // hay que probarlo
 import SplashScreen from "../../../../core/SplashScreen/SplashScreen";
 import "./Detail.scss";
 import { MDBIcon } from "mdb-react-ui-kit";

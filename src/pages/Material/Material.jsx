@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import  useMaterial from '../../hooks/useMaterial'
+import React, { useEffect, useState } from 'react';
 //import { SWContext } from "../../context/context";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
@@ -14,20 +13,19 @@ import Almacen from './Components/Almacen/Almacen';
 import Averiado from './Components/Averiado/Averiado';
 
 const Material = () => {
-  const { material ,setMaterial} = useMaterial();
+  //const { material ,setMaterial} = useMaterial();
   //const { material } = useContext(SWContext);
   const [value, setValue] = React.useState(1);
-  //const [material, setMaterial] = useState([]);
+  const [material, setMaterial] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchMaterial = async () => {
-  //     const res = await axios.get(`${BASE_URL}/material`);
-  //     setMaterial(res.data);
-  //   };
-  //   fetchMaterial();
-  // },[]);
-  console.log(material,13)
-
+  useEffect(() => {
+    const fetchMaterial = async () => {
+      const res = await axios.get(`${BASE_URL}/material`);
+      setMaterial(res.data);
+    };
+    fetchMaterial();
+  },[]);
+  //funcion para cambiar Tab
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -38,7 +36,6 @@ const Material = () => {
   );
   const UnidadesMaterialFurgo = materialFurgo.length;
 
-
   const materialAlmacen = material.filter(
     (mat) => mat.ubicacion === "Almacen" && mat.estado ==='Operativo'
   );
@@ -48,8 +45,6 @@ const Material = () => {
     (mat) => mat.estado === "Averiado"
   );
   const UnidadesMaterialAveriado = materialAveriado.length;
-  
-  
   
   //end filtros material
   
