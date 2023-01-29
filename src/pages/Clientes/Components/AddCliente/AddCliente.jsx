@@ -1,13 +1,13 @@
 import React from "react";
+import '../../Clientes.scss'
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../assets/ApiRoutes";
-import "./AddMaterial.scss";
 import Swal from "sweetalert2"; // hay que probarlo
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-const AddMaterial = () => {
+const AddCliente = () => {
   const {
     register,
     handleSubmit,
@@ -23,7 +23,7 @@ const AddMaterial = () => {
     formData={...formData,estado,unidades};
     console.log(formData,'formData');
     try {
-      const result = await fetch(`${BASE_URL}/material`, {
+      const result = await fetch(`${BASE_URL}/clientes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const AddMaterial = () => {
       });
       const resData = await result.json();
       Swal.fire({
-        text: "Material Añadido Correctamente",
+        text: "Cliente Añadido Correctamente",
         icon: "success",
         confirmButtonText: "Ok",
       });
@@ -44,7 +44,7 @@ const AddMaterial = () => {
   };
   return (
     <>
-    <div className="form">
+   <div className="form">
       <div className="container">
         <section className="sectionForm row">
           <div className="col-12 col-lg-11 mx-3">
@@ -57,93 +57,112 @@ const AddMaterial = () => {
                   <input
                     className="form-control"
                     type="text"
-                    name="descripcion"
-                    placeholder="Descripcion"
-                    {...register("descripcion",{
+                    name="nombre"
+                    placeholder="Nombre Cliente"
+                    {...register("nombre",{
                       required: "Campo Obligatorio",
                     })}
                   />
-                   {errors.descripcion && errors.descripcion.type === "required" && (
-                <p className="error">{errors.descripcion.message}</p>
+                   {errors.nombre && errors.nombre.type === "required" && (
+                <p className="error">{errors.nombre.message}</p>
               )}
                 </div>
                 <div className="d-flex flex-column col-11 col-md-5 mx-md-3 my-2">
                   {/* <label className="form__label">Dirección * </label> */}
-                  <select {...register("tipo",{
+                  <select {...register("tipoCliente",{
                       required: "Campo Obligatorio",
                     })} className="form-control"
                     >
-                    {errors.descripcion && errors.descripcion.type === "required" && (
-                <p className="error">{errors.descripcion.message}</p>
+                    {errors.tipoCliente && errors.tipoCliente.type === "required" && (
+                <p className="error">{errors.tipoCliente.message}</p>
               )}
-                  <option selected>Tipo de Material</option>
-                    <option value="Reparable">Reparable</option>
-                    <option value="Consumible">Consumible</option>
+                  <option selected>Tipo de Cliente</option>
+                    <option value="Particular">Particular</option>
+                    <option value="Empresa">Empresa</option>
                   </select>
                 </div>
               </div>
               <div className="d-flex flex-column flex-md-row">
-                <div className="d-flex flex-column col-11 col-md-2 mx-md-4 my-2">
+                <div className="d-flex flex-column col-11 col-md-2 mx-md-5 my-2">
                   {/* <label className="form__label">Localidad * </label> */}
                   <input
                     className="form-control"
-                    type="number"
+                    type="text"
                     step="any"
-                    name="pcompra"
-                    placeholder="Precio de Compra"
-                    {...register("pcompra", {
+                    name="dni"
+                    placeholder="DNI o CIF"
+                    {...register("dni", {
                   required: "Campo Obligatotio",
                 })}
               />
-              {errors.pcompra && errors.pcompra.type === "required" && (
-                <p className="error">{errors.pcompra.message}</p>
+              {errors.dni && errors.dni.type === "required" && (
+                <p className="error">{errors.dni.message}</p>
               )}
                 </div>
-                <div className="d-flex flex-column col-11 col-md-2 mx-md-4 my-2">
+                <div className="d-flex flex-column col-11 col-md-3 mx-md-5 my-2">
                   {/* <label className="form__label">Teléfono* </label> */}
                   <input
                     className="form-control"
-                    type="number"
+                    type="text"
                     step="any"
                     //pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
-                    name="iva"
-                    placeholder="I.V.A."
-                    {...register("iva", {
+                    name="telefono"
+                    placeholder="Teléfono"
+                    {...register("telefono", {
                   required: "Campo Obligatotio",
                 })}
               />
-              {errors.iva && errors.iva.type === "required" && (
-                <p className="error">{errors.iva.message}</p>
+              {errors.telefono && errors.telefono.type === "required" && (
+                <p className="error">{errors.telefono.message}</p>
               )}
                 </div>
-                <div className="d-flex flex-column col-11 col-md-2 mx-md-4 my-2">
+                <div className="d-flex flex-column col-11 col-md-4 mx-md-5 my-2">
                   {/* <label className="form__label">Tipo Caldera * </label> */}
                   <input
                     className="form-control"
-                    type="number"
+                    type="text"
                     step="any"
-                    name="pvp"
-                    placeholder="Precio Venta Público"
-                    {...register("pvp", {
+                    name="email"
+                    placeholder="Email"
+                    {...register("email", {
                   required: "Campo Obligatotio",
                 })}
               />
-              {errors.pvp && errors.pvp.type === "required" && (
-                <p className="error">{errors.pvp.message}</p>
+              {errors.email && errors.email.type === "required" && (
+                <p className="error">{errors.email.message}</p>
               )}
                 </div>
-                <div className="d-flex flex-column col-11 col-md-4 mx-md-4 my-2">
-                <select {...register("ubicacion",{
+              </div>
+              <div className="d-flex flex-column flex-md-row">
+                <div className="d-flex flex-column col-11 col-md-7 my-2">
+                  {/* <label className="form__label">Cliente * </label> */}
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="direccion"
+                    placeholder="Dirección"
+                    {...register("direccion",{
                       required: "Campo Obligatorio",
-                    })} className="form-control"
-                    >
-                    {errors.ubicacion && errors.ubicacion.type === "required" && (
-                <p className="error">{errors.ubicacion.message}</p>
+                    })}
+                  />
+                   {errors.direccion && errors.direccion.type === "required" && (
+                <p className="error">{errors.direccion.message}</p>
               )}
-                  <option selected>Ubicación</option>
-                    <option value="Furgo">Vehículo</option>
-                    <option value="Almacen">Almacén</option>
-                  </select>
+                </div>
+                <div className="d-flex flex-column col-11 col-md-5 mx-md-3 my-2">
+                  {/* <label className="form__label">Dirección * </label> */}
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="localidad"
+                    placeholder="Localidad"
+                    {...register("localidad",{
+                      required: "Campo Obligatorio",
+                    })}
+                  />
+                  {errors.localidad && errors.localidad.type === "required" && (
+                <p className="error">{errors.localidad.message}</p>
+              )}
                 </div>
               </div>
               <Button
@@ -155,7 +174,7 @@ const AddMaterial = () => {
                   borderRadius: 50,
                   backgroundColor: "primary",
                   color: "white",
-                  marginTop:'30px'
+                  marginTop:'30px',
                 }}
               >
                 Enviar
@@ -164,9 +183,9 @@ const AddMaterial = () => {
           </div>
         </section>
       </div>
-    </div>
+   </div>
     </>
   );
 };
 
-export default AddMaterial;
+export default AddCliente;

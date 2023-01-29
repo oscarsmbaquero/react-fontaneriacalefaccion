@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../assets/ApiRoutes";
 import "./AddAvisos.scss";
+import axios from "axios";
 import Swal from "sweetalert2"; // hay que probarlo
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import SearchInput from '../../../../core/SearchInput/SearchInput'
 
 const AddAvisos = () => {
+  const [clientes, setClientes] = useState([]);
+  const [keyword, setKeyword] = useState('');
+  const [selectedJob, setSelectedJob] = useState('');
   const {
     register,
     handleSubmit,
@@ -15,13 +20,32 @@ const AddAvisos = () => {
   } = useForm({ mode: "onChange" });
   let navigate = useNavigate();
 
- 
+  useEffect(() => {
+    const fetchClientes = async () => {
+      const res = await axios.get(`${BASE_URL}/clientes`);
+      setClientes(res.data);
+    };
+    fetchClientes();
+  },[]); 
+    //Capturamos eel valor del input del buscador  y lo seteamos a keyword pasandolo a minusculas
+    const onInputChange = (e) => {
+      setKeyword(e.target.value.toLowerCase());
+    };
+    /*Con el valor introducido en el inpute del buscador filtramos los trabajos almacenaos en jobs,
+    Filtramos por empresa o por puestos ofertados, previo paso a minusculas*/
+    const filteredClientes = clientes.filter((client) =>
+      client.cliente.toLowerCase().includes(keyword)||
+      client.dni.toLowerCase().includes(keyword)
+    );
+
+  console.log(clientes);
   const onSubmit = async (formData) => {
    
     
     try {
       const cobrado ='No Cobrado';
       formData = {...formData,cobrado}
+      console.log(formData,'formData')
       const result = await fetch(`${BASE_URL}/avisos`, {
         method: "POST",
         headers: {
@@ -36,14 +60,13 @@ const AddAvisos = () => {
         },
         body: JSON.stringify(formData),
       });
-      //const resData = await resultado.json();
       if(result.status === 200 && resultado.status === 200){
         Swal.fire({
           //title: "Success!",
           text: "Aviso introducido y cliente creado",
           icon: "success",
           confirmButtonText: "Ok",
-        });        
+        });
       } else if(result.status === 200 && resultado.status === 401){
         Swal.fire({
           //title: "Success!",
@@ -59,6 +82,7 @@ const AddAvisos = () => {
   };
   return (
     <>
+    <div className="form">
       <div className="container">
         <section className="sectionForm row">
           <div className="col-12 col-lg-11 mx-3">
@@ -76,6 +100,7 @@ const AddAvisos = () => {
                       required: "Campo Obligatorio",
                     })}
                   />
+                  {/* <SearchInput placeholder="Filtrar por trabajo o empresa" onChange={onInputChange} /> */}
                    {errors.cliente && errors.cliente.type === "required" && (
                 <p className="error">{errors.cliente.message}</p>
               )}
@@ -183,6 +208,7 @@ const AddAvisos = () => {
           </div>
         </section>
       </div>
+    </div>
     </>
   );
 };

@@ -9,6 +9,7 @@ import SignUp from '../pages/User/Register/SignUp';
 import MostrarIntervencion  from '../pages/Avisos/Components/MostrarIntervenciones/MostrarIntervencion';
 import AddMaterial from '../pages/Material/Components/AltaMaterial/AddMaterial';
 import AddAvisos from '../pages/Avisos/Components/AddAvisos/AddAvisos';
+import AddCliente from '../pages/Clientes/Components/AddCliente/AddCliente';
 
 
 
@@ -57,6 +58,10 @@ const routes = [
   {
     path: "/avisos/mostrar/intervencion/:id",
     element: <MostrarIntervencion />,
+  },
+  {
+    path: "/addCliente",
+    element: <AddCliente/>,
   },
 
 ];
