@@ -113,7 +113,9 @@ const AddAvisos = () => {
                     name="jobs"
                     className="form-control"
                     value={selectedOption}
-                      onChange={(e) => setSelectedOption(e.target.value)}
+                    {...register("cliente")}
+                    onChange={(e) => setSelectedOption(e.target.value)}
+                      
                   >
                     <option
                       // selected
@@ -243,7 +245,7 @@ const AddAvisos = () => {
                 </div>
                 <Button
                   variant="contained"
-                  disabled={!isValid}
+                  //disabled={!isValid}
                   type="submit"
                   endIcon={<SendIcon />}
                   style={{
