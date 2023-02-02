@@ -22,8 +22,8 @@ const IntercencionAviso = () => {
   const [tiempoViaje, setTiempoViaje] = useState();
   const [material, setMaterial] = useState([]);
   const [selectPrice, setSelectPrice] = useState();
-  
-  
+  const [image, setImage] = useState("");
+
   useEffect(() => {
     const fetchMaterial = async () => {
       const res = await axios.get(`${BASE_URL}/material`);
@@ -32,13 +32,16 @@ const IntercencionAviso = () => {
     fetchMaterial();
   });
 
-
-  const consultPrice = (e) =>{
+  const consultPrice = (e) => {
     const idSelected = e.target.value;
     fetch(`${BASE_URL}/material/consultarPrecio/${idSelected}`)
       .then((response) => response.json())
       .then((data) => setSelectPrice(data));
-  }  
+  };
+
+  const handleImageChange = (event) => {
+    setImage(URL.createObjectURL(event.target.files[0]));
+  };
 
   const {
     register,
@@ -75,10 +78,12 @@ const IntercencionAviso = () => {
   const totalHoras = intervencion + desplazamiento;
 
   const materialOperativo = material.filter(
-    (material) => material.estado === "Operativo" && material.ubicacion === 'Furgo'
+    (material) =>
+      material.estado === "Operativo" && material.ubicacion === "Furgo"
   );
   const onSubmit = async (formData) => {
-    formData = { ...formData, totalHoras };
+    formData = { ...formData, totalHoras,image };
+    console.log(formData,81)
     try {
       const result = await fetch(`${BASE_URL}/avisos/${id}`, {
         method: "POST",
@@ -87,7 +92,7 @@ const IntercencionAviso = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(result)
+      console.log(result);
       Swal.fire({
         text: "Intervención añadida Correctamente",
         icon: "success",
@@ -119,9 +124,11 @@ const IntercencionAviso = () => {
                   </select>
                 </div>
                 {visible === "Pendiente" ? (
-                  <div className="d-flex flex-column col-11 col-md-8  mx-md-3">
+                  <div className="d-flex flex-column col-11 col-md-8 mx-md-3">
                     <label className="form__label">
-                      <span className="labelDist">Motivo de aviso pendiente*</span>
+                      <span className="labelDist">
+                        Motivo de aviso pendiente*
+                      </span>
                     </label>
                     <input
                       className="form-control"
@@ -138,27 +145,26 @@ const IntercencionAviso = () => {
                   </div>
                 ) : (
                   <>
-                  <div className="d-flex flex-column col-11 col-md-7  mx-md-3">
-                    <label className="form__label">
-                    <span className="labelDist">Importe de factura*</span>
-                    </label>
-                    <input
-                      className="form-control"
-                      type="number"
-                      name="importeReparacion"
-                      placeholder="Introduce importe"
-                      {...register("importeReparacion", {
-                        required: "Campo Obligatotio",
-                      })}
-                    />
-                    {errors.importeReparacion &&
-                      errors.importeReparacion.type === "required" && (
-                        <p className="error">
-                          {errors.importeReparacion.message}
-                        </p>
-                      )}
-                  </div>
-                  
+                    <div className="d-flex flex-column col-11 col-md-8 mx-md-3">
+                      <label className="form__label">
+                        <span className="labelDist">Importe de factura*</span>
+                      </label>
+                      <input
+                        className="form-control"
+                        type="number"
+                        name="importeReparacion"
+                        placeholder="Introduce importe"
+                        {...register("importeReparacion", {
+                          required: "Campo Obligatotio",
+                        })}
+                      />
+                      {errors.importeReparacion &&
+                        errors.importeReparacion.type === "required" && (
+                          <p className="error">
+                            {errors.importeReparacion.message}
+                          </p>
+                        )}
+                    </div>
                   </>
                 )}
               </div>
@@ -181,12 +187,17 @@ const IntercencionAviso = () => {
                       No hay consumo
                     </option>
                     {materialOperativo.map((el) => (
-                      <option key={el._id} value={el._id} >
+                      <option key={el._id} value={el._id}>
                         {el.descripcion}
                       </option>
                     ))}
                   </select>
-                  {selectPrice && <p className="error"> PVP:&nbsp;{selectPrice.pcompra}&nbsp;€</p>}                  
+                  {selectPrice && (
+                    <p className="error">
+                      {" "}
+                      PVP:&nbsp;{selectPrice.pcompra}&nbsp;€
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="d-flex flex-column flex-md-row justify-content-center">
@@ -262,7 +273,33 @@ const IntercencionAviso = () => {
                     )}
                 </div>
               </div>
-              <br />
+              <div className="d-flex flex-column flex-md-row justify-content-center">
+                <div className="d-flex flex-column col-5">
+                  <label className="form__label">
+                    Añade Foto *
+                  </label>
+                  <input
+                    type="file"
+                    name="image"
+                    className="edit__input"
+                    onChange={handleImageChange}
+                  />
+                </div>
+                <div className="d-flex flex-column col-6">
+                  <label className="form__label">
+                    Captura Foto *
+                  </label>
+                  <input
+                      type="file"
+                      name="image"
+                      accept="image/*"
+                      capture="camera"
+                      className="edit__input"
+                      onChange={handleImageChange}
+                    />
+                </div>
+              </div>
+
               <Button
                 variant="contained"
                 disabled={!isValid}
@@ -273,7 +310,8 @@ const IntercencionAviso = () => {
                   borderRadius: 50,
                   backgroundColor: "blue",
                   color: "white",
-                  marginBottom:'30px'
+                  marginBottom: "30px",
+                  marginTop: "30px",
                 }}
               >
                 Enviar
