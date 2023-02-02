@@ -8,6 +8,7 @@ import { BASE_URL } from "../../../../assets/ApiRoutes";
 //import Loader from "../../../core/components/Loader/Loader";
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import  camera  from "../../../../assets/images/camera.jpg"
 //import { useGetAuth } from "../../../context/context";
 import Swal from "sweetalert2";
 //import { SWContext } from "../../../../context/context";
@@ -276,16 +277,15 @@ const IntercencionAviso = () => {
               <div className="d-flex flex-column flex-md-row justify-content-center">
                 <div className="d-flex flex-column col-5">
                   <label className="form__label">
-                    Añade Foto *
                   </label>
                   <input
                     type="file"
                     name="image"
-                    className="edit__input"
+                    className="input-camera"
                     onChange={handleImageChange}
                   />
                 </div>
-                <div className="d-flex flex-column col-6">
+                {/* <div className="d-flex flex-column col-6">
                   <label className="form__label">
                     Captura Foto *
                   </label>
@@ -297,7 +297,7 @@ const IntercencionAviso = () => {
                       className="edit__input"
                       onChange={handleImageChange}
                     />
-                </div>
+                </div> */}
               </div>
 
               <Button

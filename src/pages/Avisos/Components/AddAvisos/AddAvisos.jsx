@@ -42,7 +42,7 @@ const AddAvisos = () => {
     fetchClientesId();
   }, [selectedOption]);
 
-
+  console.log(relatedData._id,45)
   //console.log(relatedData,46)
   //Capturamos eel valor del input del buscador  y lo seteamos a keyword pasandolo a minusculas
   // const onInputChange = (e) => {
@@ -60,7 +60,7 @@ const AddAvisos = () => {
     try {
       const cobrado = "No Cobrado";
       formData = { ...formData, cobrado };
-      console.log(formData, 63);
+      console.log(formData, 633);
       const result = await fetch(`${BASE_URL}/avisos`, {
         method: "POST",
         headers: {
@@ -170,6 +170,15 @@ const AddAvisos = () => {
                       errors.direccion.type === "required" && (
                         <p className="error">{errors.direccion.message}</p>
                       )}
+                      <input
+                      hidden
+                      type="text"
+                      name="id"
+                      placeholder="Dirección"
+                      value={relatedData._id}
+                      // {...setValue("direccion",filteredClientes.direccion)}
+                      {...register("id")}
+                    />
                   </div>
                 </div>
                 <div className="d-flex flex-column flex-md-row">
