@@ -15,7 +15,7 @@ const AddAvisos = () => {
   const [relatedData, setRelatedData] = useState({});
   const [selectedOption, setSelectedOption] = useState(null);
 
-  console.log(selectedOption,18);
+  //console.log(selectedOption,18);
 
 
   const {
@@ -33,7 +33,7 @@ const AddAvisos = () => {
     };
     fetchClientes();
   }, []);
-
+  //console.log(clientes,36)
   useEffect(() => {
     const fetchClientesId = async () => {
       const res = await axios.get(`${BASE_URL}/clientes/${selectedOption}`);
@@ -43,7 +43,7 @@ const AddAvisos = () => {
   }, [selectedOption]);
 
 
-  console.log(relatedData,46)
+  //console.log(relatedData,46)
   //Capturamos eel valor del input del buscador  y lo seteamos a keyword pasandolo a minusculas
   // const onInputChange = (e) => {
   //   setKeyword(e.target.value.toLowerCase());
@@ -60,7 +60,7 @@ const AddAvisos = () => {
     try {
       const cobrado = "No Cobrado";
       formData = { ...formData, cobrado };
-      console.log(formData, "formData");
+      console.log(formData, 63);
       const result = await fetch(`${BASE_URL}/avisos`, {
         method: "POST",
         headers: {
@@ -68,28 +68,29 @@ const AddAvisos = () => {
         },
         body: JSON.stringify(formData),
       });
-      const resultado = await fetch(`${BASE_URL}/clientes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (result.status === 200 && resultado.status === 200) {
+      // const resultado = await fetch(`${BASE_URL}/clientes`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(formData),
+      // });
+      if (result.status === 200) {
         Swal.fire({
           //title: "Success!",
-          text: "Aviso introducido y cliente creado",
+          text: "Aviso introducido",
           icon: "success",
           confirmButtonText: "Ok",
         });
-      } else if (result.status === 200 && resultado.status === 401) {
-        Swal.fire({
-          //title: "Success!",
-          text: "Aviso introducido, cliente ya en el sistema",
-          icon: "success",
-          confirmButtonText: "Ok",
-        });
-      }
+      } 
+      // else if (result.status === 200 && resultado.status === 401) {
+      //   Swal.fire({
+      //     //title: "Success!",
+      //     text: "Aviso introducido, cliente ya en el sistema",
+      //     icon: "success",
+      //     confirmButtonText: "Ok",
+      //   });
+      // }
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -245,7 +246,7 @@ const AddAvisos = () => {
                 </div>
                 <Button
                   variant="contained"
-                  //disabled={!isValid}
+                  disabled={!isValid}
                   type="submit"
                   endIcon={<SendIcon />}
                   style={{

@@ -24,6 +24,7 @@ const DetailAvisos = () => {
       .then((response) => response.json())
       .then((data) => SetAvisos(data));
   }, [id]);
+  console.log(avisos,27)
   return (
     <div>
       {!avisos ? (
@@ -54,7 +55,7 @@ const DetailAvisos = () => {
                       // justifyContent: "flex-start",
                       // flexDirection: "row",
                     }}
-                    title={avisos.cliente}
+                    title={avisos.cliente.cliente}
                     titleStyle={{textAlign: 'left'}}
                     subheader={
                       <Badge bg="danger">

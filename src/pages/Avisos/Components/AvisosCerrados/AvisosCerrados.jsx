@@ -64,7 +64,7 @@ const AvisosCerrados = ({ averias }) => {
       name: "Cliente",
       selector: (row) => (
         <Badge bg="primary" text="bold">
-          {row.cliente}
+          {row.cliente.cliente}
         </Badge>
       ),
       sortable: true,

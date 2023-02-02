@@ -22,11 +22,7 @@ const AvisosAbiertos = ({ averias }) => {
   const columns = [
     {
       name: "Cliente",
-      selector: (row) => 
-      
-          row.cliente
-       
-      ,
+      selector: (row) => row.cliente.cliente,
       sortable: true,
     },
     {

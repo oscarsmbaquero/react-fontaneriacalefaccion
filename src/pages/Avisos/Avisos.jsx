@@ -31,7 +31,7 @@ const Avisos = () => {
     };
     fetchAvisos();
   },[]);
-
+  console.log(averias,34)
   useEffect(() => {
     const fetchMaterial = async () => {
       const res = await axios.get(`${BASE_URL}/material`);
