@@ -33,10 +33,10 @@ const AddAvisos = () => {
     };
     fetchClientes();
   }, []);
-  //console.log(clientes,36)
+  console.log(clientes,36)
   useEffect(() => {
     const fetchClientesId = async () => {
-      const res = await axios.get(`${BASE_URL}/clientes/${selectedOption}`);
+      const res = await axios.get(`${BASE_URL}/clientes/ById/${selectedOption}`);
       setRelatedData(res.data);
     };
     fetchClientesId();
@@ -59,7 +59,8 @@ const AddAvisos = () => {
   const onSubmit = async (formData) => {
     try {
       const cobrado = "No Cobrado";
-      formData = { ...formData, cobrado};
+      const estado = "Abierto";
+      formData = { ...formData, cobrado, estado};
       console.log(formData, 633);
       const result = await fetch(`${BASE_URL}/avisos`, {
         method: "POST",
@@ -127,7 +128,7 @@ const AddAvisos = () => {
                     </option>
                     {clientes.map((el) => (
                       <option key={el._id} value={el._id} >
-                        {el.cliente}
+                        {el.nombre}
                       </option>
                     ))}
                   </select>
@@ -150,9 +151,6 @@ const AddAvisos = () => {
                       <option value="option3">Opción 3</option>
                     </select> */}
 
-                    {errors.cliente && errors.cliente.type === "required" && (
-                      <p className="error">{errors.cliente.message}</p>
-                    )}
                   </div>
                   <div className="d-flex flex-column col-11 col-md-6 mx-md-3 my-2">
                     <input
@@ -161,33 +159,18 @@ const AddAvisos = () => {
                       name="direccion"
                       placeholder="Dirección"
                       value={relatedData.direccion}
-                      // {...setValue("direccion",filteredClientes.direccion)}
-                      {...register("direccion", {
-                        required: "Campo Obligatotio",
-                      })}
                     />
-                    {errors.direccion &&
-                      errors.direccion.type === "required" && (
-                        <p className="error">{errors.direccion.message}</p>
-                      )}
                   </div>
                 </div>
                 <div className="d-flex flex-column flex-md-row">
-                  <div className="d-flex flex-column col-11 col-md-4 my-2">
+                  <div className="d-flex flex-column col-11 col-md-3 my-2 mx-3">
                     <input
                       className="form-control"
                       type="text"
                       name="localidad"
                       placeholder="Localidad"
                       value={relatedData.localidad}
-                      {...register("localidad", {
-                        required: "Campo Obligatotio",
-                      })}
                     />
-                    {errors.localidad &&
-                      errors.localidad.type === "required" && (
-                        <p className="error">{errors.localidad.message}</p>
-                      )}
                   </div>
                   <div className="d-flex flex-column col-11 col-md-4 mx-md-3 my-2">
                     <input
@@ -196,20 +179,15 @@ const AddAvisos = () => {
                       name="telefono"
                       placeholder="Teléfono"
                       value={relatedData.telefono}
-                      {...register("telefono", {
-                        required: "Campo Obligatotio",
-                      })}
                     />
                   </div>
-                  <div className="d-flex flex-column col-11 col-md-4 my-2">
+                  <div className="d-flex flex-column col-11 col-md-4 my-2 mx-md-3">
                     <input
                       className="form-control"
                       type="text"
                       name="caldera"
                       placeholder="Tipo de Caldera"
-                      {...register("caldera", {
-                        required: "Campo Obligatotio",
-                      })}
+                      value={relatedData.caldera}
                     />
                   </div>
                 </div>
@@ -230,17 +208,10 @@ const AddAvisos = () => {
                   </div>
                 </div>
                 <div className="d-flex flex-column flex-md-row">
-                  <div className="d-flex flex-column col-11 col-md-6 my-2">
+                  <div className="d-flex flex-column col-11 col-lg-12 col-md-6 mx-md-1 my-2">
                     <select {...register("prioridad")} className="form-control">
                       <option value="Urgente">Urgente</option>
                       <option value="Normal">Normal</option>
-                    </select>
-                  </div>
-                  <div className="d-flex flex-column col-11 col-md-6 mx-md-3 my-2">
-                    <select {...register("estado")} className="form-control">
-                      <option value="Abierto" selected>
-                        Abierto
-                      </option>
                     </select>
                   </div>
                 </div>

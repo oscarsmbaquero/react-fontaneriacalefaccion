@@ -22,23 +22,23 @@ const AvisosAbiertos = ({ averias }) => {
   const columns = [
     {
       name: "Cliente",
-      selector: (row) => row.cliente.cliente,
+      selector: (row) => row.cliente.nombre,
       sortable: true,
     },
     {
       name: "Dirección",
-      selector: (row) => row.direccion,
+      selector: (row) => row.cliente.direccion,
       sortable: true,
     },
     {
       name: "Localidad",
-      selector: (row) => row.localidad,
+      selector: (row) => row.cliente.localidad,
       sortable: true,
     },
     {
       name: "Caldera",
       sortable: true,
-      selector: (row) => row.caldera,
+      selector: (row) => row.cliente.caldera,
     },
     {
       name: "Avería",

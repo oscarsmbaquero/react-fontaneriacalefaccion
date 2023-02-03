@@ -44,7 +44,7 @@ const ShowClientes = ({ clientes }) => {
   const [filterText, setFilterText] = React.useState("");
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
-  // console.log(clientes, 56);
+   console.log(clientes, 56);
 
   // const averiasImpagadas = clientes.map((aviso)=>aviso.cobrado ==='No Cobrado') ;
   // const numeroaveriasImpagadas = averiasImpagadas.length;
@@ -53,8 +53,8 @@ const ShowClientes = ({ clientes }) => {
   //FILTERS  BY CLIENT
   let filteredItems = clientes.filter(
     (item) =>
-      item.cliente &&
-      item.cliente.toLowerCase().includes(filterText.toLowerCase())
+      item.nombre &&
+      item.nombre.toLowerCase().includes(filterText.toLowerCase())
   );
   // let numeroAvisosImpagadas = {
   //   impagados:numeroaveriasImpagadas
@@ -102,7 +102,7 @@ const ShowClientes = ({ clientes }) => {
   const columns = [
     {
       name: "Averia",
-      selector: (row) => row.cliente,
+      selector: (row) => row.nombre,
       sortable: true,
     },
     {
@@ -120,11 +120,11 @@ const ShowClientes = ({ clientes }) => {
       selector: (row) => row.telefono,
       sortable: true,
     },
-    // {
-    //   name: "A.Impagados",
-    //   selector: (row) => row.numeroAvisosImpagadas,
-    //   sortable: true,
-    // },
+    {
+      name: "Caldera",
+      selector: (row) => row.caldera,
+      sortable: true,
+    },
     {
       name: "T. Cliente",
       sortable: true,

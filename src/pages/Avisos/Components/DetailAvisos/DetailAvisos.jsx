@@ -24,7 +24,7 @@ const DetailAvisos = () => {
       .then((response) => response.json())
       .then((data) => SetAvisos(data));
   }, [id]);
-  console.log(avisos,27)
+  console.log(avisos,2777)
   return (
     <div>
       {!avisos ? (
@@ -55,15 +55,15 @@ const DetailAvisos = () => {
                       // justifyContent: "flex-start",
                       // flexDirection: "row",
                     }}
-                    title={avisos.cliente.cliente}
+                    title={avisos.cliente.nombre}
                     titleStyle={{textAlign: 'left'}}
                     subheader={
                       <Badge bg="danger">
                         <MDBIcon icon="phone" className="me-3" color="white" />
-                        <a href={`tel:+34${avisos.telefono}`}>
+                        <a href={`tel:+34${avisos.cliente.telefono}`}>
                           &nbsp;
                           <span className="showIntervencion">
-                            {avisos.telefono}
+                            {avisos.cliente.telefono}
                           </span>
                         </a>
                       </Badge>
@@ -82,10 +82,10 @@ const DetailAvisos = () => {
                       )}
                     </Typography>
                     <Typography variant="h4" component={"div"}>
-                      {avisos.caldera}
+                      {avisos.cliente.caldera}
                     </Typography>
                     <Typography sx={{ fontSize: 26 }} color="text.secondary">
-                      {avisos.direccion}
+                      {avisos.cliente.direccion}
                     </Typography>
                     <Typography variant="h6">
                       {

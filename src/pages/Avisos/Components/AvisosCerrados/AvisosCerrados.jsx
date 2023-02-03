@@ -64,30 +64,30 @@ const AvisosCerrados = ({ averias }) => {
       name: "Cliente",
       selector: (row) => (
         <Badge bg="primary" text="bold">
-          {row.cliente.cliente}
+          {row.cliente.nombre}
         </Badge>
       ),
       sortable: true,
     },
     {
       name: "Dirección",
-      selector: (row) => row.direccion,
+      selector: (row) => row.cliente.direccion,
       sortable: true,
     },
     {
       name: "Localidad",
-      selector: (row) => row.localidad,
+      selector: (row) => row.cliente.localidad,
       sortable: true,
     },
     {
       name: "Teléfono",
-      selector: (row) => row.telefono,
+      selector: (row) => row.cliente.telefono,
       sortable: true,
     },
     {
       name: "Caldera",
       sortable: true,
-      selector: (row) => row.caldera,
+      selector: (row) => row.cliente.caldera,
     },
     {
       name: "Avería",

@@ -30,13 +30,13 @@ const ShowHistory = ({ clientes }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`${BASE_URL}/clientes/ById/${id}`)
+    fetch(`${BASE_URL}/avisos/history/${id}`)
       .then((response) => response.json())
       .then((data) => SetAvisos(data));
   }, [id]);
-   console.log(avisos,59)
+  console.log(avisos,37);
  
-
+  
   const tableCustomStyles = {
     headCells: {
       style: {
@@ -49,23 +49,23 @@ const ShowHistory = ({ clientes }) => {
 
   const columns = [
     {
-      name: "Nombre",
+      name: "Averia",
       selector: (row) => row.averia,
       sortable: true,
     },
     {
-      name: "Dirección",
-      selector: (row) => row.direccion,
+      name: "Fecha",
+      selector: (row) => row.fecha_fin,
       sortable: true,
     },
     {
-      name: "Localidad",
-      selector: (row) => row.localidad,
+      name: "TotalHoras",
+      selector: (row) => row.totalHoras,
       sortable: true,
     },
     {
-      name: "Teléfono",
-      selector: (row) => row.telefono,
+      name: "Intervención",
+      selector: (row) => row.intervencion,
       sortable: true,
     },
     // {
@@ -74,13 +74,9 @@ const ShowHistory = ({ clientes }) => {
     //   sortable: true,
     // },
     {
-      name: "T. Cliente",
+      name: "Material",
       sortable: true,
-      selector: (row) => (
-        <Badge bg="primary" text="bold">
-          {row.tipoCliente}
-        </Badge>
-      ),
+      selector: (row) => row.materialIntervencion.descripcion
     },
     {
       name: "Acciones",
@@ -120,7 +116,7 @@ const ShowHistory = ({ clientes }) => {
     <DataTable
       customStyles={tableCustomStyles}
       columns={columns}
-      //data={avisos}
+      data={avisos}
       pagination
       dense
       responsive

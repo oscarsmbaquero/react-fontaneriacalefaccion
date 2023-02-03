@@ -16,11 +16,8 @@ const AddCliente = () => {
   let navigate = useNavigate();
 
   //Añado estado Operativo y unidades 1
-  const estado ="Operativo"
-  const unidades=1;
   
   const onSubmit = async (formData) => {
-    formData={...formData,estado,unidades};
     console.log(formData,'formData');
     try {
       const result = await fetch(`${BASE_URL}/clientes`, {
@@ -83,7 +80,7 @@ const AddCliente = () => {
                 </div>
               </div>
               <div className="d-flex flex-column flex-md-row">
-                <div className="d-flex flex-column col-11 col-md-2 mx-md-5 my-2">
+                <div className="d-flex flex-column col-11 col-md-2 mx-md-3 my-2">
                   {/* <label className="form__label">Localidad * </label> */}
                   <input
                     className="form-control"
@@ -99,7 +96,7 @@ const AddCliente = () => {
                 <p className="error">{errors.dni.message}</p>
               )}
                 </div>
-                <div className="d-flex flex-column col-11 col-md-3 mx-md-5 my-2">
+                <div className="d-flex flex-column col-11 col-md-3 mx-md-3 my-2">
                   {/* <label className="form__label">Teléfono* </label> */}
                   <input
                     className="form-control"
@@ -116,7 +113,7 @@ const AddCliente = () => {
                 <p className="error">{errors.telefono.message}</p>
               )}
                 </div>
-                <div className="d-flex flex-column col-11 col-md-4 mx-md-5 my-2">
+                <div className="d-flex flex-column col-11 col-md-3 mx-md-3 my-2">
                   {/* <label className="form__label">Tipo Caldera * </label> */}
                   <input
                     className="form-control"
@@ -130,6 +127,22 @@ const AddCliente = () => {
               />
               {errors.email && errors.email.type === "required" && (
                 <p className="error">{errors.email.message}</p>
+              )}
+                </div>
+                <div className="d-flex flex-column col-11 col-md-3 mx-md-3 my-2">
+                  {/* <label className="form__label">Tipo Caldera * </label> */}
+                  <input
+                    className="form-control"
+                    type="text"
+                    step="any"
+                    name="caldera"
+                    placeholder="Caldera"
+                    {...register("caldera", {
+                  required: "Campo Obligatotio",
+                })}
+              />
+              {errors.caldera && errors.caldera.type === "required" && (
+                <p className="error">{errors.caldera.message}</p>
               )}
                 </div>
               </div>
