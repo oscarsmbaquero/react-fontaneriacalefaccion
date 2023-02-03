@@ -10,6 +10,7 @@ import MostrarIntervencion  from '../pages/Avisos/Components/MostrarIntervencion
 import AddMaterial from '../pages/Material/Components/AltaMaterial/AddMaterial';
 import AddAvisos from '../pages/Avisos/Components/AddAvisos/AddAvisos';
 import AddCliente from '../pages/Clientes/Components/AddCliente/AddCliente';
+import ShowHistory from '../pages/Clientes/Components/ShowHistory/ShowHistory';
 
 
 
@@ -62,6 +63,10 @@ const routes = [
   {
     path: "/addCliente",
     element: <AddCliente/>,
+  },
+  {
+    path: "/getClientHistory/:id",
+    element: <ShowHistory/>,
   },
 
 ];

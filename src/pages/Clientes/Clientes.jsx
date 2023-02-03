@@ -39,7 +39,7 @@ const Clientes = () => {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Añadir Material" />
+          <Tab label="Añadir Cliente" />
           <Tab label="Mostrar Clientes" />
         </Tabs>
       </Box>

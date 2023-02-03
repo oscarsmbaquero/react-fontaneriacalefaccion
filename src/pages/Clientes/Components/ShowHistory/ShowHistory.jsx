@@ -1,5 +1,6 @@
 import { Badge } from "react-bootstrap";
 import "../../Clientes.scss";
+import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import DataTable from "react-data-table-component";
@@ -9,7 +10,6 @@ import axios from "axios";
 import styled from "styled-components";
 import { export_table_to_excel } from "../../Export-Excel/Export-excel";
 import IconoDescarga from "../../../../assets/images/excell.png";
-import { Link } from "react-router-dom";
 //styles for input
 const TextField = styled.input`
   height: 32px;
@@ -23,71 +23,19 @@ const TextField = styled.input`
     cursor: pointer;
   }
 `;
-//FILTERED COMPONENT
-const FilterComponent = ({ filterText, onFilter, onClear }) => (
-  <>
-    <TextField
-      id="search"
-      type="text"
-      placeholder="Buscar Cliente"
-      aria-label="Search Input"
-      value={filterText}
-      onChange={onFilter}
-    />
-    <Button className="button" onClick={onClear}>
-      🔎
-    </Button>
-  </>
-);
 
-const ShowClientes = ({ clientes }) => {
-  const [filterText, setFilterText] = React.useState("");
-  const [resetPaginationToggle, setResetPaginationToggle] =
-    React.useState(false);
-  // console.log(clientes, 56);
 
-  // const averiasImpagadas = clientes.map((aviso)=>aviso.cobrado ==='No Cobrado') ;
-  // const numeroaveriasImpagadas = averiasImpagadas.length;
-  // console.log(numeroaveriasImpagadas,50)
+const ShowHistory = ({ clientes }) => {
+  const [avisos, SetAvisos] = useState();
+  const { id } = useParams();
 
-  //FILTERS  BY CLIENT
-  let filteredItems = clientes.filter(
-    (item) =>
-      item.cliente &&
-      item.cliente.toLowerCase().includes(filterText.toLowerCase())
-  );
-  // let numeroAvisosImpagadas = {
-  //   impagados:numeroaveriasImpagadas
-  // }
-  // filteredItems = [...filteredItems,numeroAvisosImpagadas];
-  console.log(filteredItems, 59);
-
-  const subHeaderComponentMemo = React.useMemo(() => {
-    const handleClear = () => {
-      if (filterText) {
-        setResetPaginationToggle(!resetPaginationToggle);
-        setFilterText("");
-      }
-    };
-
-    return (
-      <>
-        <img
-          src={IconoDescarga}
-          alt="icono nuevo aviso"
-          className="icon"
-          onClick={() =>
-            export_table_to_excel(filteredItems, columns, "Clientes")
-          }
-        />
-        <FilterComponent
-          onFilter={(e) => setFilterText(e.target.value)}
-          onClear={handleClear}
-          filterText={filterText}
-        />
-      </>
-    );
-  }, [filterText, resetPaginationToggle, filteredItems]);
+  useEffect(() => {
+    fetch(`${BASE_URL}/clientes/ById/${id}`)
+      .then((response) => response.json())
+      .then((data) => SetAvisos(data));
+  }, [id]);
+   console.log(avisos,59)
+ 
 
   const tableCustomStyles = {
     headCells: {
@@ -101,8 +49,8 @@ const ShowClientes = ({ clientes }) => {
 
   const columns = [
     {
-      name: "Averia",
-      selector: (row) => row.cliente,
+      name: "Nombre",
+      selector: (row) => row.averia,
       sortable: true,
     },
     {
@@ -140,11 +88,8 @@ const ShowClientes = ({ clientes }) => {
       cell: (row) => (
         //
         <>
-          <Link to={`/getClientHistory/${row._id}`}>
-            <MDBIcon far icon="list-alt" color="primary" />
-          </Link>
           {/* <a href={`tel:${row.telefono}`} className="mdbicon"> */}
-          {/* <MDBIcon far icon="list-alt" color="primary" /> */}
+          <MDBIcon far icon="list-alt" color="primary" />
           {/* </a> */}
           &nbsp;&nbsp;&nbsp;
           <a href={`tel:${row.telefono}`} className="mdbicon">
@@ -161,8 +106,8 @@ const ShowClientes = ({ clientes }) => {
             <MDBIcon color="success" fab icon="whatsapp" size="1x" />
           </a>
           &nbsp;&nbsp;&nbsp;
-          <a href={`mailto:${row.email}`} className="mdbicon">
-            <MDBIcon icon="envelope" className="me-3" color="blue" />
+          <a href= {`mailto:${row.email}`} className="mdbicon">
+          <MDBIcon icon="envelope" className="me-3" color="blue" />
           </a>
         </>
       ),
@@ -175,16 +120,14 @@ const ShowClientes = ({ clientes }) => {
     <DataTable
       customStyles={tableCustomStyles}
       columns={columns}
-      data={filteredItems}
+      //data={avisos}
       pagination
-      paginationResetDefaultPage={resetPaginationToggle}
       dense
       responsive
       subHeader
-      subHeaderComponent={subHeaderComponentMemo}
       // persistTableHead
     />
   );
 };
 
-export default ShowClientes;
+export default ShowHistory;
