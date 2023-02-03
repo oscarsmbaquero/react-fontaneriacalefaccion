@@ -59,7 +59,7 @@ const AddAvisos = () => {
   const onSubmit = async (formData) => {
     try {
       const cobrado = "No Cobrado";
-      formData = { ...formData, cobrado };
+      formData = { ...formData, cobrado};
       console.log(formData, 633);
       const result = await fetch(`${BASE_URL}/avisos`, {
         method: "POST",
@@ -170,15 +170,6 @@ const AddAvisos = () => {
                       errors.direccion.type === "required" && (
                         <p className="error">{errors.direccion.message}</p>
                       )}
-                      <input
-                      hidden
-                      type="text"
-                      name="id"
-                      placeholder="Dirección"
-                      value={relatedData._id}
-                      // {...setValue("direccion",filteredClientes.direccion)}
-                      {...register("id")}
-                    />
                   </div>
                 </div>
                 <div className="d-flex flex-column flex-md-row">

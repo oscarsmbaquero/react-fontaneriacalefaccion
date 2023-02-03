@@ -43,7 +43,7 @@ const ShowClientes = ({ clientes }) => {
   const [filterText, setFilterText] = React.useState("");
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
-  console.log(clientes, 56);
+  //console.log(clientes, 56);
 
   //FILTERS  BY CLIENT
   const filteredItems = clientes.filter(
