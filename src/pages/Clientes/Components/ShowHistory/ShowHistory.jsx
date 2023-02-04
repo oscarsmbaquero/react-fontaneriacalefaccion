@@ -2,7 +2,7 @@ import { Badge } from "react-bootstrap";
 import "../../Clientes.scss";
 import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import DataTable from "react-data-table-component";
 import { BASE_URL } from "../../../../assets/ApiRoutes";
 import { MDBIcon } from "mdb-react-ui-kit";
@@ -10,6 +10,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { export_table_to_excel } from "../../Export-Excel/Export-excel";
 import IconoDescarga from "../../../../assets/images/excell.png";
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 //styles for input
 const TextField = styled.input`
   height: 32px;
@@ -27,6 +28,7 @@ const TextField = styled.input`
 
 const ShowHistory = ({ clientes }) => {
   const [avisos, SetAvisos] = useState();
+  const [table, setTable] = useState();
   const { id } = useParams();
 
   useEffect(() => {
@@ -35,6 +37,25 @@ const ShowHistory = ({ clientes }) => {
       .then((data) => SetAvisos(data));
   }, [id]);
   console.log(avisos,37);
+  useEffect(() => {
+    if (avisos) {
+      let tabla=[]
+      avisos.map( (aviso, index ) => (
+        tabla.push({
+          averia:aviso.averia,
+          //fecha_inicio: aviso.fecha_inicio[index].replace('T','  '),
+          fecha_fin:aviso.fecha_fin[index].replace('T','  ') ,
+          //km: aviso.km[index],
+          //intervencion: aviso.intervencion[index].lenght(-1) ,
+          //material: aviso.materialIntervencion[index]?.descripcion,
+          totalHoras: aviso.totalHoras[index],
+        })
+      ))
+
+      setTable(tabla);
+    }
+
+}, [avisos])
  
   
   const tableCustomStyles = {
@@ -58,26 +79,26 @@ const ShowHistory = ({ clientes }) => {
       selector: (row) => row.fecha_fin,
       sortable: true,
     },
-    {
-      name: "TotalHoras",
-      selector: (row) => row.totalHoras,
-      sortable: true,
-    },
-    {
-      name: "Intervención",
-      selector: (row) => row.intervencion,
-      sortable: true,
-    },
+    // {
+    //   name: "TotalHoras",
+    //   selector: (row) => row.totalHoras,
+    //   sortable: true,
+    // },
+    // {
+    //   name: "Intervención",
+    //   selector: (row) => row.intervencion,
+    //   sortable: true,
+    // },
     // {
     //   name: "A.Impagados",
     //   selector: (row) => row.numeroAvisosImpagadas,
     //   sortable: true,
     // },
-    {
-      name: "Material",
-      sortable: true,
-      selector: (row) => row.materialIntervencion.descripcion
-    },
+    // {
+    //   name: "Material",
+    //   sortable: true,
+    //   selector: (row) => row.materialIntervencion.descripcion
+    // },
     // {
     //   name: "Acciones",
     //   // selector: (row) => row.localidad,
@@ -111,12 +132,29 @@ const ShowHistory = ({ clientes }) => {
     //   allowOverflow: true,
     //   button: true,
     // },
+    {
+      name: "Acciones",
+      cell: (row) => (
+        //
+        <>
+          
+          {/* <Link to={`/avisos/mostrar/intervencion/${row._id}`}> */}
+          <IconButton aria-label="delete" color="error">
+            <ExpandCircleDownIcon />
+          </IconButton>
+          {/* </Link> */}
+        </>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
   ];
   return (
     <DataTable
       customStyles={tableCustomStyles}
       columns={columns}
-      data={avisos}
+      data={table}
       pagination
       dense
       responsive
