@@ -78,39 +78,39 @@ const ShowHistory = ({ clientes }) => {
       sortable: true,
       selector: (row) => row.materialIntervencion.descripcion
     },
-    {
-      name: "Acciones",
-      // selector: (row) => row.localidad,
-      cell: (row) => (
-        //
-        <>
-          {/* <a href={`tel:${row.telefono}`} className="mdbicon"> */}
-          <MDBIcon far icon="list-alt" color="primary" />
-          {/* </a> */}
-          &nbsp;&nbsp;&nbsp;
-          <a href={`tel:${row.telefono}`} className="mdbicon">
-            <MDBIcon icon="phone" color="danger" />
-          </a>
-          &nbsp;&nbsp;&nbsp;
-          <a
-            href={`https://wa.me/+34${row.telefono}?text=Buenos días`}
-            class="whatsapp_float"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mdbicon"
-          >
-            <MDBIcon color="success" fab icon="whatsapp" size="1x" />
-          </a>
-          &nbsp;&nbsp;&nbsp;
-          <a href= {`mailto:${row.email}`} className="mdbicon">
-          <MDBIcon icon="envelope" className="me-3" color="blue" />
-          </a>
-        </>
-      ),
-      ignoreRowClick: true,
-      allowOverflow: true,
-      button: true,
-    },
+    // {
+    //   name: "Acciones",
+    //   // selector: (row) => row.localidad,
+    //   cell: (row) => (
+    //     //
+    //     <>
+    //       {/* <a href={`tel:${row.telefono}`} className="mdbicon"> */}
+    //       <MDBIcon far icon="list-alt" color="primary" />
+    //       {/* </a> */}
+    //       &nbsp;&nbsp;&nbsp;
+    //       <a href={`tel:${row.telefono}`} className="mdbicon">
+    //         <MDBIcon icon="phone" color="danger" />
+    //       </a>
+    //       &nbsp;&nbsp;&nbsp;
+    //       <a
+    //         href={`https://wa.me/+34${row.telefono}?text=Buenos días`}
+    //         class="whatsapp_float"
+    //         target="_blank"
+    //         rel="noopener noreferrer"
+    //         className="mdbicon"
+    //       >
+    //         <MDBIcon color="success" fab icon="whatsapp" size="1x" />
+    //       </a>
+    //       &nbsp;&nbsp;&nbsp;
+    //       <a href= {`mailto:${row.email}`} className="mdbicon">
+    //       <MDBIcon icon="envelope" className="me-3" color="blue" />
+    //       </a>
+    //     </>
+    //   ),
+    //   ignoreRowClick: true,
+    //   allowOverflow: true,
+    //   button: true,
+    // },
   ];
   return (
     <DataTable

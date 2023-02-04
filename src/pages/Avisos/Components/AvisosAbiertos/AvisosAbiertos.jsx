@@ -61,7 +61,7 @@ const AvisosAbiertos = ({ averias }) => {
       cell: (row) => (
         //
         <>
-          <Link to={`/addIntervencion/${row._id}`}>
+          <Link to={`/addIntervencion/${row._id}/${row.cliente._id}`}>
             <IconButton aria-label="delete" color="primary">
               <ConstructionIcon />
             </IconButton>

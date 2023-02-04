@@ -44,7 +44,7 @@ const ShowClientes = ({ clientes }) => {
   const [filterText, setFilterText] = React.useState("");
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
-   console.log(clientes, 56);
+   //console.log(clientes, 56);
 
   // const averiasImpagadas = clientes.map((aviso)=>aviso.cobrado ==='No Cobrado') ;
   // const numeroaveriasImpagadas = averiasImpagadas.length;
@@ -60,7 +60,7 @@ const ShowClientes = ({ clientes }) => {
   //   impagados:numeroaveriasImpagadas
   // }
   // filteredItems = [...filteredItems,numeroAvisosImpagadas];
-  console.log(filteredItems, 59);
+  //console.log(filteredItems, 59);
 
   const subHeaderComponentMemo = React.useMemo(() => {
     const handleClear = () => {

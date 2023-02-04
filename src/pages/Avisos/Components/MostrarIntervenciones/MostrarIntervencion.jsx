@@ -76,7 +76,7 @@ const MostrarIntervencion = () => {
     {
       name: "Consumo",
       sortable: true,
-      selector: (row) => row.material,
+      selector: (row) => row.material ||'No hay consumo',
     },
   ];
      //console.log(intervencion,'intervenciones');
@@ -85,7 +85,7 @@ const MostrarIntervencion = () => {
       customStyles={tableCustomStyles}
       columns={columns}
       data={intervencionTabla}
-      //pagination
+      pagination
       dense
       responsive
       //conditionalRowStyles={conditionalRowStyles}

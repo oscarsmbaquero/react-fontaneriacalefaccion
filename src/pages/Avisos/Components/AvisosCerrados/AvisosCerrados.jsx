@@ -131,9 +131,6 @@ const AvisosCerrados = ({ averias }) => {
               <ExpandCircleDownIcon />
             </IconButton>
           </Link>
-          <IconButton aria-label="delete" color="error">
-            <PictureAsPdfIcon />
-          </IconButton>
           {row.cobrado === "No Cobrado" ? (
             <Link>
               <IconButton

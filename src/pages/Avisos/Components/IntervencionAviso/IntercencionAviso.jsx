@@ -8,14 +8,13 @@ import { BASE_URL } from "../../../../assets/ApiRoutes";
 //import Loader from "../../../core/components/Loader/Loader";
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import  camera  from "../../../../assets/images/camera.jpg"
 //import { useGetAuth } from "../../../context/context";
 import Swal from "sweetalert2";
 //import { SWContext } from "../../../../context/context";
 
 const IntercencionAviso = () => {
   //const { material } = useContext(SWContext);
-  const { id } = useParams();
+  const { id, cliente } = useParams();
   //const [averias, SetAverias] = useState();
   const [visible, setVisible] = useState("Cerrada");
   const [fechaInicio, setFechaInicio] = useState();
@@ -24,6 +23,9 @@ const IntercencionAviso = () => {
   const [material, setMaterial] = useState([]);
   const [selectPrice, setSelectPrice] = useState();
   const [image, setImage] = useState("");
+  const [clientes, setClientes] = useState({})
+  
+  //console.log(id,27)
 
   useEffect(() => {
     const fetchMaterial = async () => {
@@ -31,7 +33,17 @@ const IntercencionAviso = () => {
       setMaterial(res.data);
     };
     fetchMaterial();
-  });
+  },[]);
+
+  useEffect(() => {
+    const fetchClienteByID = async () => {
+      const res = await axios.get(`${BASE_URL}/clientes/ById/${cliente}`);
+      setClientes(res.data);
+    };
+    fetchClienteByID();
+  },[]);
+  const clienteInte = clientes._id
+  console.log(clienteInte,454)
 
   const consultPrice = (e) => {
     const idSelected = e.target.value;
@@ -83,7 +95,7 @@ const IntercencionAviso = () => {
       material.estado === "Operativo" && material.ubicacion === "Furgo"
   );
   const onSubmit = async (formData) => {
-    formData = { ...formData, totalHoras,image };
+    formData = { ...formData, totalHoras,image, clienteInte};
     console.log(formData,81)
     try {
       const result = await fetch(`${BASE_URL}/avisos/${id}`, {

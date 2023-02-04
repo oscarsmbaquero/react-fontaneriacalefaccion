@@ -17,12 +17,7 @@ const Avisos = () => {
   const [value, setValue] = React.useState(1);
   const [averias, setAverias] = useState([]);
   const [material, setMaterial] = useState([]);
-
-  // const totalHoras = averias.totalHoras.reduce(
-  //   (acumulador, operativo) => acumulador + operativo.intervencion.length,
-  //   0
-  // );
-  // console.log(totalHoras,'totalHoras')
+  const [clientes, setClientes] = useState([]);
 
   useEffect(() => {
     const fetchAvisos = async () => {
@@ -31,7 +26,16 @@ const Avisos = () => {
     };
     fetchAvisos();
   },[]);
-  console.log(averias,34)
+
+  // useEffect(() => {
+  //   const fetchAvisos = async () => {
+  //     const res = await axios.get(`${BASE_URL}/clientes`);
+  //     setClientes(res.data);
+  //   };
+  //   fetchAvisos();
+  // },[]);
+
+  // console.log(clientes,38)
   useEffect(() => {
     const fetchMaterial = async () => {
       const res = await axios.get(`${BASE_URL}/material`);

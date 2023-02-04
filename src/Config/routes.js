@@ -49,7 +49,7 @@ const routes = [
     element: <AddAvisos/>,
   },
   {
-    path: "/addIntervencion/:id",
+    path: "/addIntervencion/:id/:cliente",
     element: <IntercencionAviso/>,
   },
   {

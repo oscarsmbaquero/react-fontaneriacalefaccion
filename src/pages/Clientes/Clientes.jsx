@@ -22,6 +22,7 @@ const Clientes = () => {
     };
     fetchClientes();
   },[]);
+  
   //funcion para cambiar Tab
   const handleChange = (event, newValue) => {
     setValue(newValue);
