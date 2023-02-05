@@ -43,6 +43,14 @@ const AddAvisos = () => {
   }, [selectedOption]);
 
   console.log(relatedData._id,45)
+
+
+  //ordeno los clientes alfabeticamante
+  const clientesOrdenados = clientes.sort((a, b) => {
+    if (a.nombre < b.nombre) return -1;
+    if (a.nombre > b.nombre) return 1;
+    return 0;
+  });
   //console.log(relatedData,46)
   //Capturamos eel valor del input del buscador  y lo seteamos a keyword pasandolo a minusculas
   // const onInputChange = (e) => {
@@ -126,7 +134,7 @@ const AddAvisos = () => {
                     >
                       {/* No hay consumo */}
                     </option>
-                    {clientes.map((el) => (
+                    {clientesOrdenados.map((el) => (
                       <option key={el._id} value={el._id} >
                         {el.nombre}
                       </option>

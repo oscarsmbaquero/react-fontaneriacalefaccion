@@ -44,8 +44,10 @@ const ShowHistory = ({ clientes }) => {
         tabla.push({
           averia:aviso.averia,
           //fecha_inicio: aviso.fecha_inicio[index].replace('T','  '),
-          fecha_fin:aviso.fecha_fin[index].replace('T','  ') ,
-          //km: aviso.km[index],
+          fecha_fin:aviso.createdAt.slice(0,10),
+          id:aviso._id,
+          //.replace('T','  ') ,
+          estado:aviso.estado,
           //intervencion: aviso.intervencion[index].lenght(-1) ,
           //material: aviso.materialIntervencion[index]?.descripcion,
           totalHoras: aviso.totalHoras[index],
@@ -75,15 +77,15 @@ const ShowHistory = ({ clientes }) => {
       sortable: true,
     },
     {
-      name: "Fecha",
+      name: "Fecha Aviso",
       selector: (row) => row.fecha_fin,
       sortable: true,
     },
-    // {
-    //   name: "TotalHoras",
-    //   selector: (row) => row.totalHoras,
-    //   sortable: true,
-    // },
+    {
+      name: "Estado",
+      selector: (row) => row.estado,
+      sortable: true,
+    },
     // {
     //   name: "Intervención",
     //   selector: (row) => row.intervencion,
@@ -138,11 +140,11 @@ const ShowHistory = ({ clientes }) => {
         //
         <>
           
-          {/* <Link to={`/avisos/mostrar/intervencion/${row._id}`}> */}
+          <Link to={`/avisos/mostrar/intervencion/${row.id}`}>
           <IconButton aria-label="delete" color="error">
             <ExpandCircleDownIcon />
           </IconButton>
-          {/* </Link> */}
+          </Link>
         </>
       ),
       ignoreRowClick: true,
