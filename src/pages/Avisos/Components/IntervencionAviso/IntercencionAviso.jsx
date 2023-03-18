@@ -11,7 +11,7 @@ import SendIcon from "@mui/icons-material/Send";
 //import { useGetAuth } from "../../../context/context";
 import Swal from "sweetalert2";
 //import { SWContext } from "../../../../context/context";
-
+import { MultiSelect } from "react-multi-select-component";
 const IntercencionAviso = () => {
   //const { material } = useContext(SWContext);
   const { id, cliente } = useParams();
@@ -21,10 +21,12 @@ const IntercencionAviso = () => {
   const [fechaFinal, setFechaFinal] = useState();
   const [tiempoViaje, setTiempoViaje] = useState();
   const [material, setMaterial] = useState([]);
-  const [selectPrice, setSelectPrice] = useState();
+  const [selectPrice, setSelectPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [image, setImage] = useState("");
-  const [clientes, setClientes] = useState({})
-  
+  const [clientes, setClientes] = useState({});
+  const [selected, setSelected] = useState([]);
+
   //console.log(id,27)
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const IntercencionAviso = () => {
       setMaterial(res.data);
     };
     fetchMaterial();
-  },[]);
+  }, []);
 
   useEffect(() => {
     const fetchClienteByID = async () => {
@@ -41,17 +43,23 @@ const IntercencionAviso = () => {
       setClientes(res.data);
     };
     fetchClienteByID();
-  },[]);
-  const clienteInte = clientes._id
-  console.log(clienteInte,454)
+  }, []);
+  const clienteInte = clientes._id;
 
-  const consultPrice = (e) => {
-    const idSelected = e.target.value;
+  /**
+   * Función que consulta precio de pieza seleccionada y suma todas piezas
+   * @param {} selectedOptions 
+   */
+  const consultPrice = (selectedOptions) => {
+    const idSelected = selectedOptions[selectedOptions.length - 1].value;
     fetch(`${BASE_URL}/material/consultarPrecio/${idSelected}`)
       .then((response) => response.json())
-      .then((data) => setSelectPrice(data));
+      .then((data) => {
+        let ppieza = data.pvp;
+        setSelectPrice(ppieza);
+        setTotalPrice(totalPrice + ppieza);
+      });
   };
-
   const handleImageChange = (event) => {
     setImage(URL.createObjectURL(event.target.files[0]));
   };
@@ -63,7 +71,11 @@ const IntercencionAviso = () => {
   } = useForm({ mode: "onChange" });
   let navigate = useNavigate();
 
-  //funcion que determina el estado de la intervencin, si esta Pendiente habilita el select de motivo de pendiente
+  /**
+   * Funcion que determina el estado de la intervencin, 
+   * si esta Pendiente habilita el select de motivo de pendiente
+  */
+  
   const captureType = (e) => {
     setVisible(e.target.value);
   };
@@ -78,25 +90,32 @@ const IntercencionAviso = () => {
   };
   let fechaInicial = new Date(fechaInicio).getTime();
   let fechafinal = new Date(fechaFinal).getTime();
+  // calculo horas de intervención
   const horasIntervencion = (
     (fechafinal - fechaInicial) /
     60 /
     60 /
     1000
   ).toFixed(2);
-
   const intervencion = parseFloat(horasIntervencion);
   const desplazamiento = parseFloat(tiempoViaje);
-
   const totalHoras = intervencion + desplazamiento;
-
+  /**
+   * Filtro de material que mestra en el select(Operativo Y Vehículo)
+   */
   const materialOperativo = material.filter(
     (material) =>
       material.estado === "Operativo" && material.ubicacion === "Furgo"
   );
+
+  /**
+   * Función envio del form -Recibimos los datos y añadimos los calculados
+   * @param {*} formData 
+   */
   const onSubmit = async (formData) => {
-    formData = { ...formData, totalHoras,image, clienteInte};
-    console.log(formData,81)
+    //añadimos los campos calculados
+    formData = { ...formData, totalHoras, image, clienteInte, selected };
+    console.log(formData, 81);
     try {
       const result = await fetch(`${BASE_URL}/avisos/${id}`, {
         method: "POST",
@@ -117,6 +136,29 @@ const IntercencionAviso = () => {
       console.log(error);
     }
   };
+  /**
+   * Mapeamos el material y lo trasnformo para pintarlo en el select multiple
+   */
+  const options = materialOperativo.map((material) => ({
+    label: material.descripcion,
+    value: material._id,
+  }));
+   /**
+    * Función que recibe el elemento o elementos seleccionados
+    * si viene vacio (pongo contador de precio total a 0 y 
+    * añado vacio los elementos seleccionados
+    * Si viene con elementos consulto precio de los selecciondos
+    * @param {*} selectedItems 
+    */
+   const handleMultiSelectChange = (selectedItems) => {
+    if (selectedItems.length === 0) {
+      setTotalPrice(0);
+      setSelected(selectedItems);
+    } else {
+      setSelected(selectedItems);
+      consultPrice(selectedItems);
+    }
+  };  
 
   return (
     <div>
@@ -124,95 +166,6 @@ const IntercencionAviso = () => {
         <section className="section">
           <div className="col-12 col-lg-11 mx-3">
             <form onSubmit={handleSubmit(onSubmit)} className="form">
-              <div className="d-flex flex-column flex-md-row justify-content-center">
-                <div className="d-flex flex-column col-11 col-md-3">
-                  <label className="form__label">Selecciona estado* </label>
-                  <select
-                    {...register("estado")}
-                    className="form-control"
-                    onChange={captureType}
-                  >
-                    <option value="Cerrada">Cerrada</option>
-                    <option value="Pendiente">Pendiente</option>
-                  </select>
-                </div>
-                {visible === "Pendiente" ? (
-                  <div className="d-flex flex-column col-11 col-md-8 mx-md-3">
-                    <label className="form__label">
-                      <span className="labelDist">
-                        Motivo de aviso pendiente*
-                      </span>
-                    </label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      name="motivo"
-                      placeholder="Motivo"
-                      {...register("motivo", {
-                        required: "Campo Obligatotio",
-                      })}
-                    />
-                    {errors.motivo && errors.motivo.type === "required" && (
-                      <p className="error">{errors.motivo.message}</p>
-                    )}
-                  </div>
-                ) : (
-                  <>
-                    <div className="d-flex flex-column col-11 col-md-8 mx-md-3">
-                      <label className="form__label">
-                        <span className="labelDist">Importe de factura*</span>
-                      </label>
-                      <input
-                        className="form-control"
-                        type="number"
-                        name="importeReparacion"
-                        placeholder="Introduce importe"
-                        {...register("importeReparacion", {
-                          required: "Campo Obligatotio",
-                        })}
-                      />
-                      {errors.importeReparacion &&
-                        errors.importeReparacion.type === "required" && (
-                          <p className="error">
-                            {errors.importeReparacion.message}
-                          </p>
-                        )}
-                    </div>
-                  </>
-                )}
-              </div>
-              <div className="d-flex flex-column flex-md-row justify-content-center">
-                <div className="d-flex flex-column col-11 col-md-10 mx-md-5">
-                  <label className="form__label">Consumo Material *</label>
-                  <select
-                    name="jobs"
-                    className="form-control"
-                    {...register("materialIntervencion")}
-                    //onClick={(e) => collectRepair(e, row._id)}
-                    onChange={consultPrice}
-                    //onChange={event => consultPrice(event.target.value)}
-                  >
-                    <option
-                      selected
-                      value="638e32a42062209de55fd347"
-                      class="bold-option"
-                    >
-                      No hay consumo
-                    </option>
-                    {materialOperativo.map((el) => (
-                      <option key={el._id} value={el._id}>
-                        {el.descripcion}
-                      </option>
-                    ))}
-                  </select>
-                  {selectPrice && (
-                    <p className="error">
-                      {" "}
-                      PVP:&nbsp;{selectPrice.pcompra}&nbsp;€
-                    </p>
-                  )}
-                </div>
-              </div>
               <div className="d-flex flex-column flex-md-row justify-content-center">
                 <div className="d-flex flex-column col-11 col-md-2 ">
                   <label className="form__label">Fecha Inicio*</label>
@@ -287,9 +240,100 @@ const IntercencionAviso = () => {
                 </div>
               </div>
               <div className="d-flex flex-column flex-md-row justify-content-center">
+                <div className="d-flex flex-column col-11 col-md-10 mx-md-5">
+                  <label className="form__label">Consumo Material *</label>
+                  {/* <select
+                    name="jobs"
+                    className="form-control"
+                    {...register("materialIntervencion")}
+                    onClick={(e) => collectRepair(e, row._id)}
+                    onChange={consultPrice}
+                    onChange={event => consultPrice(event.target.value)}
+                  >
+                    <option
+                      selected
+                      value="638e32a42062209de55fd347"
+                      class="bold-option"
+                    >
+                      No hay consumo
+                    </option>
+                    {materialOperativo.map((el) => (
+                      <option key={el._id} value={el._id}>
+                        {el.descripcion}
+                      </option>
+                    ))}
+                  </select> */}
+                  <MultiSelect
+                    options={options}
+                    value={selected}
+                    onChange={handleMultiSelectChange}
+                    labelledBy="Selecciona Material"
+                  />
+                  {selectPrice && (
+                    <p className="error"> PVP:&nbsp;{totalPrice}&nbsp;€</p>
+                  )}
+                </div>
+              </div>
+              <div className="d-flex flex-column flex-md-row justify-content-center">
+                <div className="d-flex flex-column col-11 col-md-3">
+                  <label className="form__label">Selecciona estado* </label>
+                  <select
+                    {...register("estado")}
+                    className="form-control"
+                    onChange={captureType}
+                  >
+                    <option value="Cerrada">Cerrada</option>
+                    <option value="Pendiente">Pendiente</option>
+                  </select>
+                </div>
+                {visible === "Pendiente" ? (
+                  <div className="d-flex flex-column col-11 col-md-8 mx-md-3">
+                    <label className="form__label">
+                      <span className="labelDist">
+                        Motivo de aviso pendiente*
+                      </span>
+                    </label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="motivo"
+                      placeholder="Motivo"
+                      {...register("motivo", {
+                        required: "Campo Obligatotio",
+                      })}
+                    />
+                    {errors.motivo && errors.motivo.type === "required" && (
+                      <p className="error">{errors.motivo.message}</p>
+                    )}
+                  </div>
+                ) : (
+                  <>
+                    <div className="d-flex flex-column col-11 col-md-8 mx-md-3">
+                      <label className="form__label">
+                        <span className="labelDist">Importe de factura*</span>
+                      </label>
+                      <input
+                        className="form-control"
+                        type="number"
+                        name="importeReparacion"
+                        placeholder={`${totalPrice} + Intervencion`}
+                        {...register("importeReparacion", {
+                          required: "Campo Obligatotio",
+                        })}
+                      />
+                      {errors.importeReparacion &&
+                        errors.importeReparacion.type === "required" && (
+                          <p className="error">
+                            {errors.importeReparacion.message}
+                          </p>
+                        )}
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="d-flex flex-column flex-md-row justify-content-center">
                 <div className="d-flex flex-column col-5">
-                  <label className="form__label">
-                  </label>
+                  <label className="form__label"></label>
                   <input
                     type="file"
                     name="image"
@@ -311,7 +355,6 @@ const IntercencionAviso = () => {
                     />
                 </div> */}
               </div>
-
               <Button
                 variant="contained"
                 disabled={!isValid}

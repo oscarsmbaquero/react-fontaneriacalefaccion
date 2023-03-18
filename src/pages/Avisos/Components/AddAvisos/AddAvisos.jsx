@@ -171,7 +171,7 @@ const AddAvisos = () => {
                   </div>
                 </div>
                 <div className="d-flex flex-column flex-md-row">
-                  <div className="d-flex flex-column col-11 col-md-3 my-2 mx-3">
+                  <div className="d-flex flex-column col-11 col-md-3 my-2">
                     <input
                       className="form-control"
                       type="text"
