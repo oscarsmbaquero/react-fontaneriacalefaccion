@@ -17,6 +17,7 @@ const MostrarIntervencion = () => {
         .then(data => setIntervencion(data))
     
     }, [id])
+    console.log(intervencion,'intervencion')
     useEffect(() => {
       if (intervencion) {
         let tabla=[]
@@ -29,13 +30,16 @@ const MostrarIntervencion = () => {
             intervencion: intervencion.intervencion[index],
             material: intervencion.materialIntervencion[index]?.descripcion,
             totalHoras: intervencion.totalHoras[index],
+            
           })
+          
         ))
-
+          
         setIntervencionTabla(tabla);
       }
   
   }, [intervencion])
+  console.log(intervencionTabla,'tabla')
   
   const tableCustomStyles = {
     headCells: {
