@@ -5,15 +5,11 @@ import "./Intervencion.scss";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../../assets/ApiRoutes";
-//import Loader from "../../../core/components/Loader/Loader";
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-//import { useGetAuth } from "../../../context/context";
 import Swal from "sweetalert2";
-//import { SWContext } from "../../../../context/context";
 import { MultiSelect } from "react-multi-select-component";
 const IntercencionAviso = () => {
-  //const { material } = useContext(SWContext);
   const { id, cliente } = useParams();
   //const [averias, SetAverias] = useState();
   const [visible, setVisible] = useState("Cerrada");
@@ -269,7 +265,7 @@ const IntercencionAviso = () => {
                     onChange={handleMultiSelectChange}
                     labelledBy="Selecciona Material"
                   />
-                  {selectPrice && (
+                  {totalPrice > 0 && (
                     <p className="error"> PVP:&nbsp;{totalPrice}&nbsp;€</p>
                   )}
                 </div>
